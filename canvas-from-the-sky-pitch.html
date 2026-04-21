@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CANVAS FROM THE SKY — Abu Dhabi Tethered Balloon Activation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5A8;
+    --dark: #0A0A0F;
+    --dark-surface: #111118;
+    --dark-card: #16161F;
+    --text: #E8E6E1;
+    --text-dim: #8A8890;
+    --accent-blue: #3A5A8C;
+    --accent-warm: #8C5A3A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 80%, rgba(201,169,110,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(58,90,140,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Animated ground pixel dots */
+  .hero-particles {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30vh;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .pixel-dot {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0;
+    animation: pixelPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pixelPulse {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+  }
+
+  .hero-badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,169,110,0.3);
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    margin-bottom: 3rem;
+    animation: fadeDown 1s ease 0.2s both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    animation: fadeDown 1s ease 0.4s both;
+  }
+
+  .hero h1 span {
+    display: block;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--accent-warm) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--text-dim);
+    max-width: 500px;
+    line-height: 1.6;
+    font-weight: 300;
+    animation: fadeDown 1s ease 0.6s both;
+  }
+
+  .hero-sub em {
+    color: var(--gold);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dim);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: fadeDown 1s ease 1s both;
+  }
+
+  .scroll-cue .arrow {
+    width: 1px;
+    height: 30px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollBounce 2s ease infinite;
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(8px); opacity: 0.4; }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+
+  .section-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+
+  .section-body strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ── CONCEPT DIAGRAM ── */
+  .concept-visual {
+    margin: 4rem 0;
+    position: relative;
+  }
+
+  .level-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .level-stack::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(201,169,110,0.1), var(--gold));
+    z-index: 0;
+  }
+
+  .level {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .level:nth-child(odd) { flex-direction: row; }
+  .level:nth-child(even) { flex-direction: row-reverse; text-align: right; }
+
+  .level-icon {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    position: relative;
+  }
+
+  .level-icon.sky {
+    background: radial-gradient(circle, rgba(58,90,140,0.3) 0%, rgba(58,90,140,0.05) 70%);
+    border: 1px solid rgba(58,90,140,0.4);
+  }
+
+  .level-icon.mid {
+    background: radial-gradient(circle, rgba(201,169,110,0.3) 0%, rgba(201,169,110,0.05) 70%);
+    border: 1px solid rgba(201,169,110,0.4);
+  }
+
+  .level-icon.ground {
+    background: radial-gradient(circle, rgba(140,90,58,0.3) 0%, rgba(140,90,58,0.05) 70%);
+    border: 1px solid rgba(140,90,58,0.4);
+  }
+
+  .level-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .level-content .altitude {
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .level-content p {
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── PHASES ── */
+  .phases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 640px) {
+    .phases { grid-template-columns: 1fr; }
+    .level { flex-direction: column !important; text-align: center !important; }
+    .level-stack::before { display: none; }
+  }
+
+  .phase-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(201,169,110,0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .phase-card:hover {
+    border-color: rgba(201,169,110,0.3);
+  }
+
+  .phase-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .phase-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .phase-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .phase-card p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .phase-card ul {
+    list-style: none;
+    margin-top: 1rem;
+  }
+
+  .phase-card ul li {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    padding: 0.35rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    font-weight: 300;
+  }
+
+  .phase-card ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.5rem;
+    top: 0.55rem;
+  }
+
+  /* ── REVENUE ── */
+  .revenue-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 640px) {
+    .revenue-grid { grid-template-columns: 1fr; }
+  }
+
+  .rev-item {
+    text-align: center;
+    padding: 2rem 1rem;
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 10px;
+    background: var(--dark-surface);
+    transition: all 0.3s;
+  }
+
+  .rev-item:hover {
+    border-color: rgba(201,169,110,0.2);
+    transform: translateY(-3px);
+  }
+
+  .rev-item .rev-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .rev-item h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .rev-item p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* ── WHY NOW ── */
+  .why-block {
+    background: linear-gradient(135deg, var(--dark-card) 0%, rgba(201,169,110,0.04) 100%);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 16px;
+    padding: 3rem;
+    margin-top: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .why-block::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(201,169,110,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .why-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .why-points {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .why-point {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .why-point .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 30px;
+  }
+
+  .why-point p {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .why-point p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center;
+    padding: 6rem 2rem 8rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 1rem;
+  }
+
+  .cta-section p {
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .cta-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto;
+    opacity: 0.3;
+  }
+
+  /* ── CONFIDENTIAL FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-badge">Internal Concept Brief — Confidential</div>
+  <h1>
+    <span>Canvas From<br>The Sky</span>
+  </h1>
+  <p class="hero-sub">
+    Abu Dhabi's first <em>altitude-exclusive</em> art experience.<br>
+    A tethered balloon. A living ground canvas. Art you can only see from above.
+  </p>
+  <div class="scroll-cue">
+    Scroll
+    <div class="arrow"></div>
+  </div>
+</header>
+
+<!-- THE IDEA -->
+<section>
+  <div class="section-label">The Idea</div>
+  <h2 class="section-title">What if the ground itself<br>was the artwork?</h2>
+  <div class="section-body">
+    <p>
+      A massive LED pixel field surrounds the balloon platform — thousands of low-profile LED stalks resembling illuminated grass. At ground level, visitors walk through a beautiful, gently animated light garden. It's atmospheric and immersive.
+    </p>
+    <br>
+    <p>
+      <strong>But from the gondola, 225 meters up, the entire field resolves into a living painting.</strong> Like pointillism in reverse — you have to ascend to see the picture. The balloon becomes the only key to unlock the artwork.
+    </p>
+  </div>
+
+  <!-- Experience Walkthrough -->
+  <div class="concept-visual">
+    <div class="level-stack">
+      <div class="level">
+        <div class="level-icon ground">🌿</div>
+        <div class="level-content">
+          <div class="altitude">Step 1 — Ground Level</div>
+          <h3>The Light Garden</h3>
+          <p>Before flight, visitors walk through the LED field. Rippling colors, gentle pulses, organic patterns. Instagrammable in its own right — but it doesn't reveal the full story. The pre-show that sets the mood and builds anticipation.</p>
+        </div>
+      </div>
+      <div class="level">
+        <div class="level-icon mid">✦</div>
+        <div class="level-content">
+          <div class="altitude">Step 2 — The Ascent (0–225m)</div>
+          <h3>The Magic Moment</h3>
+          <p>As the balloon rises, abstract lights below begin organizing into recognizable forms. Shapes emerge. The painting assembles. This is where every single rider reaches for their phone. This is the content moment — the transition from chaos to clarity.</p>
+        </div>
+      </div>
+      <div class="level">
+        <div class="level-icon sky">🎈</div>
+        <div class="level-content">
+          <div class="altitude">Step 3 — 225m Peak</div>
+          <h3>The Living Canvas</h3>
+          <p>Full artwork revealed at peak altitude. An 8–15 minute animated narrative with immersive audio delivered through the gondola. Commission-based storytelling — Van Gogh-inspired swirls that pulse, desert landscapes that shift, calligraphy that writes itself across the earth.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- OPERATIONS -->
+<section>
+  <div class="section-label">Current Operations</div>
+  <h2 class="section-title">Built on what we already fly.</h2>
+  <div class="section-body">
+    <p>
+      Our tethered balloon currently operates <strong>10-minute flights to 225 meters</strong> across three daily windows: <strong>Sunrise–9 AM, 9 AM–11 AM, and 6 PM–Midnight</strong>, weather permitting (grounded at 25+ knots or thunderstorms). The Canvas From The Sky activation layers onto this existing operation — the LED field is ground infrastructure that doesn't affect flight mechanics.
+    </p>
+    <br>
+    <p>
+      <strong>The content opportunity:</strong> Today's 10-minute ride includes ascent, dwell, and descent. The animated ground canvas transforms every phase of that journey into a narrative arc — the reveal during ascent, the full artwork at peak, and the dissolve on descent. To deliver the richest storytelling experience, we propose extending dwell time to support <strong>8–15 minutes of animated narrative</strong> at altitude. This positions the balloon as a premium content experience rather than a sightseeing ride, justifying higher ticket pricing and repeat visits.
+    </p>
+    <br>
+    <p>
+      The evening window (6 PM–Midnight) is the hero slot — darkness makes the LED canvas most vivid and photogenic. Sunrise sessions offer a unique dawn-reveal variant. This naturally creates <strong>tiered pricing opportunities</strong> across time slots.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PHASES -->
+<section>
+  <div class="section-label">Rollout Strategy</div>
+  <h2 class="section-title">Two phases. One platform.</h2>
+  <div class="section-body">
+    <p>The LED field is permanent infrastructure. The content rotates. This creates a launch moment that drives urgency <em>and</em> a long-term model that drives repeat visits.</p>
+  </div>
+
+  <div class="phases">
+    <div class="phase-card">
+      <div class="phase-tag">Phase 1 — Launch (Months 1–6)</div>
+      <h3>"Proud From Above"</h3>
+      <p>Timed to a national moment — UAE National Day, Eid, or a key milestone. The ground canvas renders iconic UAE imagery visible only from altitude.</p>
+      <ul>
+        <li>The UAE flag forming from desert sands</li>
+        <li>Falcons in flight across the seven emirates</li>
+        <li>Arabic calligraphy of the national anthem</li>
+        <li>Maximum press & social coverage at launch</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-tag">Phase 2 — Long-Term (Ongoing)</div>
+      <h3>"Canvas Seasons"</h3>
+      <p>Rotating content keeps the experience fresh and gives visitors a reason to return. Each season is a new artwork, a new story.</p>
+      <ul>
+        <li>Masters From the Sky — Van Gogh, Monet reimagined for aerial viewing</li>
+        <li>Stories of the Land — Emirati artists, local narratives</li>
+        <li>Festival editions — Ramadan, F1, Abu Dhabi Art</li>
+        <li>Brand collaborations & sponsored canvases</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- REVENUE -->
+<section>
+  <div class="section-label">Business Value</div>
+  <h2 class="section-title">Multiple revenue layers<br>from one platform.</h2>
+
+  <div class="revenue-grid">
+    <div class="rev-item">
+      <div class="rev-icon">🎟️</div>
+      <h4>Ticket Sales</h4>
+      <p>Premium-priced balloon rides with exclusive art content as the differentiator</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">🤝</div>
+      <h4>Sponsorships</h4>
+      <p>Seasonal canvas sponsorships from luxury brands, cultural institutions, government entities</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">🌿</div>
+      <h4>Ground Activation</h4>
+      <p>The LED light garden functions as a public gathering space — foot traffic, F&B, retail</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">🎨</div>
+      <h4>Artist Commissions</h4>
+      <p>Curated artist residencies create cultural prestige and press coverage</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">🏢</div>
+      <h4>Private Events</h4>
+      <p>Corporate bookings, VIP experiences, exclusive gondola dinners above bespoke canvases</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">📱</div>
+      <h4>Organic Reach</h4>
+      <p>The "reveal" moment is inherently shareable — every rider becomes a broadcaster</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY NOW -->
+<section>
+  <div class="why-block">
+    <h3>Why approve this now?</h3>
+    <div class="why-points">
+      <div class="why-point">
+        <div class="num">1</div>
+        <p><strong>National pride content drives launch urgency.</strong> Aligning Phase 1 with a UAE milestone creates a natural deadline and guarantees press coverage. Waiting means missing the next window.</p>
+      </div>
+      <div class="why-point">
+        <div class="num">2</div>
+        <p><strong>The concept is the competitive moat.</strong> Any city can fly a balloon. No one has an altitude-exclusive art platform. First-mover advantage in a category that doesn't exist yet.</p>
+      </div>
+      <div class="why-point">
+        <div class="num">3</div>
+        <p><strong>Dual-use infrastructure reduces risk.</strong> The LED field works at ground level as a public art installation even without the balloon. One investment, two independent experience products.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Next Step</h2>
+  <p>
+    With your go-signal, we build the full investor-ready presentation — detailed technical specs, budget framework, revenue projections, site proposals, and visual mockups.
+  </p>
+  <div class="cta-label">Awaiting approval to proceed →</div>
+</div>
+
+<div class="footer">
+  Canvas From The Sky — Internal Concept Brief — Confidential — 2026
+</div>
+
+<script>
+  // Generate pixel dots
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'pixel-dot';
+    dot.style.left = Math.random() * 100 + '%';
+    dot.style.bottom = Math.random() * 100 + '%';
+    dot.style.animationDelay = Math.random() * 3 + 's';
+    dot.style.animationDuration = (2 + Math.random() * 2) + 's';
+    const hue = Math.random() > 0.5 ? '38' : '210';
+    dot.style.background = `hsl(${hue}, 60%, 65%)`;
+    container.appendChild(dot);
+  }
+</script>
+</body>
+</html>
