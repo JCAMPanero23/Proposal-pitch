@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CANVAS FROM THE SKY — Abu Dhabi Tethered Balloon Activation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5A8;
+    --dark: #0A0A0F;
+    --dark-surface: #111118;
+    --dark-card: #16161F;
+    --text: #E8E6E1;
+    --text-dim: #8A8890;
+    --accent-blue: #3A5A8C;
+    --accent-warm: #8C5A3A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 80%, rgba(201,169,110,0.10) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(58,90,140,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-particles {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 30vh;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .pixel-dot {
+    position: absolute;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0;
+    animation: pixelPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pixelPulse {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+  }
+
+  .hero-badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,169,110,0.3);
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    margin-bottom: 3rem;
+    animation: fadeDown 1s ease 0.2s both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    animation: fadeDown 1s ease 0.4s both;
+  }
+
+  .hero h1 span {
+    display: block;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--accent-warm) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-dim);
+    max-width: 580px;
+    line-height: 1.7;
+    font-weight: 300;
+    animation: fadeDown 1s ease 0.6s both;
+  }
+
+  .hero-sub em {
+    color: var(--gold);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .hero-core-line {
+    margin-top: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-style: italic;
+    color: var(--gold-light);
+    max-width: 600px;
+    line-height: 1.6;
+    opacity: 0.85;
+    animation: fadeDown 1s ease 0.8s both;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dim);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: fadeDown 1s ease 1s both;
+  }
+
+  .scroll-cue .arrow {
+    width: 1px; height: 30px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollBounce 2s ease infinite;
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(8px); opacity: 0.4; }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SLIDE SHOWCASE ── */
+  .slide-showcase {
+    max-width: 1100px;
+    margin: 0 auto 0;
+    padding: 0 2rem 5rem;
+  }
+
+  .slide-showcase img {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid rgba(201,169,110,0.18);
+    box-shadow:
+      0 0 60px rgba(201,169,110,0.08),
+      0 20px 60px rgba(0,0,0,0.6);
+    display: block;
+  }
+
+  .slide-inline {
+    margin: 3rem 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(201,169,110,0.15);
+    box-shadow: 0 0 40px rgba(201,169,110,0.06), 0 12px 40px rgba(0,0,0,0.5);
+  }
+
+  .slide-inline img {
+    width: 100%;
+    display: block;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+
+  .section-title em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .section-body {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+
+  .section-body strong { color: var(--text); font-weight: 500; }
+
+  /* ── PULLQUOTE ── */
+  .pullquote {
+    border-left: 2px solid var(--gold);
+    padding: 1.2rem 2rem;
+    margin: 2.5rem 0;
+    background: rgba(201,169,110,0.04);
+    border-radius: 0 10px 10px 0;
+  }
+
+  .pullquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--gold-light);
+    line-height: 1.7;
+  }
+
+  /* ── SPECS GRID ── */
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+
+  @media (max-width: 640px) { .specs-grid { grid-template-columns: 1fr; } }
+
+  .spec-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(201,169,110,0.12);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .spec-card .spec-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .spec-card .spec-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .spec-card .spec-desc {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+
+  /* ── RING SYSTEM DIAGRAM ── */
+  .ring-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+  }
+
+  .ring-node {
+    text-align: center;
+  }
+
+  .ring-icon {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    border: 2px solid rgba(201,169,110,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    margin: 0 auto 1rem;
+    background: radial-gradient(circle, rgba(201,169,110,0.1) 0%, transparent 70%);
+  }
+
+  .ring-node h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .ring-node p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+
+  .ring-connector {
+    font-size: 1.5rem;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+
+  /* ── EXPERIENCE JOURNEY (5 steps) ── */
+  .journey-steps {
+    display: flex;
+    gap: 0;
+    margin: 3rem 0;
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .journey-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    right: 28px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, rgba(201,169,110,0.15) 100%);
+  }
+
+  .journey-step {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+    padding: 0 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .journey-step .step-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.35);
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin: 0 auto 1rem;
+  }
+
+  .journey-step .step-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .journey-step h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .journey-step p {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 640px) {
+    .journey-steps { flex-direction: column; gap: 1.5rem; }
+    .journey-steps::before { display: none; }
+  }
+
+  /* ── EXPERIENCE LEVELS ── */
+  .level-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .level-stack::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(201,169,110,0.1), var(--gold));
+    z-index: 0;
+  }
+
+  .level {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .level:nth-child(odd) { flex-direction: row; }
+  .level:nth-child(even) { flex-direction: row-reverse; text-align: right; }
+
+  .level-icon {
+    width: 80px; height: 80px;
+    min-width: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+  }
+
+  .level-icon.sky {
+    background: radial-gradient(circle, rgba(58,90,140,0.3) 0%, rgba(58,90,140,0.05) 70%);
+    border: 1px solid rgba(58,90,140,0.4);
+  }
+
+  .level-icon.mid {
+    background: radial-gradient(circle, rgba(201,169,110,0.3) 0%, rgba(201,169,110,0.05) 70%);
+    border: 1px solid rgba(201,169,110,0.4);
+  }
+
+  .level-icon.ground {
+    background: radial-gradient(circle, rgba(140,90,58,0.3) 0%, rgba(140,90,58,0.05) 70%);
+    border: 1px solid rgba(140,90,58,0.4);
+  }
+
+  .level-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .level-content .altitude {
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .level-content p {
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── CONTENT PILLARS ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (max-width: 640px) { .pillars { grid-template-columns: 1fr; } }
+
+  .pillar {
+    background: var(--dark-surface);
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: border-color 0.3s;
+  }
+
+  .pillar:hover { border-color: rgba(201,169,110,0.25); }
+
+  .pillar .pillar-icon { font-size: 1.4rem; margin-bottom: 0.8rem; }
+
+  .pillar h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .pillar p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── PHASES ── */
+  .phases {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 640px) { .phases { grid-template-columns: 1fr; } }
+
+  .phase-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(201,169,110,0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .phase-card:hover { border-color: rgba(201,169,110,0.3); }
+
+  .phase-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .phase-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .phase-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .phase-card p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .phase-card ul { list-style: none; margin-top: 1rem; }
+
+  .phase-card ul li {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    padding: 0.35rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    font-weight: 300;
+  }
+
+  .phase-card ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.5rem;
+    top: 0.55rem;
+  }
+
+  /* ── REVENUE ── */
+  .revenue-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 640px) { .revenue-grid { grid-template-columns: 1fr; } }
+
+  .rev-item {
+    text-align: center;
+    padding: 2rem 1rem;
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 10px;
+    background: var(--dark-surface);
+    transition: all 0.3s;
+  }
+
+  .rev-item:hover {
+    border-color: rgba(201,169,110,0.2);
+    transform: translateY(-3px);
+  }
+
+  .rev-item .rev-icon { font-size: 1.5rem; margin-bottom: 0.8rem; }
+
+  .rev-item h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .rev-item p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* ── VALUE PROPS ── */
+  .value-props {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .value-prop {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: var(--dark-card);
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 10px;
+    transition: border-color 0.3s;
+  }
+
+  .value-prop:hover { border-color: rgba(201,169,110,0.2); }
+
+  .value-prop .vp-tag {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201,169,110,0.08);
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    margin-top: 0.2rem;
+  }
+
+  .value-prop p {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .value-prop p strong { color: var(--text); font-weight: 500; }
+
+  /* ── WHY NOW ── */
+  .why-block {
+    background: linear-gradient(135deg, var(--dark-card) 0%, rgba(201,169,110,0.04) 100%);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 16px;
+    padding: 3rem;
+    margin-top: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .why-block::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -20%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(201,169,110,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .why-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .why-points { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .why-point { display: flex; gap: 1rem; align-items: flex-start; }
+
+  .why-point .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 30px;
+  }
+
+  .why-point p {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .why-point p strong { color: var(--text); font-weight: 500; }
+
+  /* ── UAE PRIDE ── */
+  .arc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .arc-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--dark-surface);
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 8px;
+  }
+
+  .arc-item .arc-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    min-width: 8px;
+  }
+
+  .arc-item p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+
+  /* ── SOCIAL ── */
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (max-width: 640px) { .social-grid { grid-template-columns: 1fr; } }
+
+  .social-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .social-card .soc-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+
+  .social-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .social-card p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* ── FINAL POSITIONING ── */
+  .final-statement {
+    text-align: center;
+    padding: 5rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .final-statement::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  .final-statement blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--gold-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .final-statement .fs-sub {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* ── SUMMARY TABLE ── */
+  .summary-table {
+    margin-top: 2.5rem;
+    border: 1px solid rgba(201,169,110,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .summary-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid rgba(201,169,110,0.06);
+  }
+
+  .summary-row:last-child { border-bottom: none; }
+
+  .summary-row > div {
+    padding: 1rem 1.5rem;
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .summary-row > div:first-child {
+    border-right: 1px solid rgba(201,169,110,0.06);
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.01);
+  }
+
+  .summary-row > div:last-child {
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+
+  .summary-row .sr-head {
+    background: rgba(201,169,110,0.06);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center;
+    padding: 6rem 2rem 8rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 1rem;
+  }
+
+  .cta-section p {
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .cta-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin: 0 auto;
+    opacity: 0.3;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .level { flex-direction: column !important; text-align: center !important; }
+    .level-stack::before { display: none; }
+    .ring-diagram { gap: 1.5rem; }
+    .ring-connector { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-badge">Revised Concept Brief — Confidential — 2026</div>
+  <h1>
+    <span>Canvas From<br>The Sky</span>
+  </h1>
+  <p class="hero-sub">
+    Abu Dhabi's first <em>explorable</em> altitude art experience.<br>
+    A ring gondola. A living ring canvas. Art that only reveals itself through movement.
+  </p>
+  <p class="hero-core-line">
+    "The canvas doesn't just reveal itself as you rise — you reveal it as you move."
+  </p>
+  <div class="scroll-cue">
+    Scroll
+    <div class="arrow"></div>
+  </div>
+</header>
+
+<!-- HERO VISUAL — Slide 1 -->
+<div class="slide-showcase">
+  <img src="Slide 1.png" alt="Canvas From The Sky — Ring Canvas System Overview" />
+</div>
+
+<!-- ════════════════════════════════════════════
+     CORE CONCEPT (REVISED)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Core Concept</div>
+  <h2 class="section-title">Not a reveal.<br><em>A discovery.</em></h2>
+  <div class="section-body">
+    <p>
+      The experience has evolved. This is no longer about ascending to see a full canvas laid out below. The canvas is a <strong>ring-shaped LED system</strong> — an active, perspective-driven artwork with a central void that guests explore by moving.
+    </p>
+    <br>
+    <p>
+      From the Ring Gondola, guests walk 360° as the artwork continuously flows around the ring. <strong>Each step reveals a different segment. Every angle tells a different part of the story.</strong> No two positions look the same. No single image captures everything.
+    </p>
+  </div>
+
+  <div class="pullquote">
+    <p>"Guests are not fixed observers — they are active participants in discovering the artwork."</p>
+  </div>
+
+  <div class="section-body">
+    <p>
+      The shift is fundamental: from <strong>segmented discovery</strong> over passive reveal, from <strong>explorable canvas</strong> over static field, from <strong>perspective-driven experience</strong> over single-viewpoint spectacle.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     RING CANVAS SYSTEM (NEW)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">The Ring Canvas System</div>
+  <h2 class="section-title">Not a field. A ring.<br>Engineered for exploration.</h2>
+  <div class="section-body">
+    <p>
+      The canvas is no longer a full circular field. It is a <strong>ring-shaped LED system</strong> with a central void reserved for the balloon tether. This design ensures structural feasibility, safety clearance, and a controlled viewing geometry optimized for discovery at altitude.
+    </p>
+  </div>
+
+  <div class="specs-grid">
+    <div class="spec-card">
+      <div class="spec-label">Outer Diameter</div>
+      <div class="spec-value">90 – 110 m</div>
+      <div class="spec-desc">Full ring span across the canvas field</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Inner Void (Balloon Zone)</div>
+      <div class="spec-value">40 – 60 m</div>
+      <div class="spec-desc">Central clearance for tether and safety</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Ring Width (Canvas)</div>
+      <div class="spec-value">20 – 40 m</div>
+      <div class="spec-desc">Active LED storytelling surface</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Viewing Altitude</div>
+      <div class="spec-value">120 – 225 m</div>
+      <div class="spec-desc">Optimal perspective window from Ring Gondola</div>
+    </div>
+  </div>
+
+  <!-- Scale Reference — Slide 5 -->
+  <div class="slide-inline">
+    <img src="Slide 5.png" alt="Ring Canvas Scale Reference — Outer Diameter, Viewing Altitude, Abu Dhabi Skyline" />
+  </div>
+
+  <div class="section-body">
+    <p>
+      Content is mapped radially to align with both the ring canvas geometry and the circular movement of the gondola. This creates a <strong>seamless, continuously flowing artwork</strong> — no hard edges, no dead zones, no static moment.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     RING GONDOLA EXPERIENCE (NEW)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Ring Gondola Experience</div>
+  <h2 class="section-title">You move.<br>It flows.</h2>
+  <div class="section-body">
+    <p>
+      The Ring Gondola is not a static viewing platform. Guests can <strong>walk 360° inside the gondola</strong> at altitude, continuously shifting their perspective over the ring canvas below. Each position unlocks a different segment of the artwork and a different chapter of the story.
+    </p>
+  </div>
+
+  <!-- Ring-to-Ring — Slide 2 -->
+  <div class="slide-inline">
+    <img src="Slide 2.png" alt="Ring-to-Ring Experience Design — Ring Gondola + Ring Canvas synchronized system" />
+  </div>
+
+  <div class="ring-diagram">
+    <div class="ring-node">
+      <div class="ring-icon">🎡</div>
+      <h4>Ring Gondola</h4>
+      <p>You Move</p>
+    </div>
+    <div class="ring-connector">⟺</div>
+    <div class="ring-node">
+      <div class="ring-icon">✦</div>
+      <h4>Ring Canvas</h4>
+      <p>It Flows</p>
+    </div>
+    <div class="ring-connector">=</div>
+    <div class="ring-node">
+      <div class="ring-icon">🌀</div>
+      <h4>Your Story</h4>
+      <p>Non-Repeatable</p>
+    </div>
+  </div>
+
+  <div class="section-body">
+    <p>
+      This creates a synchronized system where <strong>viewer movement equals perspective change</strong> and <strong>artwork motion equals narrative flow</strong>. The result: a non-repeatable experience that rewards exploration and generates unique, individual stories from every single ride.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     EXPERIENCE JOURNEY (UPDATED)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Experience Journey</div>
+  <h2 class="section-title">Five moments.<br>One unforgettable arc.</h2>
+
+  <!-- Journey Slide — Slide 3 -->
+  <div class="slide-inline">
+    <img src="Slide 3.png" alt="Experience Journey — Arrive, Ascend, Discover, Capture, Remember" />
+  </div>
+
+  <div class="journey-steps">
+    <div class="journey-step">
+      <div class="step-icon">🌿</div>
+      <div class="step-label">Step 1</div>
+      <h4>Arrive</h4>
+      <p>Immersive ground experience. Walk through the ring LED field before flight.</p>
+    </div>
+    <div class="journey-step">
+      <div class="step-icon">🎈</div>
+      <div class="step-label">Step 2</div>
+      <h4>Ascend</h4>
+      <p>A gentle lift to new perspectives. Fragments of the artwork begin forming across the ring as altitude builds.</p>
+    </div>
+    <div class="journey-step">
+      <div class="step-icon">👁</div>
+      <div class="step-label">Step 3</div>
+      <h4>Discover</h4>
+      <p>Explore different segments by moving around the gondola. The artwork is active but never fully visible from one position.</p>
+    </div>
+    <div class="journey-step">
+      <div class="step-icon">📷</div>
+      <div class="step-label">Step 4</div>
+      <h4>Capture</h4>
+      <p>Every angle is a different shot. Every position is a different story. No image captures everything.</p>
+    </div>
+    <div class="journey-step">
+      <div class="step-icon">♡</div>
+      <div class="step-label">Step 5</div>
+      <h4>Remember</h4>
+      <p>A story that stays with you. One that no other guest experienced exactly the same way.</p>
+    </div>
+  </div>
+
+  <!-- Updated Level Stack -->
+  <div class="concept-visual" style="margin-top:4rem;">
+    <div class="level-stack">
+      <div class="level">
+        <div class="level-icon ground">🌿</div>
+        <div class="level-content">
+          <div class="altitude">Step 1 — Ground Level</div>
+          <h3>The Light Garden</h3>
+          <p>Visitors walk through the ring LED field before boarding. Rippling colors, organic patterns, gentle pulses. Atmospheric and immersive — but it doesn't reveal the story. The pre-show builds anticipation for what can only be seen from above.</p>
+        </div>
+      </div>
+      <div class="level">
+        <div class="level-icon mid">✦</div>
+        <div class="level-content">
+          <div class="altitude">Step 2 — The Ascent (0–225m) Updated</div>
+          <h3>Fragments Form</h3>
+          <p>As the balloon rises, fragments of the artwork begin appearing across the ring. Guests instinctively begin moving within the gondola, discovering different segments from different angles. The content moment starts here — not at the top, but on the way up.</p>
+        </div>
+      </div>
+      <div class="level">
+        <div class="level-icon sky">🎈</div>
+        <div class="level-content">
+          <div class="altitude">Step 3 — Peak Experience Updated</div>
+          <h3>The Explorable Canvas</h3>
+          <p>The artwork is fully active at altitude — but never fully visible from any single position. Guests explore the narrative by walking around the gondola. The canvas flows continuously around the ring. Every step is a new reveal. The experience belongs to whoever is willing to move.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     CONTENT DESIGN — VAN GOGH RADIAL (UPDATED)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Content Design</div>
+  <h2 class="section-title">Artworks built<br>for circular flow.</h2>
+  <div class="section-body">
+    <p>
+      All artwork is purpose-designed for the ring canvas format. Compositions are <strong>radial and circular</strong> — flowing continuously along the ring with seamless transitions between segments. No beginning. No end. Just a story that wraps around you as you move.
+    </p>
+  </div>
+
+  <!-- Van Gogh Slide — Slide 4 -->
+  <div class="slide-inline">
+    <img src="Slide 4.png" alt="Content Example — Van Gogh Collection: Starry Night, Wheat Field, Almond Blossom, Sunflowers in circular format" />
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-icon">🌌</div>
+      <h4>Radial Compositions</h4>
+      <p>Artwork wraps the ring continuously. No fixed start point — every position is a valid entry into the narrative.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🔄</div>
+      <h4>Seamless Transitions</h4>
+      <p>Segments flow into each other without hard cuts. Movement feels natural, rewarding, and cinematic.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🎨</div>
+      <h4>Multi-Artwork Seasons</h4>
+      <p>Van Gogh, Monet, Emirati artists, cultural editions — the ring canvas rotates seasonally, guaranteeing repeat visits.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     UAE PRIDE — ARC-BASED STORYTELLING (UPDATED)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">UAE Pride Content</div>
+  <h2 class="section-title">Heritage that flows<br>around the ring.</h2>
+  <div class="section-body">
+    <p>
+      The launch content is adapted specifically for the ring canvas format. Instead of static full imagery, we use <strong>arc-based storytelling</strong> — cultural elements that move, extend, and breathe across the circular canvas. Pride becomes kinetic.
+    </p>
+  </div>
+
+  <div class="arc-list">
+    <div class="arc-item">
+      <div class="arc-dot"></div>
+      <p>Falcon wings flowing along the ring — wingspan stretching continuously around the canvas</p>
+    </div>
+    <div class="arc-item">
+      <div class="arc-dot"></div>
+      <p>Arabic calligraphy wrapping the ring — the national anthem writing itself in motion</p>
+    </div>
+    <div class="arc-item">
+      <div class="arc-dot"></div>
+      <p>Desert dune patterns evolving — sand geometry morphing as guests move around the gondola</p>
+    </div>
+    <div class="arc-item">
+      <div class="arc-dot"></div>
+      <p>The UAE flag forming from desert sands — segments revealing across the ring simultaneously</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     SOCIAL & VIRAL STRATEGY (UPDATED)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Social & Viral Strategy</div>
+  <h2 class="section-title">Every position.<br>A different shot.</h2>
+  <div class="section-body">
+    <p>
+      This is not about one Instagrammable moment. It is a <strong>multi-angle content generation system</strong>. No single image captures the full artwork. No two guests leave with the same footage. The design makes sharing both inevitable and personal.
+    </p>
+  </div>
+
+  <div class="pullquote">
+    <p>"Guests don't capture the moment — they capture <em>their version</em> of it."</p>
+  </div>
+
+  <div class="social-grid">
+    <div class="social-card">
+      <div class="soc-icon">📐</div>
+      <h4>Multi-Angle Output</h4>
+      <p>Every position in the gondola produces a unique composition. Movement multiplies content opportunities per ride.</p>
+    </div>
+    <div class="social-card">
+      <div class="soc-icon">🔁</div>
+      <h4>Repeat Visit Logic</h4>
+      <p>Because no ride is identical, guests return to discover segments they missed — and to share something new.</p>
+    </div>
+    <div class="social-card">
+      <div class="soc-icon">📡</div>
+      <h4>Organic Broadcaster</h4>
+      <p>Every rider becomes a unique broadcaster. The content spreads as personal stories, not identical clips.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     ROLLOUT PHASES (UPDATED)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Rollout Strategy</div>
+  <h2 class="section-title">Two phases. One explorable platform.</h2>
+  <div class="section-body">
+    <p>The ring canvas is permanent infrastructure. The content rotates seasonally. This creates a launch moment that drives urgency <em>and</em> a long-term model that drives repeat visits — because no two seasons are the same, and no two guests explore it the same way.</p>
+  </div>
+
+  <div class="phases">
+    <div class="phase-card">
+      <div class="phase-tag">Phase 1 — Launch (Months 1–6)</div>
+      <h3>"Proud From Above"</h3>
+      <p>Timed to a national milestone — UAE National Day, Eid, or a key cultural moment. Arc-based UAE storytelling flows around the ring, visible only from altitude.</p>
+      <ul>
+        <li>Falcon wings spanning the full ring</li>
+        <li>Calligraphy of the national anthem in motion</li>
+        <li>Desert dune patterns morphing with guest movement</li>
+        <li>Maximum press & social coverage at launch</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-tag">Phase 2 — Long-Term (Ongoing)</div>
+      <h3>"Canvas Seasons"</h3>
+      <p>Rotating radial artworks keep the experience fresh and non-repeatable across seasons. Each edition is a new story on the same ring.</p>
+      <ul>
+        <li>Masters From the Sky — Van Gogh, Monet in circular format</li>
+        <li>Stories of the Land — Emirati artists, local narratives</li>
+        <li>Festival editions — Ramadan, F1, Abu Dhabi Art</li>
+        <li>Brand collaborations & sponsored arc canvases</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     VALUE PROPOSITION (UPGRADED)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Value Proposition</div>
+  <h2 class="section-title">Not just unique.<br><em>Non-repeatable.</em></h2>
+  <div class="section-body">
+    <p>
+      The experience is not just one-of-a-kind as an attraction. It is one-of-a-kind <em>per guest, per ride, per position</em>. That is the true commercial and cultural differentiator.
+    </p>
+  </div>
+
+  <div class="value-props">
+    <div class="value-prop">
+      <div class="vp-tag">Non-Repeatable</div>
+      <p><strong>Every ride produces a different experience.</strong> Guest movement, gondola position, and artwork flow combine to create a version of the story no other guest sees in exactly the same way.</p>
+    </div>
+    <div class="value-prop">
+      <div class="vp-tag">Explorable Storytelling</div>
+      <p><strong>The artwork rewards curiosity.</strong> Guests who explore more discover more. Passive riders get a beautiful experience. Active explorers get a complete narrative journey.</p>
+    </div>
+    <div class="value-prop">
+      <div class="vp-tag">High Engagement Per Ride</div>
+      <p><strong>Movement keeps guests physically and emotionally engaged</strong> for the full duration. The experience does not peak once and drop — it sustains across the entire altitude window.</p>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     REVENUE
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Business Value</div>
+  <h2 class="section-title">Multiple revenue layers<br>from one platform.</h2>
+
+  <div class="revenue-grid">
+    <div class="rev-item">
+      <div class="rev-icon">🎟️</div>
+      <h4>Ticket Sales</h4>
+      <p>Premium-priced rides justified by a non-repeatable, explorable art experience</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">🤝</div>
+      <h4>Sponsorships</h4>
+      <p>Seasonal arc canvas sponsorships from luxury brands, cultural institutions, and government entities</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">🌿</div>
+      <h4>Ground Activation</h4>
+      <p>The ring LED field functions as a public art installation — foot traffic, F&B, retail, independent of balloon operation</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">🎨</div>
+      <h4>Artist Commissions</h4>
+      <p>Curated artist residencies for ring canvas editions — cultural prestige and press coverage with each rotation</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">🏢</div>
+      <h4>Private Events</h4>
+      <p>Corporate bookings, VIP gondola experiences, and exclusive private arc canvas commissions</p>
+    </div>
+    <div class="rev-item">
+      <div class="rev-icon">📱</div>
+      <h4>Organic Reach</h4>
+      <p>Multi-angle content generation means every rider shares something unique — exponential organic distribution</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     WHY NOW (UPDATED)
+════════════════════════════════════════════ -->
+<section>
+  <div class="why-block">
+    <h3>Why approve this now?</h3>
+    <div class="why-points">
+      <div class="why-point">
+        <div class="num">1</div>
+        <p><strong>A category that doesn't exist yet.</strong> Any city can fly a balloon. No one has a movement-based, explorable altitude art platform. The Ring Canvas system is a first-mover moat — and the window to own it is now.</p>
+      </div>
+      <div class="why-point">
+        <div class="num">2</div>
+        <p><strong>Launch urgency from national pride content.</strong> Aligning Phase 1 with a UAE milestone creates a natural deadline, guarantees press coverage, and gives the arc canvas system its most culturally resonant debut.</p>
+      </div>
+      <div class="why-point">
+        <div class="num">3</div>
+        <p><strong>Dual-use infrastructure de-risks the investment.</strong> The ring LED field operates as a public art installation independent of the balloon. One investment, two independent experience products — ground and altitude.</p>
+      </div>
+      <div class="why-point">
+        <div class="num">4</div>
+        <p><strong>Repeat visit model built into the design.</strong> Non-repeatable rides mean guests return to discover what they missed. Seasonal content rotations mean the attraction never goes stale. High engagement per ride justifies premium pricing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     FUTURE EXPANSION (NEW)
+════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Future Expansion</div>
+  <h2 class="section-title">Aerial Layer —<br>Ground to Sky.</h2>
+  <div class="section-body">
+    <p>
+      The ring canvas system is designed with vertical scalability in mind. A future aerial layer extends the storytelling from ground level through the balloon's altitude and into the sky — creating a complete, three-dimensional narrative environment.
+    </p>
+  </div>
+
+  <!-- Future Expansion — Slide 6 -->
+  <div class="slide-inline">
+    <img src="Slide 6.png" alt="Future Expansion — Drone integration extending the canvas into the sky for ground-to-sky storytelling" />
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-icon">🚁</div>
+      <h4>Drone Integration</h4>
+      <p>Drone formations extend the canvas artwork into the sky above the balloon — full vertical storytelling from earth to altitude.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">📐</div>
+      <h4>Vertical Storytelling</h4>
+      <p>Narrative flows from the ring canvas on the ground, up through the ascent, and into drone formations above — one continuous arc.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">🌐</div>
+      <h4>Ground-to-Sky Visuals</h4>
+      <p>A complete 360° + vertical immersive environment. Viewers on the ground see sky art. Guests at altitude see ring art. Everyone sees something unique.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════════
+     FINAL POSITIONING STATEMENT (NEW)
+════════════════════════════════════════════ -->
+<div class="final-statement">
+  <blockquote>
+    "This is not a viewing platform.<br>
+    It is a moving relationship between<br>the guest and the artwork."
+  </blockquote>
+  <p class="fs-sub">
+    A premium, scalable, and culturally aligned attraction that combines art, technology, movement, and storytelling into a single, non-repeatable Abu Dhabi experience.
+  </p>
+</div>
+
+<!-- ════════════════════════════════════════════
+     CTA
+════════════════════════════════════════════ -->
+<div class="cta-section">
+  <h2>Next Step</h2>
+  <p>
+    With your go-signal, we build the full investor-ready presentation — detailed ring canvas technical specs, budget framework, revenue projections, gondola movement studies, site proposals, and visual mockups of the radial artwork system.
+  </p>
+  <div class="cta-label">Awaiting approval to proceed →</div>
+</div>
+
+<div class="footer">
+  Canvas From The Sky — Revised Concept Brief — Ring Canvas + Ring Gondola Edition — Confidential — 2026
+</div>
+
+<script>
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'pixel-dot';
+    dot.style.left = Math.random() * 100 + '%';
+    dot.style.bottom = Math.random() * 100 + '%';
+    dot.style.animationDelay = Math.random() * 3 + 's';
+    dot.style.animationDuration = (2 + Math.random() * 2) + 's';
+    const hue = Math.random() > 0.5 ? '38' : '210';
+    dot.style.background = `hsl(${hue}, 60%, 65%)`;
+    container.appendChild(dot);
+  }
+</script>
+</body>
+</html>
