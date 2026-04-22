@@ -1,6 +1,6 @@
 # LED Field Lights — Modular System Design
 **Canvas from the Sky — Ground Installation**
-*Last updated: 2026-04-22*
+*Last updated: 2026-04-22 — v2: locked 50mm pitch, added UAE heat spec upgrades, added operational modes*
 
 ---
 
@@ -77,10 +77,11 @@ Only the smallest, cheapest, most failure-prone part is ever swapped in the fiel
 
 ### Layer 2 — Stem (Fixed)
 
-- Clear acrylic rod — acts as a **light pipe** (entire stem glows when LED fires)
+- **Material: UV-stabilized polycarbonate** (not standard acrylic — acrylic softens at 85–90°C and yellows under prolonged UAE UV exposure; PC rated to 147°C)
+- Acts as a **light pipe** — entire stem glows when LED fires
 - Internal wiring runs from base PCB up to pogo contact at tip
 - Permanently bonded to base — no stem-to-base seal to fail
-- Density: ~100 stems per module at 50mm pitch
+- **Density: 100 stems per module at 50mm pitch (locked)**
 
 ---
 
@@ -105,14 +106,53 @@ Only the smallest, cheapest, most failure-prone part is ever swapped in the fiel
 
 ## Weather Resilience — UAE Conditions
 
+UAE summer runs May–October: ambient 45–50°C air, 60–80°C ground surface, UV index 11–12, humidity 80–90% coastal.
+
 | Threat | Severity | Solution |
 |---|---|---|
 | Sandstorms (Shamal) | High | Sealed base cavity; no removable stems to lose or jam |
-| Extreme heat (50°C+) | High | Aluminum base dissipates heat; UV-rated polycarbonate tulip dome |
+| Extreme heat (50°C+) | High | Aluminum base + ceramic standoff feet (15–20mm air gap from ground); ventilation slots on base sides; white/silver top coat reflects solar radiation |
+| LED/electronics overheating | High | Industrial-grade LEDs rated to 105°C; 105°C-rated capacitors and ICs; silicone-insulated internal wiring (rated 150°C); software thermal dimming at peak hours |
 | Rain | Low | Rubber gasket + pogo seal at tulip joint; base drainage channels |
 | Humidity | Medium | Conformal coating on all PCBs inside base |
+| UV degradation | High | UV-stabilized polycarbonate stems and tulip domes — does not yellow or embrittle |
 
-> **Note on rain:** Abu Dhabi averages ~42mm/year (mostly Dec–Feb). Rain is the lowest risk but the best visual opportunity — water refracts light through the transparent acrylic stems and tulip domes, enhancing the effect.
+```
+                 ventilation slots
+    ┌──── ░░░░░░░░░░░░ ────┐
+    │   base cavity / PCB  │
+    └──── ░░░░░░░░░░░░ ────┘
+         ▲▲▲▲▲▲▲▲▲▲▲▲
+         ceramic standoff feet
+         ~15–20mm air gap
+         (breaks ground heat transfer)
+```
+
+> **Note on rain:** Abu Dhabi averages ~42mm/year (mostly Dec–Feb). Rain is the lowest risk but the best visual opportunity — water refracts light through the polycarbonate stems and tulip domes, enhancing the effect.
+
+---
+
+## Operational Modes
+
+The installation runs in three modes across the day. No content management is needed during daytime — the system idles passively until dusk.
+
+```
+DAYTIME (sunrise – ~4pm)
+  → LEDs at 20–30% brightness (thermal protection)
+  → Polycarbonate stems catch and scatter sunlight — field glitters as sculpture
+  → Ambient presence only, no graphics or content required
+  → Operations staff not needed for content management
+
+GOLDEN HOUR (~4pm – sunset)
+  → LEDs ramp to 60–80% brightness
+  → Best mixed natural + artificial light window
+  → Most photogenic moment — primary social content opportunity
+
+NIGHT (sunset – close)
+  → LEDs at 100% brightness
+  → Full ring canvas graphics active and visible from altitude
+  → Hero experience — balloon rides, full artwork, maximum visual impact
+```
 
 ---
 
@@ -144,8 +184,9 @@ UAE registration note: ADIO (Abu Dhabi Investment Office) has incentives for man
 
 ## Open Questions / Next Steps
 
-- [ ] Finalize stem density: 50mm pitch (~100/module) vs 40mm pitch (~156/module)
+- [x] ~~Finalize stem density~~ — **locked at 50mm pitch, 100 stems per module**
 - [ ] Decide tulip head dome shape — pure tulip vs more geometric petal form
 - [ ] Identify prototype fabricator in UAE (Dubai Industrial City)
 - [ ] Shortlist LED component suppliers (Shenzhen Colorking, Philips Color Kinetics)
 - [ ] Commission PCT patent search before manufacturer outreach
+- [ ] Define automated brightness schedule (sunrise/golden hour/night triggers)
