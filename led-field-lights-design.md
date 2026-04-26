@@ -1,8 +1,8 @@
 # LED Field Lights - Modular Block System
 **Canvas From The Sky - Abu Dhabi Investor Pitch**
 
-*Version 4 - updated after CEO review*
-*Updated: 2026-04-25*
+*Version 5 - pure LED block specification*
+*Updated: 2026-04-26*
 
 ---
 
@@ -30,10 +30,11 @@ Following CEO review, the system has been resized and rationalized for a more pr
 - **Inner clear circle:** 12m radius / 24m diameter
 - **Active ring depth:** 18m
 - **Main LED block size:** 600mm x 600mm
-- **Stem grid per block:** 6 x 6, or 36 stem lights
+- **Stem layout per block:** 4 x 4 grid, or 16 LED stems
+- **Ring-edge treatment:** square 600mm blocks remain; edge-zone blocks use plastic-capped portions where stems are omitted to make the stepped circle less noticeable
 - **Access path:** 2m-wide LED mesh walkway under tempered structural glass from the outer edge to the balloon platform
 
-This version keeps the spectacle but reduces the technical risk. The original 500mm / 100-stem module created a very dense field. The new 600mm / 36-stem block is easier to manufacture, easier to wire, easier to cool, and more realistic for cost control.
+This version keeps the spectacle but reduces the technical risk. The original 500mm / 100-stem module created a very dense field. The new 600mm / 16-stem block is easier to manufacture, easier to wire, easier to cool, and more realistic for cost control.
 
 ---
 
@@ -96,10 +97,10 @@ The walkway should feel like a glowing bridge through the light field. It is als
 | Walkway footprint | 18m x 2m | approx. 36 sq m |
 | Blocks displaced by walkway | 36 / 0.36 | approx. 100 blocks |
 | Net stem-block count | gross less walkway | approx. 6,500 blocks |
-| Stems per block | 6 x 6 | 36 stems |
-| Approx. stem lights | 6,500-6,600 x 36 | 234,000-238,000 lights |
+| Stems per block | 4 x 4 | 16 stems |
+| Approx. stem lights | 6,500-6,600 x 16, before edge reductions | up to 104,000-105,600 lights |
 
-For investor budgeting, use **6,500 main light blocks** and **235,000 stem lights** as the clean working number.
+For investor budgeting, use **6,500 main light blocks** and **105,000 stem lights maximum** as the clean working number. The final installed count may reduce slightly after edge-zone blocks are plastic-capped.
 
 ---
 
@@ -107,17 +108,20 @@ For investor budgeting, use **6,500 main light blocks** and **235,000 stem light
 
 Each LED block is a repeated 600mm x 600mm unit installed into a raised structural field frame.
 
+![Pure LED block visual spec](led-block-info-image-v2.png)
+
 ```text
 TULIP LED HEAD
   Replaceable diffuser/light cap
-  2-3 visual variants for natural randomness
+  2 visual variants for controlled natural randomness
 
 FLEXIBLE / ADJUSTABLE STEM
   Set to chosen height before installation
   Slight flex for soft movement and safer contact
 
 SEALED 600MM BASE BLOCK
-  6 x 6 stem grid
+  4 x 4 transparent LED stem positions
+  edge-zone square blocks may receive plastic-capped portions
   Driver electronics, power, data, drainage separation
 
 RAISED STRUCTURAL FRAME
@@ -207,8 +211,8 @@ For the investor version, the better message is: **modular top-side maintenance 
 ## Layer 2 - 600mm LED Block
 
 **Size:** 600mm x 600mm  
-**Stem grid:** 6 x 6  
-**Stem count:** 36 per block  
+**Stem grid:** 4 x 4  
+**Stem count:** 16 LED stems per block  
 **Top material:** coated aluminum or composite top plate  
 **Underside:** sealed electronics enclosure with service connector  
 **Ingress protection target:** IP67 for electronics enclosure  
@@ -220,22 +224,36 @@ Why 600mm is the right move:
 - fewer modules than 500mm blocks
 - fewer connectors and failure points
 - lower installation labor
-- easier spacing for 6 x 6 stem layout
+- easier spacing for a 4 x 4 stem layout
 - cleaner coordination with structural framing
 
 ### Stem Layout
 
-The 6 x 6 grid should use a consistent mechanical grid, but the visible field should avoid looking too perfect.
+The 4 x 4 grid should use a consistent mechanical grid, but the visible field should avoid looking too perfect.
 
 Recommended approach:
 
-- 100mm nominal stem pitch
+- approx. 150mm nominal stem pitch
 - inset border around the module edge
 - subtle randomized stem heights
-- 2-3 tulip head forms
+- 2 tulip head forms
 - software color randomness at ground level
 
 The aerial canvas remains mapped and precise, while the ground-level experience feels organic.
+
+### Square Block Edge Treatment
+
+The ring edge should not reveal a harsh stepped square-block outline. The physical modules remain square 600mm x 600mm blocks, but the blocks touched by the curved circle line should use capped plastic portions where the active LED field needs to visually soften the boundary.
+
+Recommended approach:
+
+- keep all base blocks square and standardized
+- omit stems in the shaded/capped edge portions of selected boundary blocks
+- cover those inactive areas with sealed plastic caps, not curved block pieces
+- keep caps flush or slightly proud so dust and water do not collect
+- map capped portions and omitted stems as inactive pixels in the content system
+
+This keeps manufacturing simple while making the finished circular ring read cleaner from both ground level and balloon height.
 
 ---
 
@@ -245,7 +263,9 @@ The stems should be adjustable before installation, then locked in place during 
 
 Recommended requirements:
 
-- pre-set height range: approx. 250-650mm
+- transparent stem body with internal LED wiring/diffusion
+- pre-set height range: 200-400mm
+- height increments: 50mm
 - adjustment before installation, not during daily operation
 - locking collar or internal stop to fix final height
 - flexible upper section to allow gentle sway
@@ -261,9 +281,11 @@ Example height mix:
 
 | Stem Height | Share | Purpose |
 |---|---:|---|
-| 250-350mm | 25% | low glow layer |
-| 350-500mm | 50% | main visual field |
-| 500-650mm | 25% | wave peaks and depth |
+| 200mm | 15% | low glow layer |
+| 250mm | 20% | low-mid transition |
+| 300mm | 30% | main visual field |
+| 350mm | 20% | upper texture |
+| 400mm | 15% | wave peaks and depth |
 
 Each module can be pre-configured with a height recipe. When repeated across the ring, the field creates a subtle wave effect without compromising installation speed.
 
@@ -291,16 +313,12 @@ Recommended family:
 2. **Open Tulip**
    Wider frosted diffuser, softer at ground level, better for guest photos.
 
-3. **Faceted Petal Dome**
-   More geometric, catches sunlight, gives premium product language.
-
 Use these in a controlled ratio, for example:
 
 | Head Type | Share | Role |
 |---|---:|---|
-| Closed Tulip | 50% | aerial clarity and brightness |
-| Open Tulip | 30% | ground-level softness |
-| Faceted Dome | 20% | sparkle and visual randomness |
+| Closed Tulip | 60% | aerial clarity and brightness |
+| Open Tulip | 40% | ground-level softness and photo quality |
 
 ### Electrical Direction
 
@@ -389,7 +407,7 @@ This separates venue revenue from balloon capacity. Even when the balloon is ful
 
 ## Power and Thermal Strategy
 
-The new 600mm / 36-stem block reduces density and makes the power model more credible.
+The new 600mm / 16-stem block reduces density and makes the power model more credible.
 
 Still, the field must not be treated like a full-white LED screen. It is an artistic canvas viewed from altitude, so the content should use controlled brightness, color, movement, and contrast.
 
@@ -433,7 +451,7 @@ Zone cabinets
   environmental monitoring
 
 Module controllers
-  control 36 stems per block
+  control 16 stems per block
   report temperature, moisture, voltage, fault status
 ```
 
@@ -441,7 +459,7 @@ The content pipeline should be built around the exact field geometry:
 
 1. Survey final ring and walkway coordinates.
 2. Assign every 600mm block an address.
-3. Assign each of the 36 stems a mapped position.
+3. Assign each installed LED stem a mapped position.
 4. Create a top-down pixel map.
 5. Test with drone or balloon-height calibration.
 6. Adjust content for real-world viewing distance, haze, and gondola movement.
@@ -477,7 +495,7 @@ Sources to validate during supplier outreach:
 Working quantity:
 
 - approx. **6,500 LED stem blocks**
-- approx. **235,000 stem lights**
+- approx. **105,000 stem lights maximum**
 - separate **36 sq m LED/glass walkway**
 
 | Cost Layer | Low Range | Mid Range | High Range |
@@ -516,9 +534,9 @@ The CEO concern is valid: the LED field is the major capital item. The updated d
 
 If the budget needs to come down:
 
-- reduce from 36 stems per block to 25 stems per block in non-critical zones
+- reduce selected boundary blocks below the 16-stem layout where plastic caps soften the circle edge
 - use cluster control instead of individual control for early deployment
-- simplify tulip head variants to two molds, not three
+- keep tulip head variants to two molds
 - make the first field 50m diameter instead of 60m
 - keep walkway content low-resolution and atmospheric
 - use premium density only in zones most visible from balloon viewing angles
@@ -694,10 +712,11 @@ Goal: prove one complete 600mm block.
 Scope:
 
 - 1-4 working 600mm modules
-- 6 x 6 stem grid
+- 4 x 4 stem grid
 - adjustable stem height system
 - flexible sway test
-- 2-3 tulip head shapes
+- 2 tulip head shapes
+- plastic-capped square edge-block portions for edge-condition testing
 - elevated frame mock-up
 - heat, dust, water, UV, and cleaning tests
 
@@ -718,7 +737,7 @@ Recommended scale:
 
 - 8-10m test garden
 - 50-100 modules
-- 1,800-3,600 stem lights
+- up to 800-1,600 stem lights
 - one short path segment with LED mesh and glass
 - controlled height randomness
 - basic content loops
@@ -762,10 +781,10 @@ These need to be finalized before supplier engagement:
 - final field diameter remains 60m or value-engineered smaller
 - exact route and finish of the 2m walkway
 - structural frame material and height
-- 6 x 6 stem layout pitch and edge inset
+- 4 x 4 stem layout pitch and edge inset
 - stem height range and locking detail
 - flex material: polycarbonate, silicone hybrid, or composite stem
-- two or three tulip head molds
+- two tulip head molds
 - individual stem control vs grouped control
 - whether walkway LED mesh is show-grade or atmospheric only
 - target content package: 3 shows or 5 shows for launch
@@ -783,7 +802,7 @@ The updated design is easier to defend:
 Investor talking points:
 
 - lower-density system is more realistic and maintainable
-- approx. 235,000 lights still creates a major spectacle
+- up to approx. 105,000 lights still creates a major spectacle
 - 600mm blocks reduce manufacturing and installation complexity
 - raised frame solves airflow, water, and cable-management concerns
 - adjustable flexible stems create a premium ground-level garden
