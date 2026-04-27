@@ -5,7 +5,7 @@ A pitch package for **Canvas From The Sky**, an Abu Dhabi tethered-balloon attra
 ## What's in here
 
 - **[index.html](index.html)** — single-file investor pitch deck (Playfair Display + DM Sans, gold `#C9A96E` on dark `#0A0A0F`). All HTML/CSS/inline JS in one file. This is the file most edits target.
-- **[led-field-lights-design.md](led-field-lights-design.md)** — current LED hardware spec (v5, 600mm blocks, 60m ring). **Source of truth** for hardware decisions; if a memory or pitch claim disagrees, this doc wins.
+- **[led-field-lights-design.md](led-field-lights-design.md)** — current LED hardware spec (v7, 600mm grid, 60m ring, 5 framing options, 2 density variants, researched 2026 prices, CEO decision matrix at top). **Source of truth** for hardware decisions; if a memory or pitch claim disagrees, this doc wins.
 - **[Alibaba Led reference.txt](Alibaba%20Led%20reference.txt)** — supplier reference links for LED components.
 - **slide-1.png … slide-6.png, slide-1_abudhabi.png** — pitch deck slide renders.
 - **concept-board.jpg, Modular light LED.jpeg** — early mood/concept references.
@@ -21,10 +21,16 @@ A pitch package for **Canvas From The Sky**, an Abu Dhabi tethered-balloon attra
 
 - **Currency:** investor-facing budgets are quoted in **AED** with USD as a secondary reference. Working rate `1 USD = 3.6725 AED` (UAE dirham is dollar-pegged).
 - **Locked LED design parameters** — do not silently revert to earlier values:
-  - Block: **600mm × 600mm**, 4×4 grid = **16 stems per block** (the older 500mm / 100-stem concept is obsolete)
+  - Grid unit: **600mm × 600mm** (the older 500mm / 100-stem concept is obsolete)
   - Ring: **60m outer diameter**, **24m inner clear circle** (12m radius), 18m active depth
-  - Net block count ≈ **6,500**, max stem-light count ≈ **105,000**
-  - 2m-wide LED-mesh-under-glass walkway from outer edge to balloon platform
+  - Working unit count: **6,175 grid units** (gross 6,320 less 145 displaced by the 3m walkway)
+  - Density is **under CEO review** — two variants on the table:
+    - 16-LED (4×4, 150mm pitch) → 98,800 LED nodes total
+    - 9-LED (3×3, 200mm pitch) → 55,575 LED nodes total
+  - Framing is **under CEO review** — five options (C raised+blocks, D open frame, E1 CIP pad, E2 yard-precast LWAC, E3 site-cast LWAC)
+  - Recommended flagship pairing: **E3 + 16-LED at AED ~20.4M mid** (USD ~5.5M)
+  - Recommended pilot pairing: **D + 9-LED at AED ~13.8M mid** (USD ~3.8M)
+  - **3m-wide** LED-mesh-under-glass walkway, ~52 sqm, from outer edge to balloon platform
 - **Pitch tone:** the deck is a "first-time read" — never expose that copy is a revision. No "updated", "v2", "previously we said" language anywhere a reader sees.
 - **Mobile layout:** the value-prop section has had specific mobile fixes (commit `16ce285`); when editing that section, check both desktop and mobile.
 
