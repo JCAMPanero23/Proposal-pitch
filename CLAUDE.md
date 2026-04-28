@@ -24,13 +24,18 @@ A pitch package for **Canvas From The Sky**, an Abu Dhabi tethered-balloon attra
   - Grid unit: **600mm × 600mm** (the older 500mm / 100-stem concept is obsolete)
   - Ring: **60m outer diameter**, **24m inner clear circle** (12m radius), 18m active depth
   - Working unit count: **6,175 grid units** (gross 6,320 less 145 displaced by the 3m walkway)
-  - Density is **under CEO review** — two variants on the table:
-    - 16-LED (4×4, 150mm pitch) → 98,800 LED nodes total
-    - 9-LED (3×3, 200mm pitch) → 55,575 LED nodes total
-  - Framing is **under CEO review** — five options (C raised+blocks, D open frame, E1 CIP pad, E2 yard-precast LWAC, E3 site-cast LWAC)
-  - Recommended flagship pairing: **E3 + 16-LED at AED ~20.4M mid** (USD ~5.5M)
+  - Density is **LOCKED at 9-LED (3×3, 200mm pitch) → 55,575 LED nodes** (locked 28 April 2026; do not reintroduce 16-LED). Peak power ~28 kW.
+  - Framing is **under CEO review** — four options:
+    - C: aluminum sealed block on raised frame (original)
+    - D: open-frame grid flush on prepared ground (no top cover)
+    - E1: **steel plate tile** (600 × 600 × ~60mm) flat on ground, lifting holes, driver inside — modular tile form factor
+    - E2: **LWAC concrete tile** (600 × 600 × **60mm**, ~37 kg = single-person lift) batch-cast on site, flat on ground — modular tile form factor
+  - The earlier bulky-pad E options (CIP pad, multi-cell precast/site-cast LWAC panels) were **dropped** April 27 2026 per CEO sketch — replaced with the modular-tile E1/E2 above
+  - Stem heights: **400–600mm in 50mm steps** (locked April 27 2026; was 200–400mm) plus tulip head on top
+  - Recommended flagship pairing: **E2 + 9-LED at AED ~13.4M mid** (USD ~3.65M, ~AED 2,170/module)
   - Recommended pilot pairing: **D + 9-LED at AED ~13.8M mid** (USD ~3.8M)
   - **3m-wide** LED-mesh-under-glass walkway, ~52 sqm, from outer edge to balloon platform
+- **Content cost tiers** (28 April 2026 addition for 5-show-per-night slate + continuous ambient): launch AED 1.5–4.7M one-time; seasonal refresh AED 350–900k × 4/yr; per event AED 180–580k each. Steady-state ~AED 5.3M gross/yr, ~AED 2.6M net after sponsor billing.
 - **Pitch tone:** the deck is a "first-time read" — never expose that copy is a revision. No "updated", "v2", "previously we said" language anywhere a reader sees.
 - **Mobile layout:** the value-prop section has had specific mobile fixes (commit `16ce285`); when editing that section, check both desktop and mobile.
 

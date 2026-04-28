@@ -1,8 +1,8 @@
 # LED Field Lights - Modular Block System
 **Canvas From The Sky - Abu Dhabi Investor Pitch**
 
-*Version 7 - CEO decision document: framing options, density variants, researched pricing*
-*Updated: 2026-04-27*
+*Version 9 - 9-LED density locked, 16-LED variant dropped, content cost per season/event added*
+*Updated: 2026-04-28*
 
 ---
 
@@ -31,61 +31,56 @@ Following CEO review, the system has been resized and rationalized for a more pr
 - **Active ring depth:** 18m
 - **Grid unit size:** 600mm x 600mm
 - **Working unit count:** **6,175 grid units** (6,320 gross less 145 displaced by the widened 3m walkway)
-- **LED density variants under review:**
-  - **16-LED (4 x 4)** dense option: 6,175 x 16 = **98,800 LED stem nodes**
-  - **9-LED (3 x 3)** lighter option: 6,175 x 9 = **55,575 LED stem nodes**
-- **Ring-edge treatment:** for sealed-block builds, square 600mm blocks with plastic-capped inactive portions; for open-frame and pad builds, the frame is cut/notched along the curve so no caps are needed
+- **LED density (locked 28 April 2026):** **9-LED (3 x 3, 200mm pitch)** = 6,175 x 9 = **55,575 LED stem nodes**
+- **Ring-edge treatment:** for sealed-block builds, square 600mm blocks with plastic-capped inactive portions; for open-frame and tile builds, the frame/tile is cut along the curve so no caps are needed
 - **Access path:** **3m-wide** LED mesh walkway under tempered structural glass from the outer edge to the balloon platform (~17.4m radial run, ~52 sq m total)
 
-This version keeps the spectacle but reduces the technical risk. The original 500mm / 100-stem module created a very dense field. The new 600mm / 16-stem unit is easier to manufacture, easier to wire, easier to cool, and more realistic for cost control. **Five framing options** are now on the table (sealed modular block on raised frame, ground-level open frame, cast-in-place pad, yard-precast LWAC pad, site-cast LWAC pad) and **two LED density variants** (9-LED and 16-LED). The CEO Decision Summary below compares the combinations.
+The 9-LED density was locked after CEO review on 28 April 2026. The earlier 16-LED variant has been dropped — 9-LED gives a calmer, airier garden, runs cooler in UAE summer (peak ~28 kW vs 50 kW), is cheaper to wire and manufacture, and reduces content-production cost ~30% per minute. **Four framing options remain on the table** (Option C aluminum block on raised frame, Option D ground-level open frame, Option E1 steel plate tile, Option E2 LWAC concrete tile). The CEO Decision Summary below compares them at the locked 9-LED density.
 
 ---
 
 ## CEO Decision Summary
 
-This section gives the CEO a one-screen view of the choices. The design has two independent decisions: the **framing option** (where the LED field sits) and the **LED density** (how many LEDs per 600mm unit). Pick one of each. Detailed reasoning, cost rows, and trade-offs follow in the rest of the document.
+This section gives the CEO a one-screen view of the remaining choice. **LED density is locked at 9-LED (3×3, 200mm pitch) per the 28 April 2026 review** — only the framing option is open. Detailed reasoning, cost rows, and trade-offs follow in the rest of the document.
+
+### Locked: LED density = 9-LED (3 × 3, 200mm pitch)
+
+55,575 LED stem nodes total across 6,175 grid units. Peak power ~28 kW. The 16-LED variant was dropped because the airier 9-LED garden suits the UAE climate (less heat load), reduces both hardware cost (~AED 4M less than 16-LED) and content-authoring cost per minute (~30% less detail to render), and still creates a major aerial spectacle.
 
 ### Decision 1 - Framing option
 
-| Option | One-line description | Ground level? | Modular block product? | Mid-range cost (substructure only) |
+| Option | One-line description | Ground level? | Modular tile/block? | Mid-range cost (substructure only) |
 |---|---|---|---|---:|
-| **C** | Raised low-frame with sealed lift-out 600mm blocks (original recommendation) | No (raised 100-300mm) | Yes | AED 4.6M |
+| **C** | Raised low-frame with sealed lift-out 600mm aluminum blocks (original design) | No (raised 100-300mm) | Yes | AED 4.6M |
 | **D** | Modular open-frame grid on prepared ground; stems anchor in frame; no top cover | **Yes (flush)** | No (frame only) | AED 3.2M |
-| **E1** | Cast-in-place reinforced concrete pad; frame cast in during pour | **Yes (flush)** | No (frame only) | AED 4.6M |
-| **E2** | Yard-precast LWAC panels delivered and set on prepared base | **Yes (flush)** | No (frame only) | AED 4.1M |
-| **E3** | **Site-cast LWAC panels** - poured and cured on-site in casting beds, then set | **Yes (flush)** | No (frame only) | **AED 3.6M** |
+| **E1** | Steel plate tile (600mm × 600mm × ~60mm), flush on prepared ground; lifting holes; driver inside | **Yes (flush)** | Yes (tile) | AED 3.7M |
+| **E2** | **Light-weight pre-fabricated concrete tile** (LWAC, **60mm**), batch-cast on site, flush on prepared ground; ~37 kg per tile = single-person lift | **Yes (flush)** | Yes (tile) | **AED 2.6M** |
 
-### Decision 2 - LED density per 600mm unit
-
-| Density | Pitch | LED nodes per unit | Total LED nodes | Visual character |
-|---|---|---:|---:|---|
-| **9-LED (3 x 3)** | ~200mm | 9 | **55,575** | Calmer, more airy garden; easier to wire, lower power, cheaper |
-| **16-LED (4 x 4)** | ~150mm | 16 | **98,800** | Denser, richer aerial canvas; higher resolution for content; more cost |
-
-### Combined total installed system cost (mid-range, AED, all-in)
+### Total installed system cost at locked 9-LED density (mid-range, AED, all-in)
 
 Numbers below include all hardware, controls, 3m glass walkway, installation, commissioning, and recommended spares. They are pre-quote engineering estimates anchored on **researched 2026 supplier price ranges** (see Pricing Sources & References appendix at the end of this document).
 
-| | **Option C** (raised + sealed block) | **Option D** (open frame) | **Option E1** (CIP pad) | **Option E2** (yard-precast LWAC) | **Option E3** (site-cast LWAC) |
-|---|---:|---:|---:|---:|---:|
-| **9-LED density** | AED 16.5M | AED 13.8M | AED 15.4M | AED 14.9M | **AED 14.4M** |
-| **16-LED density** | AED 22.5M | AED 19.8M | AED 21.4M | AED 20.9M | **AED 20.4M** |
+| Framing Option | Total (mid) | Per module |
+|---|---:|---:|
+| **Option C** (raised + sealed aluminum block) | AED 16.5M | ~AED 2,650 |
+| **Option D** (open frame on ground) | AED 13.8M | ~AED 2,235 |
+| **Option E1** (steel plate tile, flush) | AED 14.5M | ~AED 2,350 |
+| **Option E2** (LWAC tile 60mm, flush) ★ | **AED 13.4M** | **~AED 2,170** |
 
-Low and high ranges are in the full Cost Model section. As a rule of thumb, the high range is roughly +50% of mid; the low range is roughly -30% of mid.
+`Per-module cost = total ÷ 6,175 grid units`. Low and high ranges are in the full Cost Model section. As a rule of thumb, the high range is roughly +50% of mid; the low range is roughly -30% of mid. The **60mm LWAC tile** spec brings each tile to a single-person-lift weight (~37 kg) — no crane needed for service.
 
-### Recommended pairings
+### Recommended option
 
-- **Lowest cost / fastest to a working pilot** - **Option D + 9-LED: AED 13.8M mid**. Best for a 12-month pilot or relocatable touring version. Lowest civil program, fastest install, simplest electronics. Trade-off: less aerial resolution and an open-frame field that needs a planned dust blow-out cleaning cycle.
-- **Best long-term flagship value** - **Option E3 + 16-LED: AED 20.4M mid**. Clean ground-level reading, best heat behavior, large factory-controlled panels with fewest joints, full 16-LED aerial resolution. The civil program is longer than D but shorter than CIP. **This is the recommended pairing for the permanent Abu Dhabi flagship.**
-- **Compromise pairing for budget pressure** - Option E3 + 9-LED: AED 14.4M mid. Same flush ground-level civil quality as the recommended pairing, but with the lighter 9-LED density. Roughly AED 6M cheaper than the flagship pairing. Re-investing in 16-LED later is **not** trivial because the frame node spacing differs - choose density at frame fabrication time.
-- **Avoid** - Option C + 16-LED at AED 22.5M is the most expensive pairing; the raised deck no longer offers a meaningful advantage now that Option E3 exists at lower cost with cleaner aerial reading.
+- **Recommended for permanent Abu Dhabi flagship: Option E2 (LWAC tile) + 9-LED at AED ~13.4M mid (~AED 2,170 per module, ~USD 3.65M total)**. Clean ground-level reading, locally sourced LWAC tiles batch-cast on site, single-person-lift serviceability, lowest installed cost of the four framing options.
+- **Alternate for relocatable pilot or touring**: Option D (open frame). Same all-in cost (AED 13.8M mid), no tile manufacturing, fully relocatable. Choose if the venue might move or scale.
+- **Avoid**: Option C at AED 16.5M — the raised deck is ~AED 3M more than E2 and no longer offers a meaningful advantage now that the modular tile options exist with the same lift-out serviceability.
 
 ### Decision risks the CEO should be aware of
 
-- **Site permanence** - Options C and D are relocatable; Options E1/E2/E3 are permanent civil works. If the site lease is short or the venue might move, prefer C or D.
-- **9-LED vs 16-LED is hard to undo** - because the frame node spacing is different (200mm vs 150mm pitch), upgrading from 9 to 16 later requires re-fabricating frame nodes. Choose density carefully.
-- **Site-cast (E3) needs space** - it requires a casting yard adjacent to the ring footprint for ~22-30 weeks of casting. If the site cannot accommodate a casting yard, prefer E2 (yard-precast).
-- **Hot-weather concrete protocol** for E1 / E2 / E3 - all three need ACI 305 compliance for UAE summer pours. E3 has the most QC risk because the casting is on-site.
+- **Site permanence** - Options C and D are fully relocatable; the modular-tile options (E1, E2) are practically relocatable as well (each tile lifts out), but the perimeter joint sealing and bedding screed mean a relocation is a significant operation rather than a quick teardown.
+- **Density is locked** - the 9-LED 200mm pitch is now baked into tile-cast or frame-node spacing. Upgrading to 16-LED later would require re-fabricating tiles or frame nodes — treat the density choice as a one-way door.
+- **E2 needs an on-site batching/casting area** - footprint for steel molds, mixer/batching plant, and a covered curing zone for ~8-12 weeks. Modest space, but not zero.
+- **Hot-weather concrete protocol** for E2 - ACI 305 compliance for UAE summer pours. Low QC risk per tile because each is small and individually inspectable.
 
 ---
 
@@ -149,12 +144,10 @@ The walkway should feel like a glowing bridge through the light field. It is als
 | Units displaced by 3m walkway | 52 / 0.36 | approx. 145 units |
 | Edge-zone reductions and capped portions | curve-fit losses | approx. 280 units |
 | **Working unit count** | gross less walkway and edge | **6,175 units** |
-| LED nodes per unit (16-LED variant) | 4 x 4 | 16 stems |
-| **Working LED node count (16-LED)** | 6,175 x 16 | **98,800 nodes** |
-| LED nodes per unit (9-LED variant) | 3 x 3 | 9 stems |
-| **Working LED node count (9-LED)** | 6,175 x 9 | **55,575 nodes** |
+| LED nodes per unit (locked 9-LED) | 3 x 3 | 9 stems |
+| **Working LED node count** | 6,175 x 9 | **55,575 nodes** |
 
-For investor budgeting, use **6,175 grid units**. The working LED node count is **98,800** (16-LED) or **55,575** (9-LED) depending on the density chosen in the CEO Decision Summary. Spares are budgeted separately - see "Spares & Commissioning Stock" below.
+For investor budgeting, use **6,175 grid units** and **55,575 LED stem nodes**. Spares are budgeted separately - see "Spares & Commissioning Stock" below.
 
 ---
 
@@ -174,7 +167,7 @@ FLEXIBLE / ADJUSTABLE STEM
   Slight flex for soft movement and safer contact
 
 SEALED 600MM BASE BLOCK
-  4 x 4 transparent LED stem positions
+  3 x 3 transparent LED stem positions
   edge-zone square blocks may receive plastic-capped portions
   Driver electronics, power, data, drainage separation
 
@@ -199,17 +192,16 @@ Recommended functions, regardless of option:
 
 ### Framing Options Reviewed
 
-Seven practical directions across three families. Options A-C use sealed modular 600mm blocks lifted on/off a raised frame. Options D and E1-E3 remove the modular block product entirely — only the **framing** is modular, the field sits at finished grade with no raised feet, and stems anchor directly into the frame nodes. Within the E-family, E1 is cast-in-place (CIP) normal-weight concrete; E2 is yard-precast LWAC; E3 is site-cast LWAC.
+Six practical directions across three families. Options A-C use a sealed modular 600mm aluminum block lifted on/off a raised frame. Option D removes the sealed-block product entirely - only the frame is modular, and stems anchor directly into the frame. Options E1 and E2 keep the **modular tile** form factor of Option C but lay it **flat on prepared ground with no raised frame**, with two material variants: steel plate (E1) or pre-fabricated lightweight concrete tile (E2).
 
-| Option | Description | Ground Level | Modular Block? | Maintenance Access | Cost | Risk |
+| Option | Description | Ground Level | Modular Tile/Block? | Maintenance Access | Cost | Risk |
 |---|---|---|---|---|---:|---|
 | A. Technician crawl/service void | Raised or excavated cavity tall enough for a technician below the field | No (raised) | Yes | Excellent | Highest | drainage, confined-space rules, ventilation, structural cost |
 | B. No frame, adjustable feet only | Each LED block sits on adjustable feet directly over prepared ground | Slightly raised | Yes | Poor to medium | Lowest | cable disorder, uneven settlement, harder replacement, water exposure |
-| C. Low raised frame with lift-out blocks | 100-300mm raised structural grid; sealed blocks lift out from above; cables/drainage run in plenum | Raised 100-300mm | Yes | Good | Medium | needs careful service hatch planning |
+| C. Low raised frame with lift-out aluminum blocks | 100-300mm raised structural grid; sealed aluminum blocks lift out from above; cables/drainage run in plenum | Raised 100-300mm | Yes | Good | Medium | needs careful service hatch planning |
 | D. Modular open-frame grid on prepared ground | Bolt-together 600mm grid frame sits flush on prepared ground; stems anchor into frame nodes; no top-cover blocks; no raised feet | **Flush** | **No** (frame only) | Top-side per stem | Medium-low | sand/water management, in-field electronics enclosure sealing |
-| E1. Frame embedded in CIP concrete pad | Steel/aluminum grid set into a poured 80-150mm reinforced normal-weight concrete pad flush with grade | **Flush** | **No** (frame only) | Top-side per stem | Medium | not relocatable, hot-weather cure risk, longest civil program |
-| E2. Yard-precast LWAC panels | LWAC panels cast off-site at a UAE precaster, trucked in, set on bedding; frame factory-cast into panels | **Flush** | **No** (frame only) | Top-side per stem | Medium | panel size limited by truck; joint sealing as annual maintenance |
-| E3. Site-cast LWAC panels | Same panel concept as E2 but cast and cured on site in casting beds; larger panels, fewer joints | **Flush** | **No** (frame only) | Top-side per stem | Medium-low | needs site space for casting yard; on-site QC discipline |
+| E1. Steel plate tile, flush on ground | Sealed steel 600mm × 600mm tile with stems on top, driver inside, lifting holes at corners; flat on prepared ground | **Flush** | Yes (tile) | Lift-out per tile | Medium-low | tile weight handling, joint sealant cycle |
+| E2. LWAC concrete tile (60mm), cast on site | Same form factor as E1 but in lightweight aggregate concrete, 60mm thick, batch-cast on site in simple molds; ~37 kg = single-person lift | **Flush** | Yes (tile) | Lift-out per tile (no crane) | **Lowest of E-family** | hot-weather casting protocol, slim driver supplier set |
 
 ### Recommended Cost-Effective Solution
 
@@ -217,13 +209,14 @@ The recommendation depends on the venue's priorities. Quick guide:
 
 - **Option C** if the priority is in-field serviceability and the venue is willing to live with a 100-300mm raised deck.
 - **Option D** if the priority is a clean ground-level appearance, lowest civil program, and a relocatable installation (pilot or touring).
-- **Option E1 (CIP)** if the priority is monolithic concrete with no panel joints, and the site can accept a 4-6 week pour-and-cure schedule.
-- **Option E2 (yard-precast LWAC)** if the priority is factory-grade quality and the site cannot host a casting yard.
-- **Option E3 (site-cast LWAC)** if the site has space for a casting yard - this is the **lowest-cost flush-pad option** and gives larger panels with fewer joints.
+- **Option E1 (steel plate tile)** if the priority is durable engineered metal aesthetic and willingness to pay a small premium for it.
+- **Option E2 (LWAC concrete tile)** if the priority is the cheapest permanent flush-ground installation - same form factor as E1 but in pre-fabricated lightweight aggregate concrete batch-cast on site.
 
-For the **Abu Dhabi permanent flagship**, the recommendation is **Option E3**: it produces the same flush-pad result as E1/E2 at the lowest installed cost, with the largest panels (cleanest aerial reading), and with a schedule that can be compressed by adding casting beds. The trade-off is an on-site QC commitment that should be staffed deliberately.
+For the **Abu Dhabi permanent flagship**, the recommendation is **Option E2 (LWAC concrete tile)**: cleanest aerial reading at the lowest cost, durable in UAE heat, lift-out tiles for service, and locally sourceable materials (LECA from UAE suppliers).
 
 For a **pilot or touring version**, **Option D** remains the strongest answer.
+
+The earlier bulky-pad concepts (cast-in-place reinforced pad, multi-cell yard-precast LWAC, multi-cell site-cast LWAC) have been **replaced** with the modular tile approach in Options E1 and E2 - based on the latest sketch, the design intent is a tile-sized module same as Option C's block, not a large multi-cell precast panel.
 
 The earlier Option C build-up:
 
@@ -279,14 +272,14 @@ For the investor version, the better message is: **modular top-side maintenance 
 
 ## Layer 1 (Alternative) - Option D: Modular Open-Frame Grid on Prepared Ground
 
-This option removes the sealed 600mm block product entirely. The only modular element is the **frame grid itself**. Stems anchor directly into the frame at every 150mm grid intersection (4 x 4 per 600mm cell), and the field sits flush with finish grade.
+This option removes the sealed 600mm block product entirely. The only modular element is the **frame grid itself**. Stems anchor directly into the frame at every 200mm grid intersection (3 x 3 per 600mm cell), and the field sits flush with finish grade.
 
 ```text
 LED tulip head
 flexible/adjustable stem
 stem socket integrated into frame node
 600mm modular bolt-together frame grid (extruded aluminum or galvanized steel)
-sealed in-frame electronics pucks (one per 600mm cell, 16 stems served)
+sealed in-frame electronics pucks (one per 600mm cell, 9 stems served)
 prepared ground: compacted aggregate or sand-cement screed
 ```
 
@@ -294,7 +287,7 @@ Recommended specification:
 
 - **Frame profile:** extruded aluminum or hot-dip galvanized steel, 50-80mm tall hollow section, doubling as wire raceway
 - **Cell size:** 600mm x 600mm interior, bolted at corner nodes for grid stiffness
-- **Stem sockets:** integral threaded or bayonet sockets at 150mm pitch on the frame profile (no top cover plate over the cell)
+- **Stem sockets:** integral threaded or bayonet sockets at 200mm pitch on the frame profile (no top cover plate over the cell)
 - **Electronics:** sealed IP67 "puck" enclosure clamped to the underside of each cell, holding the 16-channel driver, power tap, and data daisy-chain
 - **Drainage:** open cell bottoms let water pass to the prepared ground; ground graded to a perimeter swale
 - **Edge treatment:** the curve is followed by cutting/notching the frame profile along the ring boundary - no plastic caps required because there is no continuous top surface
@@ -314,139 +307,121 @@ Recommended specification:
 
 ---
 
-## Layer 1 (Alternative) - Option E1: Frame Embedded in Flush Cast-in-Place Concrete Pad
+## Layer 1 (Alternative) - Option E1: Steel Plate Tile, Flush on Ground
 
-This option pours a shallow concrete pad over the active ring footprint and sets the modular frame grid into the pad during the pour. The result is a single monolithic surface flush with grade, with stems plugging into frame nodes that read as small metal points across a stone-textured slab.
-
-```text
-LED tulip head
-flexible/adjustable stem
-threaded stem socket cast into frame node
-600mm steel/aluminum grid frame, top edge flush with concrete
-80-150mm concrete pad
-cast-in conduit (power + data) and drainage channels
-compacted civil sub-base
-```
-
-Recommended specification:
-
-- **Pad:** 80-150mm reinforced concrete with surface-finished aggregate or stone-textured topcoat, fall of 1-1.5% to perimeter drains
-- **Frame grid:** factory-prefabricated grid panels (e.g. 2.4m x 2.4m, 4 x 4 cells each) lowered into wet concrete with leveling jigs; top of frame finishes flush with the pad surface
-- **Stem sockets:** stainless or brass threaded inserts cast into the frame nodes, sealed by the stem gasket on install
-- **Conduit:** PVC or HDPE conduit cast into the pad following the data ring topology, with junction pits at zone boundaries
-- **Drainage:** cast channels at the inner and outer perimeter feed to a perimeter swale
-- **Edge treatment:** the pad and frame are both cut to follow the ring curve - no stepped edge, no plastic caps
-- **Service:** stems and the in-node electronics insert from above; deeper electronics work uses pre-planned pit covers at zone boundaries
-
-### Pros
-- Most weatherproof and most stable - sand and water do not enter the field
-- Cleanest aerial reading - the desert "becomes" the canvas with no visible deck
-- Best long-term maintenance economics (no frame oxidation, no sub-frame settlement)
-- Strongest fit for a permanent flagship installation
-
-### Cons
-- Not relocatable - this is a permanent civil work
-- Longer install program (concrete cure, finishing, conduit coordination)
-- Electronics must be planned correctly the first time - rework is expensive
-- Higher up-front civil cost than Option D (offset over time by lower maintenance)
-
----
-
-## Layer 1 (Alternative) - Option E2: Yard-Precast LWAC Panels
-
-This option moves the concrete pour off the project site to an established UAE precast yard. Panels are cast in factory conditions using **lightweight aggregate concrete (LWAC)** based on LECA (light expanded clay aggregate) at ~1,600-1,800 kg/m³, then trucked to site and lifted into place on a thin sand-cement bedding.
+This option keeps the **modular tile** form factor of Option C - a sealed 600mm × 600mm unit with stems on top and the LED driver inside - but in **steel** rather than aluminum, and laid **flat on prepared ground with no raised frame**. Each tile is a self-contained light unit. Tiles set edge-to-edge like heavy paving slabs.
 
 ```text
 LED tulip head
-flexible/adjustable stem
-threaded stem socket cast into panel node
-600mm grid frame factory-cast into LWAC panel
-LWAC panel ~80-120mm thick, panel size limited by truckable max (~2.4m x 4-6m)
+flexible/adjustable stem (400-600mm)
+stem socket integrated into tile top face
+600mm × 600mm × ~60mm steel plate tile, sealed
+internal cavity with LED driver and data/power tap
+4 lifting holes at corners for crane handling
 50-75mm sand-cement bedding screed
 compacted civil sub-base
-perimeter joint sealants between panels
+perimeter joint sealants between tiles
 ```
 
 Recommended specification:
 
-- **Concrete:** structural LWAC, ~1,700 kg/m³, 30-40 MPa, with surface aggregate/stone finish or applied UV-resistant topcoat
-- **Panels:** typically 2.4m x 4-6m to match truck and crane envelopes; designed against the curve at the ring boundary
-- **Frame, conduit, sockets:** factory-cast in - this is the central advantage; tolerances are tighter than CIP and rework is rejected at the yard, not on site
-- **Joints:** UAE-thermal-cycling-rated sealant (silicone or polyurethane), 10-15mm joint width, planned re-seal cycle every 5-7 years
+- **Tile body:** ~60mm thick mild steel plate with brushed dark-gray powder-coat or weathered finish, 600mm × 600mm, stamped or laser-cut to follow the ring curve at boundary tiles
+- **Internal cavity:** sealed compartment in the tile body holding the IP67 LED driver and a quick-connect terminal for inter-tile data/power
+- **Lifting holes:** 4× corner inserts (M16 or similar) for crane hooks during installation; capped flush with the tile face after install
+- **Stem sockets:** integral threaded inserts on the top face at 200mm pitch (locked 9-LED 3 × 3)
+- **Joints:** UAE-thermal-cycling-rated sealant between tiles, ~6-10mm joint width, planned re-seal cycle every 5-7 years
 - **Bedding:** sand-cement screed for level adjustment over compacted sub-base
-- **UAE precasters to evaluate:** Dubai Precast, Gulf Precast, ACICO, RAK Precast, Emirates Precast
+- **Service:** lift the affected tile out from above for any electronics work; replace as a complete unit
 
 ### Pros
-- Factory QC eliminates the worst CIP failure modes (cracking from hot-weather cure, surface defects, embedded-item misalignment)
-- ~30% lighter than normal-weight concrete - smaller crane, smaller civil sub-base
-- Faster on-site program: lift-and-set in ~2-3 weeks vs 4-6 weeks for CIP
-- Slightly lower thermal mass = surface ~5-10°C cooler at evening showtime
-- Lower long-term maintenance than Option D; comparable durability to E1
+- Clean ground-level appearance - no raised deck, no trip hazard
+- Familiar form factor - extends Option C philosophy, easy to spec and manufacture
+- Steel is highly durable and stable in UAE heat / dust
+- Self-contained tile - no field-side wiring per stem, only inter-tile data
+- Each tile lifts out for service - best of both worlds vs Option D
+- Steel fabricators are abundant in UAE - competitive supplier base
 
 ### Cons
-- Panel size capped by truck and crane (so more joints than E1 or E3)
-- Joint sealing becomes an annual maintenance item
-- Yard overhead and profit margin are baked into the panel price
-- Not relocatable
+- Steel is heavier than aluminum - bigger crane, more handling labor
+- More expensive than the LWAC tile (E2)
+- Each tile is its own manufactured product (cost vs Option D's bare frame)
+- Joints between tiles need a sealing/maintenance plan
+- Surface gets hot in direct sun - thermal management considered in driver placement
 
 ---
 
-## Layer 1 (Alternative) - Option E3: Site-Cast LWAC Panels (Built and Cured On Site)
+## Layer 1 (Alternative) - Option E2: Light-Weight Pre-Fabricated Concrete Tile (Cast On Site)
 
-Same end result as E2 - flush LWAC panels with factory-grade frame integration - but panels are cast and cured **in a casting yard set up adjacent to the ring footprint**. This eliminates yard overhead, transport cost, and panel-size-by-truck limits, at the cost of needing site space and on-site QC discipline.
+Same modular tile form factor as E1, but in **lightweight aggregate concrete (LWAC)** rather than steel. Tiles are batch-cast on site in simple steel molds, cured, and then set in place edge-to-edge on a thin sand-cement bedding. LECA-based mix at ~1,700 kg/m³ keeps individual tile weight manageable. Each tile contains an integral cavity for the LED driver.
 
 ```text
 LED tulip head
-flexible/adjustable stem
-threaded stem socket cast into panel node
-600mm grid frame cast into LWAC panel on site
-LWAC panel ~80-120mm thick, panel size limited only by crane reach (can be larger than E2)
+flexible/adjustable stem (400-600mm)
+stem socket cast into tile top face
+600mm × 600mm × 60mm LWAC concrete tile (LECA-based, ~1,700 kg/m³)
+recessed driver cavity on the underside (slim driver module)
+4 corner lifting hole inserts cast in
 50-75mm sand-cement bedding screed
 compacted civil sub-base
-perimeter joint sealants between panels
+perimeter joint sealants between tiles
 ```
 
 Recommended setup:
 
-- **Casting beds:** 4-6 steel forms in parallel in a covered staging area on site; each bed produces one panel per 5-8 days using accelerated curing
-- **Mix:** structural LWAC supplied by mobile batching plant or local ready-mix delivery; LECA aggregate sourced locally (UAE LECA suppliers exist - quoted at ~AED 65/m³ FOB for raw aggregate)
+- **Mix:** structural LWAC, ~1,700 kg/m³, 30-40 MPa, LECA aggregate locally sourced (~AED 65/m³ FOB)
+- **On-site batch casting:** simple steel batch molds (e.g. 4-6 tile gangs cast at once), open-air covered curing area on site
+- **Tile thickness: 60mm** (locked April 28 2026, was 80mm). At 60mm with LWAC, each tile weighs ~37 kg — a **single-person lift** with a paving suction-cup grip. The driver module must be slim and recessed into the underside, not a deep cavity.
+- **Casting cycle:** pour day 1, demold day 2, water-cure 7 days, ready to install day 8 - run multiple gangs in parallel for the ~6,175 tiles (figure ~8-12 weeks from first pour to last tile depending on mold count)
 - **Hot-weather concreting protocol (ACI 305):**
-  - Chilled mix water or ice in summer pours (May-September)
+  - Chilled mix water in summer pours (May-September)
   - Evening or early-morning pour windows
-  - Curing blankets to control internal-vs-surface temperature differential
-  - 7-day water cure minimum, 14 days preferred before lift
-- **Panel size:** can be larger than truckable - 3m x 6m or even 3m x 8m practical, which **reduces joint length by 30-40% vs E2**
-- **QC:** on-site cube tests, slump, density per panel; recommend an independent QC consultant for the duration of the casting program (~22-30 weeks)
-- **Cycle planning:** 4 beds x ~1.5 cycles/week = 6 panels/week → ~30 weeks for the full ring; 6 beds compresses this to ~22 weeks
+  - Curing blankets to control temperature differential
+  - 7-day water cure minimum
+- **QC:** on-site cube tests, density per batch; lighter QC than the previous large-panel E options because each tile is small and easily rejected if it fails
+- **Service:** lift the affected tile out from above; replace as a complete unit (spare tiles cast during the original program)
+- **UAE LECA suppliers to evaluate:** Leca Building Material LLC, Leca AE, plus available aggregate via local construction-material suppliers
 
 ### Pros
-- **Cheapest of the E-family options** - eliminates yard overhead, transport, and panel-size-by-truck constraint (~AED 0.5M cheaper than E2 at mid)
-- Larger panels = fewer joints = less sealant maintenance over the asset's life
-- Schedule comparable to E2 if multiple beds run in parallel
-- Same long-term durability and aerial-reading benefits as E1 / E2
+- **Cheapest substructure of all four framing options**
+- **Single-person lift at 60mm thickness (~37 kg per tile)** — no crane needed for service; paving suction-cup grip is sufficient
+- Material is locally sourced (UAE LECA suppliers) - no import
+- Batch-cast on site in simple molds - minimal civil program
+- Lower thermal mass than normal concrete - surface ~5-10°C cooler at showtime
+- Same lift-out serviceability as E1 - each tile is replaceable
+- Familiar tile form factor - extends Option C philosophy
+- Spare tiles produced during the casting program at marginal cost
 
 ### Cons
-- Requires site space for the casting yard for ~22-30 weeks
-- On-site QC discipline is the main risk - factory grade is not automatic
-- Hot-weather concreting protocol adds AED ~50-100/m³ in summer
-- Independent QC consultant is recommended (AED 80-150k over the program)
-- A single bed failure or curing problem stops that bed for 2-3 weeks; parallel beds are the insurance
+- Driver module must be slim/recessed at 60mm thickness - narrows the supplier set slightly
+- Needs on-site batching area and short curing program (~8-12 weeks)
+- Hot-weather casting protocol in summer adds ~AED 50-100/m³
+- Surface finish less precise than steel - sealant cycle on tile joints
+- Tile breakage risk during handling is higher than steel - careful but manual handling
 
-### Why E3 is the recommended pad option for the Abu Dhabi flagship
+### Service & Handling
 
-If the site permits a casting yard, E3 lands the same flush-pad result as E1 and E2 but at the lowest installed cost, with the largest panels (cleanest aerial reading), and with a schedule that can be compressed by adding casting beds. The trade-off is an on-site QC commitment that should be staffed deliberately, not assumed away.
+Most maintenance never lifts a tile:
+- **Tulip head fails** (most common, 2-3 yr life): pull off the stem from above, snap a new one on. No tile movement.
+- **Stem damaged** (occasional): unscrew from the socket on the tile's top face. No tile movement.
+- **Driver fails** (~5%/yr): two-person team with suction-cup grips lifts one tile, swap driver, re-set. ~5 minutes per swap.
+
+A small mobile gantry or telehandler with a vacuum lifter speeds up **initial install** but is not required for ongoing operations.
+
+### Why E2 is the recommended option for the Abu Dhabi flagship
+
+E2 lands the same flush-ground result as E1 at meaningfully lower cost, uses locally sourced material (no imports), runs cooler in UAE summer heat thanks to lower thermal mass, and keeps the same modular lift-out serviceability that made Option C attractive in the first place. Each tile is a small, replaceable, locally-made module - the operational story is simple to communicate to investors and the maintenance team.
 
 ---
 
 ## Layer 2 - 600mm LED Block
 
 **Size:** 600mm x 600mm  
-**Stem grid:** 4 x 4  
-**Stem count:** 16 LED stems per unit  
-**Top material:** coated aluminum or composite top plate (Option C only - Options D and E have no top cover, just an open frame cell)  
-**Underside:** sealed electronics enclosure with service connector (Option C); IP67 puck under each cell (Option D); cast-in node electronics in pad (Option E)  
+**Stem grid:** 3 x 3 (locked 9-LED)
+**Stem count:** 9 LED stems per unit  
+**Top material:** coated aluminum or composite top plate (Option C only - Options D, E1, E2 have no separate top plate)  
+**Underside:** sealed electronics enclosure with service connector (Option C); IP67 puck under each cell (Option D); recessed driver cavity inside the tile (Options E1 and E2)  
 **Ingress protection target:** IP67 for electronics enclosure  
-**Service method:** Option C - lift individual module from frame and disconnect below; Options D and E - service from above by removing stems and lifting the underlying puck or node insert
+**Service method:** Option C - lift individual module from frame and disconnect below; Option D - service from above by removing stems and lifting the underlying puck; Options E1 and E2 - lift the affected tile out from above (single-person lift for E2 at ~37 kg)
 
 Why 600mm is the right move:
 
@@ -454,16 +429,16 @@ Why 600mm is the right move:
 - fewer modules than 500mm blocks
 - fewer connectors and failure points
 - lower installation labor
-- easier spacing for a 4 x 4 stem layout
+- easier spacing for a 3 x 3 stem layout
 - cleaner coordination with structural framing
 
 ### Stem Layout
 
-The 4 x 4 grid should use a consistent mechanical grid, but the visible field should avoid looking too perfect.
+The 3 x 3 grid should use a consistent mechanical grid, but the visible field should avoid looking too perfect.
 
 Recommended approach:
 
-- nominal stem pitch: **150mm for the 16-LED (4 x 4) variant** or **200mm for the 9-LED (3 x 3) variant**
+- nominal stem pitch: **200mm** (locked 9-LED 3 × 3 grid)
 - inset border around the unit edge
 - subtle randomized stem heights
 - 2 tulip head forms
@@ -471,27 +446,26 @@ Recommended approach:
 
 The aerial canvas remains mapped and precise, while the ground-level experience feels organic.
 
-### Density Variant: 16-LED (4 x 4) vs 9-LED (3 x 3)
+### Locked Density: 9-LED (3 × 3, 200mm pitch)
 
-Two density options are now under CEO review. Both use the same 600mm grid unit and the same tulip / stem family - only the count and pitch change.
+Density was locked on 28 April 2026. The earlier 16-LED variant (4 × 4 at 150mm pitch, 98,800 nodes) was dropped in favor of the airier 9-LED layout. Reasons for the choice:
 
-| Aspect | 16-LED (4 x 4, 150mm pitch) | 9-LED (3 x 3, 200mm pitch) |
-|---|---|---|
-| LED nodes per unit | 16 | 9 |
-| Total LED nodes (6,175 units) | 98,800 | 55,575 |
-| Aerial resolution | denser, richer, more legible content | lower-res but still highly legible from balloon height |
-| Ground-level character | dense tulip garden, immersive | airy, calmer, more sculptural |
-| Power draw at peak | ~50 kW | ~28 kW |
-| Wiring complexity per cell | higher (16 channels) | lower (9 channels) |
-| Per-cell driver cost | higher (16-channel addressable) | lower (9-channel) |
-| Mid-range LED + electronics cost | ~AED 5.4M | ~AED 3.0M |
-| Sandstorm clean-up time | longer (more stems) | shorter |
-| Suitability for content | full pixel-mapped artwork | works well for color-field, abstract, calligraphy |
-| Reversibility (upgrade later) | n/a | difficult - would require new frame nodes |
+| Aspect | 9-LED (locked) |
+|---|---|
+| LED nodes per unit | **9** |
+| Total LED nodes (6,175 units) | **55,575** |
+| Stem pitch within the 600mm cell | 200mm |
+| Ground-level character | airy, calmer, sculptural — better suited to UAE climate |
+| Aerial resolution | still highly legible from balloon height; suits abstract / color-field / calligraphic content |
+| Power draw at peak | **~28 kW** (vs ~50 kW at 16-LED) |
+| Wiring per cell | 9 channels — simpler than 16 |
+| Per-cell driver cost | lower (9-channel addressable) |
+| LED + electronics cost (mid) | **~AED 5.83M** total density-related cost |
+| Sandstorm clean-up time | shorter than 16-LED (fewer stems) |
+| Content authoring cost | ~30% lower per minute than 16-LED — meaningful at the seasonal-refresh level |
+| Reversibility | the choice is **one-way** — upgrading to denser later requires re-fabricating tiles / frame nodes |
 
-The 9-LED variant is cheaper, simpler, and runs cooler, which matters in UAE summer. The 16-LED variant gives the cleanest aerial canvas for pixel-mapped content like the Van Gogh "Starry Night" reference renders. **Density choice should be paired with content ambition** - if the launch slate leans on cinematic mapped artwork, the 16-LED variant is needed; if it leans on abstract atmospheric scenes and color washes, 9-LED is sufficient.
-
-The choice cannot easily be reversed after frame fabrication because node spacing is different. Plan the density decision before placing the frame supplier order.
+The 9-LED layout is cheaper, simpler, runs cooler, and suits the planned content slate (cultural canvases, color-field abstract, calligraphy, Van Gogh Starry Night-style mapped pieces — all of which read well at this density from 50m+ altitude).
 
 ### Square Block Edge Treatment (Option C only)
 
@@ -518,7 +492,7 @@ The stems should be adjustable before installation, then locked in place during 
 Recommended requirements:
 
 - transparent stem body with internal LED wiring/diffusion
-- pre-set height range: 200-400mm
+- **pre-set height range: 400-600mm** (plus the tulip head ~40mm above the stem)
 - height increments: 50mm
 - adjustment before installation, not during daily operation
 - locking collar or internal stop to fix final height
@@ -526,6 +500,8 @@ Recommended requirements:
 - UV-stabilized polycarbonate or hybrid polycarbonate/silicone design
 - safe flex under light accidental contact
 - replaceable stem only at module workshop level, not guest-facing daily maintenance
+
+The new range puts every stem at **2/3 to 1× the block's 600mm width**, so the stems clearly dominate visually above the relatively flat tile/block — this matches the latest sketch and the corrected proportions in the architecture renders. The earlier 200-400mm range made the field read as squashed and is obsolete.
 
 ### Height Strategy
 
@@ -535,11 +511,11 @@ Example height mix:
 
 | Stem Height | Share | Purpose |
 |---|---:|---|
-| 200mm | 15% | low glow layer |
-| 250mm | 20% | low-mid transition |
-| 300mm | 30% | main visual field |
-| 350mm | 20% | upper texture |
-| 400mm | 15% | wave peaks and depth |
+| 400mm | 15% | low glow layer |
+| 450mm | 20% | low-mid transition |
+| 500mm | 30% | main visual field |
+| 550mm | 20% | upper texture |
+| 600mm | 15% | wave peaks and depth |
 
 Each module can be pre-configured with a height recipe. When repeated across the ring, the field creates a subtle wave effect without compromising installation speed.
 
@@ -661,7 +637,7 @@ This separates venue revenue from balloon capacity. Even when the balloon is ful
 
 ## Power and Thermal Strategy
 
-The new 600mm / 16-stem block reduces density and makes the power model more credible.
+The locked 600mm / 9-stem block keeps density modest and the power model credible.
 
 Still, the field must not be treated like a full-white LED screen. It is an artistic canvas viewed from altitude, so the content should use controlled brightness, color, movement, and contrast.
 
@@ -705,7 +681,7 @@ Zone cabinets
   environmental monitoring
 
 Module controllers
-  control 16 stems per block
+  control 9 stems per block
   report temperature, moisture, voltage, fault status
 ```
 
@@ -753,32 +729,29 @@ Web pricing research, normalized to AED at 1 USD = 3.6725 AED. These are observe
 
 See the Pricing Sources & References appendix at the end of this document for the underlying citations.
 
-### Unit Economics by LED Density
+### Unit Economics at Locked 9-LED Density
 
-Working unit count: **6,175 grid units**.
+Working unit count: **6,175 grid units** × 9 LEDs = **55,575 LED stem nodes**.
 
 #### LED-density-dependent costs (mid-range, AED M)
 
-| Cost Component | 9-LED variant | 16-LED variant |
-|---|---:|---:|
-| LED tulip heads (incl. amortized tooling) | 1.83 (55,575 × AED 33) | 3.46 (98,800 × AED 35) |
-| Stems with internal wiring | 0.67 (55,575 × AED 12) | 1.19 (98,800 × AED 12) |
-| Per-cell electronics (driver + IP67 puck) | 0.93 (6,175 × AED 150) | 1.36 (6,175 × AED 220) |
-| Power supplies (24V outdoor IP67) | 0.36 | 0.60 |
-| Pixel controllers (Advatek-class, 4-7 units) | 0.04 | 0.06 |
-| LED-related installation labor | 1.00 | 1.50 |
-| Commissioning, calibration, mapping | 0.30 | 0.40 |
-| Density-related spares (heads, stems, drivers) | 0.70 | 1.20 |
-| **Density subtotal (mid)** | **AED 5.83M** | **AED 9.77M** |
+| Cost Component | Calculation | Mid |
+|---|---|---:|
+| LED tulip heads (incl. amortized tooling) | 55,575 × AED 33 | 1.83 |
+| Stems with internal wiring | 55,575 × AED 12 | 0.67 |
+| Per-cell electronics (9-channel driver + IP67 puck) | 6,175 × AED 150 | 0.93 |
+| Power supplies (24V outdoor IP67) | proportional to 28 kW peak | 0.36 |
+| Pixel controllers (Advatek-class, 4 units) | | 0.04 |
+| LED-related installation labor | | 1.00 |
+| Commissioning, calibration, mapping | | 0.30 |
+| Density-related spares (heads, stems, drivers) | | 0.70 |
+| **Density subtotal** | | **AED 5.83M** |
 
-The density delta at mid-range is roughly **AED 4M** in favor of the 9-LED variant.
+#### LED-density-dependent costs - low / mid / high range
 
-#### LED-density-dependent costs - low and high ranges
-
-| Variant | Low | Mid | High |
-|---|---:|---:|---:|
-| 9-LED | AED 4.1M | AED 5.83M | AED 8.7M |
-| 16-LED | AED 6.8M | AED 9.77M | AED 14.6M |
+| Low | Mid | High |
+|---:|---:|---:|
+| AED 4.1M | **AED 5.83M** | AED 8.7M |
 
 ### Substructure Cost by Framing Option
 
@@ -786,11 +759,10 @@ Substructure here = field substrate + frame grid + civil base + drainage + cable
 
 | Framing Option | Low | Mid | High | Key drivers |
 |---|---:|---:|---:|---|
-| C - raised frame + sealed blocks | AED 3.1M | **AED 4.6M** | AED 6.8M | sealed block manufacturing dominates; raised structural deck adds ~AED 1.4M |
+| C - raised frame + sealed aluminum blocks | AED 3.1M | **AED 4.6M** | AED 6.8M | sealed block manufacturing dominates; raised structural deck adds ~AED 1.4M |
 | D - modular open-frame grid on prepared ground | AED 2.0M | **AED 3.2M** | AED 4.6M | aluminum frame + node sockets + sub-base prep |
-| E1 - cast-in-place reinforced concrete pad | AED 3.0M | **AED 4.6M** | AED 6.7M | rebar, formwork, hot-weather cure, frame-cast-in coordination |
-| E2 - yard-precast LWAC panels | AED 2.7M | **AED 4.1M** | AED 6.0M | factory panel + transport + bedding + jointing |
-| E3 - site-cast LWAC panels | AED 2.3M | **AED 3.6M** | AED 5.4M | site casting yard + LWAC + bedding + jointing |
+| E1 - steel plate tile, flush on ground | AED 2.5M | **AED 3.7M** | AED 5.4M | steel plate fabrication + lifting holes + bedding + tile jointing |
+| E2 - LWAC concrete tile (60mm), batch-cast on site | AED 1.6M | **AED 2.6M** | AED 3.8M | LWAC mix + simple molds + bedding + tile jointing (locally sourced) |
 
 ### Shared / Common Costs (independent of density and framing)
 
@@ -811,10 +783,12 @@ Substructure here = field substrate + frame grid + civil base + drainage + cable
 
 This is the matrix shown at the top of the document, derived as `density + substructure + shared` for each combination.
 
-| | C (raised+blocks) | D (open frame) | E1 (CIP pad) | E2 (yard-precast LWAC) | E3 (site-cast LWAC) |
-|---|---:|---:|---:|---:|---:|
-| **9-LED** | 16.5 | 13.8 | 15.4 | 14.9 | 14.4 |
-| **16-LED** | 22.5 | 19.8 | 21.4 | 20.9 | 20.4 |
+| Framing Option | Total (mid, AED M) |
+|---|---:|
+| C (raised+blocks) | 16.5 |
+| D (open frame) | 13.8 |
+| E1 (steel tile) | 14.5 |
+| **E2 (LWAC tile, 60mm)** ★ | **13.4** |
 
 ### Combined Total Installed System (Low - Mid - High, AED M)
 
@@ -822,52 +796,61 @@ This is the matrix shown at the top of the document, derived as `density + subst
 |---|---:|---:|---:|
 | 9-LED × C | 11.2 | **16.5** | 24.6 |
 | 9-LED × D | 9.8 | **13.8** | 20.6 |
-| 9-LED × E1 | 11.0 | **15.4** | 22.7 |
-| 9-LED × E2 | 10.6 | **14.9** | 22.0 |
-| 9-LED × E3 | 10.2 | **14.4** | 21.4 |
-| 16-LED × C | 13.9 | **22.5** | 30.9 |
-| 16-LED × D | 12.5 | **19.8** | 26.9 |
-| 16-LED × E1 | 13.7 | **21.4** | 29.0 |
-| 16-LED × E2 | 13.4 | **20.9** | 28.3 |
-| 16-LED × E3 | 13.0 | **20.4** | 27.7 |
+| 9-LED × E1 | 10.4 | **14.5** | 21.6 |
+| **9-LED × E2** ★ | 9.5 | **13.4** | 20.0 |
+
+### Per-Module Rough Cost (Mid-Range, AED)
+
+`Total ÷ 6,175 grid units`. Useful for talking about unit economics with the manufacturing team.
+
+| Combination | Total cost | **Per module** | USD per module |
+|---|---:|---:|---:|
+| 9-LED × C | AED 16.5M | **~AED 2,650** | ~USD 720 |
+| 9-LED × D | AED 13.8M | **~AED 2,235** | ~USD 610 |
+| 9-LED × E1 | AED 14.5M | **~AED 2,350** | ~USD 640 |
+| **9-LED × E2** ★ | AED 13.4M | **~AED 2,170** | ~USD 590 |
+
+For comparison, the **substructure-only per-module** cost ranges from **~AED 420** (E2 60mm) to **~AED 745** (Option C). The remaining ~AED 1,400-1,800 per module covers LEDs, electronics, walkway/control share, install, and spares.
 
 ### Cleaner Investor Range
 
 For investor conversation, use:
 
 ```text
-LED field installed system, recommended pairing (E3 + 16-LED):
-approx. AED 18M - 24M target range
-Risk allowance: up to AED 28M before supplier quotes
+LED field installed system, recommended (E2 LWAC tile 60mm + 9-LED, locked):
+approx. AED 11M - 15M target range
+Risk allowance: up to AED 20M before supplier quotes
+Per-module budget: ~AED 2,170 (~USD 590)
 
-Lower-cost pilot pairing (D + 9-LED):
+Alternate pilot pairing (D + 9-LED, fully relocatable):
 approx. AED 12M - 16M target range
 Risk allowance: up to AED 21M
+Per-module budget: ~AED 2,235 (~USD 610)
 ```
 
 USD equivalent at 3.6725 AED/USD:
 
 ```text
-Flagship pairing: approx. USD 4.9M - 6.5M target, USD 7.6M risk
-Pilot pairing:    approx. USD 3.3M - 4.4M target, USD 5.7M risk
+Flagship pairing (E2 + 9-LED): approx. USD 3.0M - 4.1M target, USD 5.4M risk
+Pilot pairing (D + 9-LED):     approx. USD 3.3M - 4.4M target, USD 5.7M risk
 ```
 
 ### Spares & Commissioning Stock
 
-Recommended spare allocation, sized for the first 18-24 months of operation. The most exposed components (tulip heads) carry the highest spare ratio because they sit fully outdoors under UAE sun and dust. The "Approx. Spare Quantity" column shows quantities for both density variants.
+Recommended spare allocation, sized for the first 18-24 months of operation. The most exposed components (tulip heads) carry the highest spare ratio because they sit fully outdoors under UAE sun and dust. Quantities are based on the locked 9-LED density (55,575 nodes / 6,175 cells).
 
-| Component | Spare Ratio | Rationale | Quantity (9-LED) | Quantity (16-LED) |
-|---|---:|---|---:|---:|
-| Tulip heads (Closed and Open variants combined) | **8% of installed nodes** | most UV-exposed, hot-swappable, 2-3 year service life | ~4,450 heads | ~7,900 heads |
-| Stems (full assembly) | **3% of installed nodes** | flex fatigue, accidental contact | ~1,670 stems | ~2,960 stems |
-| Per-cell electronics module | **5% of installed cells** | thermal stress, surge events | ~310 modules | ~310 modules |
-| Frame sections / connectors (Options D and E1-E3) | **2% of installed length** | install damage and future repair | per BoM | per BoM |
-| Sealed base blocks (Option C only) | **1% of installed blocks** | impact damage or flooding | ~62 blocks | ~62 blocks |
-| Power supplies, fiber transceivers, switches | **5% of installed count** | supplier lead times | per BoM | per BoM |
-| Cabling, gaskets, fasteners, connectors | **5-10% of installed length** | consumables | per BoM | per BoM |
-| Tulip head molds / tooling | hold molds for **at least 5 years** | re-running molds on demand is cheaper than waiting on long-lead supply | n/a | n/a |
+| Component | Spare Ratio | Rationale | Quantity |
+|---|---:|---|---:|
+| Tulip heads (Closed and Open variants combined) | **8% of installed nodes** | most UV-exposed, hot-swappable, 2-3 year service life | ~4,450 heads |
+| Stems (full assembly) | **3% of installed nodes** | flex fatigue, accidental contact | ~1,670 stems |
+| Per-cell electronics module (9-channel) | **5% of installed cells** | thermal stress, surge events | ~310 modules |
+| Frame sections / connectors (Option D only) | **2% of installed length** | install damage and future repair | per BoM |
+| Sealed aluminum blocks (Option C) / Steel or LWAC tiles (E1, E2) | **1% of installed units** | impact damage or flooding | ~62 units |
+| Power supplies, fiber transceivers, switches | **5% of installed count** | supplier lead times | per BoM |
+| Cabling, gaskets, fasteners, connectors | **5-10% of installed length** | consumables | per BoM |
+| Tulip head molds / tooling | hold molds for **at least 5 years** | re-running molds on demand is cheaper than waiting on long-lead supply | n/a |
 
-The spares budget is captured in the **density-related spares** line of the unit economics table above (AED 0.7M for 9-LED, AED 1.2M for 16-LED at mid). Two operational rules:
+The spares budget is captured in the **density-related spares** line of the unit economics table above (AED 0.7M at mid). Two operational rules:
 
 1. **First-year tulip refresh budget** - assume 3-5% of installed heads are swapped in year one as commissioning catches early failures and dust-related fogging. Plan a quarterly walk-through.
 2. **Rolling spare floor** - never let on-site spare stock fall below 50% of the original allocation without re-ordering. Lead times from Asia for custom tulip molds and per-cell electronics can run 8-14 weeks.
@@ -876,8 +859,8 @@ The spares budget is captured in the **density-related spares** line of the unit
 
 If the budget needs to come down further:
 
-- **Choose 9-LED density** - saves ~AED 4M at mid-range vs 16-LED
-- **Choose Option D or E3** for substructure - saves ~AED 1-1.4M vs C / E1
+- **9-LED density already locked** - the AED ~4M saving vs 16-LED is already in the budget; consider this savings already booked
+- **Choose Option D or E2** for substructure - saves ~AED 1.4-1.6M vs Option C, ~AED 0.7M vs Option E1
 - Use cluster control instead of individual stem control in pilot phase (saves ~AED 0.4M)
 - Keep tulip head variants to two molds (already in spec)
 - Make the first field 50m diameter instead of 60m (saves ~25% of LED count)
@@ -936,6 +919,75 @@ approx. AED 185k-920k each
 ```
 
 This range depends heavily on whether the show is abstract/generative, artist-led, 2D motion design, 3D cinematic, or sponsor-driven.
+
+---
+
+## Content Cost Per Season / Event
+
+This section sizes the content program for a venue running **5 different shows per night plus continuous ambient lighting between shows**. The numbers tier into three buckets that behave very differently — the launch is expensive because the pixel-mapping pipeline is built once; seasonal refreshes and per-event productions are much cheaper because they reuse that pipeline.
+
+The 9-LED density choice (locked) reduces per-minute content authoring cost roughly 30% versus the 16-LED variant that was considered, because there is less detail to render. The numbers below already reflect 9-LED authoring economics and land at the lower-to-middle end of the industry benchmark ranges.
+
+### Three cost buckets
+
+| Bucket | What's in it | Cost (AED) |
+|---|---|---:|
+| **Initial Launch** (one-time) | Pixel-mapping pipeline + 5 hero shows (~25 min total) + ambient library (~60-90 min unique loops) + sound + creative direction + on-site calibration | **AED 1.5M – 4.7M** (mid: ~AED 2.8M) |
+| **Per Season Refresh** (~4×/year) | 1 new hero show (5–7 min) + 20–30 min new ambient sequence + sound + production direction. Mapping pipeline already paid. | **AED 350k – 900k each** (mid: ~AED 600k) |
+| **Per Event** (sponsor / corporate, on-demand) | Custom branded 3–5 min show + branded ambient + sound + on-site operator. Often **revenue-generating**, not pure cost. | **AED 180k – 580k each** (mid: ~AED 350k) |
+
+### What the launch package actually buys
+
+- **Pixel-mapping pipeline** (one-time, AED 200-550k). Survey the installed ring geometry, produce a top-down pixel map, build a TouchDesigner / MadMapper / Resolume project that targets the locked 9-LED 200mm pitch grid. Reused for every future show. This is the expensive bit, and it only happens once.
+- **5 hero shows** for the nightly slate: Welcome Canvas, UAE/Abu Dhabi Signature, Artist Canvas, Sponsor Edition, Night Finale. Average ~5 min each. Mid-cost ~AED 280k each at small-studio rates × 5 ≈ AED 1.4M.
+- **Ambient library**: 60-90 minutes of unique generative / loop-based content for between-show dwell time. Cheaper per minute than hero content because it's authored as a behavior system (palette + motion rules), not frame-by-frame.
+- **Sound and music package**: original score per hero show + ambient soundscape. Mid ~AED 270k for the launch slate.
+- **On-site calibration**: drone or balloon-height verification of aerial readability, content adjustment for haze, content adjustment for gondola motion. Mid ~AED 295k.
+
+### Per-Minute Reference Rates (used in the buckets)
+
+These are the underlying market rates the bucket totals are built from:
+
+| Content Type | AED per finished minute | Notes |
+|---|---|---|
+| Hero / cinematic 3D animation, small studio | 11k – 37k | most launch hero shows |
+| Hero / cinematic 3D animation, premium studio | 30k – 90k | reserve for the National Day signature show |
+| Abstract / generative content | 30k – 120k of one-time authoring | runs continuously after, marginal cost ~zero |
+| Original music + sound design per show | 18k – 90k | 5-minute show |
+| Pixel-mapping pipeline (one-time) | 200k – 550k total | reused across all shows |
+
+### Annual Steady-State Content Budget
+
+Assuming 4 seasonal refreshes per year and 6-10 sponsor / corporate event productions per year:
+
+```text
+Seasonal refreshes:     4 × AED 600k     = AED 2.4M
+Sponsor events:        ~8 × AED 350k     = AED 2.8M  (mostly recovered as event revenue)
+Operator + show ops:                       AED 100k  (one operator, 280 nights/year)
+─────────────────────────────────────────────────────
+Steady-state content year (gross):       ~AED 5.3M
+Steady-state content year (net of
+sponsor billing, ~80% recovery):         ~AED 2.6M
+```
+
+USD equivalent at 3.6725 AED/USD: **~USD 1.4M gross / ~USD 0.7M net** annually after sponsor billing.
+
+### Cost-Control Levers (Content)
+
+If the content budget needs to come down further:
+
+- **Re-skin existing hero shows for sponsor events** at AED 80-200k vs AED 350k+ for new — strong sponsor margin and shorter delivery time
+- **Bank ambient sequences during the launch program** so the first 6-12 months of ambient variety is paid at marginal cost
+- **Commission seasonal artist canvases as artist residencies** — DCT Abu Dhabi or ADIO cultural funding may underwrite a portion
+- **Use generative palettes for the Artist Canvas slot** — one authored generative system can run for an entire season with parameter shifts and reads as fresh content
+- **Reuse music tracks across show variations** — original score per hero show is expensive; sub-mixes and stems amortize that cost
+- **Defer the 4th and 5th hero show to year 2** — launch with 3 hero shows and a longer ambient library, add the remaining 2 hero shows in seasonal refreshes during year 1
+
+### Why 9-LED Density Helps the Content Budget
+
+- **~30% lower per-minute authoring cost** than 16-LED for the same visual quality, because there are fewer pixels to author per frame and the content reads as intentionally sparse rather than detail-poor
+- **More forgiving of artistic style choices** — calligraphy, color-field, generative-systems, and abstract painting all read beautifully at 9-LED density; 16-LED would have demanded more cinematic/photoreal content to justify its detail
+- **Lower power means more aggressive show choreography** — running 100% peaks for short bursts is thermally feasible at 28 kW peak in a way it would not have been at 50 kW
 
 ---
 
@@ -1055,7 +1107,7 @@ Goal: prove one complete 600mm block.
 Scope:
 
 - 1-4 working 600mm modules
-- 4 x 4 stem grid
+- 3 x 3 stem grid
 - adjustable stem height system
 - flexible sway test
 - 2 tulip head shapes
@@ -1119,17 +1171,18 @@ Decision gates:
 
 ## Open Decisions
 
-These need to be finalized before supplier engagement. **The first two are the CEO-level decisions** captured in the CEO Decision Summary at the top of this document.
+These need to be finalized before supplier engagement. **The remaining CEO-level decision** is captured in the CEO Decision Summary at the top of this document.
 
-1. **Framing option** - C (raised + sealed blocks) vs D (open frame, ground level) vs E1 (CIP pad) vs E2 (yard-precast LWAC) vs E3 (site-cast LWAC)
-2. **LED density** - 9-LED (3 x 3, 200mm pitch) vs 16-LED (4 x 4, 150mm pitch)
+1. **Framing option** - C (raised aluminum block) vs D (open frame, ground level) vs E1 (steel plate tile, flush) vs E2 (LWAC concrete tile, flush)
+
+LED density was **locked at 9-LED (3 × 3, 200mm pitch) on 28 April 2026** — no longer an open decision.
 
 Other open decisions:
 
 - final field diameter remains 60m or value-engineered smaller
 - exact route and finish of the **3m walkway** (mesh-and-glass build-up, content grade)
 - structural frame material (extruded aluminum vs galvanized steel) and profile height
-- stem height range and locking detail
+- stem height range now **400-600mm** in 50mm steps (locked) — locking detail still open
 - flex material: polycarbonate, silicone hybrid, or composite stem
 - two tulip head molds
 - individual stem control vs grouped control
@@ -1138,8 +1191,8 @@ Other open decisions:
 - supplier shortlist and prototype RFQ
 - patent filing before manufacturer meetings
 - spare-stock owner: site team vs central depot, and the re-order trigger
-- (E2 / E3 only) UAE precaster shortlist and casting yard logistics
-- (E3 only) on-site QC consultant and hot-weather pour windows
+- (E1 only) steel fabricator shortlist and tile finishing spec (powder-coat, weathered, etc.)
+- (E2 only) on-site batching/casting area logistics, mold count for parallel batch casting, and hot-weather concreting protocol
 
 ---
 
@@ -1147,16 +1200,17 @@ Other open decisions:
 
 The updated design is easier to defend:
 
-> A 60m illuminated aerial canvas built on a 600mm desert-ready grid of 6,175 light units (up to 98,800 LED stem nodes), with a glowing glass walkway leading guests across a 3m path to the balloon platform.
+> A 60m illuminated aerial canvas built on a 600mm desert-ready grid of 6,175 light units (55,575 LED stem nodes at locked 9-LED density), with a glowing glass walkway leading guests across a 3m path to the balloon platform.
 
 Investor talking points:
 
-- lower-density system is more realistic and maintainable
-- up to 98,800 LED stem nodes (16-LED variant) create a major spectacle; the 9-LED variant at 55,575 nodes is a 36% lower-cost alternative for budget-pressured launch
+- 9-LED density (locked) gives a calmer, airier light garden suited to UAE climate; runs at ~28 kW peak vs ~50 kW for the heavier alternative considered
+- 55,575 LED stem nodes still create a major aerial spectacle, fully legible from balloon-height
 - 600mm grid units reduce manufacturing and installation complexity
-- five framing options give the program flexibility - sealed modular blocks for serviceability, ground-level open-frame for relocatable pilots, or one of three flush-pad variants (CIP, yard-precast LWAC, site-cast LWAC) for a permanent flagship with the cleanest aerial reading
-- recommended Abu Dhabi flagship pairing: **Option E3 + 16-LED at AED ~20.4M mid-range** (USD ~5.5M) all-in installed
-- recommended pilot pairing: **Option D + 9-LED at AED ~13.8M mid-range** (USD ~3.8M) all-in installed
+- four framing options give the program flexibility - sealed aluminum block on raised frame for serviceability (Option C), ground-level open-frame for relocatable pilots (Option D), or modular tile flush on ground in steel (E1) or pre-fabricated lightweight concrete (E2) for a permanent flagship
+- recommended Abu Dhabi flagship pairing: **Option E2 (LWAC tile) + 9-LED at AED ~13.4M mid-range** (USD ~3.65M) all-in installed
+- alternate relocatable pilot pairing: **Option D + 9-LED at AED ~13.8M mid-range** (USD ~3.8M) all-in installed
+- stems are 400-600mm tall (plus tulip head) — they read as the dominant visual element above a flat tile, creating a sculptural ground-level garden
 - raised frame solves airflow, water, and cable-management concerns
 - adjustable flexible stems create a premium ground-level garden
 - multiple nightly shows support night-pass revenue
