@@ -5,7 +5,12 @@
       "Bash(git remote *)",
       "Bash(git mv *)",
       "WebSearch",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "PowerShell(Get-Command pdftoppm, pdftotext, mutool, ghostscript, gs -ErrorAction SilentlyContinue)",
+      "PowerShell(python --version 2>&1)",
+      "PowerShell(python -c \"import PyPDF2; print\\('PyPDF2 available'\\)\" 2>&1)",
+      "PowerShell(python -c \"import pdfplumber; print\\('pdfplumber available'\\)\" 2>&1)",
+      "PowerShell(python -c \"import fitz; print\\('PyMuPDF available'\\)\" 2>&1)"
     ]
   }
 }
