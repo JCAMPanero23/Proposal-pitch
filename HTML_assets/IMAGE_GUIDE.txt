@@ -1,0 +1,222 @@
+================================================================================
+  CANVAS FROM THE SKY — HTML_assets Image Guide
+  All images used in index.html pitch deck
+  Target render size for all new renders: 1080 x 864 px (landscape, 16:9)
+================================================================================
+
+STATUS KEY
+  [READY]    File is final — do not replace
+  [PLACEHOLDER]  Temp file in place — OVERWRITE with your render
+
+--------------------------------------------------------------------------------
+SECTION: HERO & OVERVIEW
+--------------------------------------------------------------------------------
+
+  hero-aerial-night.png          [READY]
+    Section  : Hero (above the fold, full-bleed background)
+    Shows    : Aerial drone view — balloon above Louvre Abu Dhabi, LED ring
+               glowing Starry Night content, Abu Dhabi city in background
+    Size     : 1552 x 1013 px
+    Notes    : The single most important image in the pitch. Do not replace
+               unless you have a stronger aerial with Louvre in frame.
+
+  overview-night.png             [READY]
+    Section  : Strategic overview / "Why Canvas From The Sky"
+    Shows    : Wider night angle — balloon floating above Louvre Abu Dhabi,
+               softer mood, more context of the island setting
+    Size     : 1740 x 904 px
+
+--------------------------------------------------------------------------------
+SECTION: LOCATION
+--------------------------------------------------------------------------------
+
+  location-saadiyat.png          [READY]
+    Section  : Location — Saadiyat Island context
+    Shows    : Louvre Abu Dhabi aerial day reference view, coastline visible
+    Size     : 2816 x 1472 px
+    Notes    : Used as a wide establishing shot for the Saadiyat section.
+
+--------------------------------------------------------------------------------
+SECTION: GUEST EXPERIENCE (Night Ride Timeline)
+--------------------------------------------------------------------------------
+
+  experience-ground-arrival.png  [READY]
+    Step     : Arrival — guests walk through the LED field to the platform
+    Shows    : Ground-level spectator view, glowing blue tulip stems,
+               balloon hovering above, warm sunset sky
+    Size     : 864 x 1080 px (portrait)
+
+  experience-walkway.png         [PLACEHOLDER — OVERWRITE]
+    Step     : Arrival — the glowing glass LED walkway close-up
+    Shows    : Ground-level view of the 3m tempered glass LED path leading
+               from the outer ring edge to the balloon platform
+    Render   : Night, warm gold/blue LED glow through glass, balloon platform
+               visible at end of path
+    Target   : 1080 x 864 px
+
+  experience-aerial-preshow.png  [READY]
+    Step     : Ascent / Peak — balloon high above, LED ring dark or pre-show
+    Shows    : Top-down aerial, balloon tethered above a minimal dark ring,
+               black sky — the calm before the show
+    Size     : 1080 x 864 px
+
+  experience-gondola-outside.png [READY]
+    Step     : Show height (25m) — approaching the main show
+    Shows    : Outside gondola POV looking down at LED ring, gondola structure
+               and cables frame the shot, ring fills lower portion of frame
+    Size     : 1080 x 864 px
+
+  experience-gondola-inside.png  [READY]
+    Step     : Main Show — LED canvas at full power from inside gondola
+    Shows    : Inside gondola looking down through railing at LED ring
+               displaying Starry Night content, dramatic low angle
+    Size     : 1080 x 864 px
+
+--------------------------------------------------------------------------------
+SECTION: THREE THEMES (Interactive Switcher)
+--------------------------------------------------------------------------------
+
+  Each theme has 4 images:
+    -drone     : Aerial drone shot showing balloon + LED ring with theme content
+    -gondola   : Gondola POV looking down at the LED canvas during that theme
+    -content   : Top-down ring artwork — what the LED canvas actually displays
+    -bg        : Illustrative/artistic full-scene image for card background
+
+  ── THEME A — "The Universal Collection" (Louvre Abu Dhabi) ──────────────────
+  Colour palette: warm gold, ivory, deep sapphire blue
+
+  theme-a-drone.png              [READY]
+    Shows    : Drone wide — balloon above, LED ring glowing amber/gold content,
+               warm sunset sky, ticket booth visible lower left
+    Size     : 1152 x 1440 px (portrait — will be cropped/positioned in HTML)
+
+  theme-a-gondola.png            [PLACEHOLDER — OVERWRITE]
+    Shows    : Gondola POV looking down at LED ring displaying gold geometric
+               Islamic / calligraphic content (Louvre palette: gold on blue)
+    Target   : 1080 x 864 px
+
+  theme-a-content.png            [READY]
+    Shows    : Top-down ring artwork — gold geometric Islamic tessellation,
+               clean black background, ring format
+    Size     : 1254 x 1254 px (square)
+    Notes    : Used as the "what the LED displays" inset preview card
+
+  theme-a-bg.png                 [READY]
+    Shows    : Islamic arched corridor / Louvre-style dome, gold tessellation,
+               rich gold and dark palette — full illustrative scene
+    Size     : 1254 x 1254 px (square)
+    Notes    : Used as decorative background for Theme A card section
+
+  ── THEME B — "The Nation's Story" (Zayed National Museum) ───────────────────
+  Colour palette: amber, warm sand, deep burnt orange, turquoise accent
+
+  theme-b-drone.png              [READY]
+    Shows    : Drone wide — balloon above, LED ring glowing earth/amber tones
+               with heritage content, same sky composition as Theme A drone
+    Size     : 1152 x 1440 px (portrait)
+
+  theme-b-gondola.png            [PLACEHOLDER — OVERWRITE]
+    Shows    : Gondola POV looking down at LED ring displaying Sheikh Zayed /
+               falconry / desert heritage content (amber/earth palette)
+    Target   : 1080 x 864 px
+
+  theme-b-content.png            [READY]
+    Shows    : Top-down ring artwork — Sheikh Zayed portrait, falcons, desert,
+               dhow boat, palm trees, Van Gogh-style brushwork, ring format
+    Size     : 1254 x 1254 px (square)
+
+  theme-b-bg.png                 [READY]
+    Shows    : Full landscape scene — "The Nation's Story" painted illustration
+               with Sheikh Zayed, falcon, desert caravan, pearl divers, dhow;
+               Zayed National Museum branding text included
+    Size     : 1536 x 1024 px
+    Notes    : Text on image. Used as blurred/overlaid card background in HTML.
+
+  ── THEME C — "The Future Canvas" (Guggenheim Abu Dhabi) ─────────────────────
+  Colour palette: electric cobalt blue, magenta/violet, vivid abstract colour
+
+  theme-c-drone.png              [PLACEHOLDER — OVERWRITE]
+    Shows    : Drone wide — balloon above, LED ring blazing with electric
+               blue/magenta abstract content, Abu Dhabi city skyline at night
+               visible in background
+    Target   : 1080 x 864 px
+
+  theme-c-gondola.png            [PLACEHOLDER — OVERWRITE]
+    Shows    : Gondola POV looking down at LED ring displaying vivid electric
+               abstract/colour-field content (blue, magenta, bold geometry)
+    Target   : 1080 x 864 px
+
+  theme-c-content.png            [READY]
+    Shows    : Guggenheim Abu Dhabi building — bold illustrated render with
+               vivid concentric circles, orange/purple/blue art-deco palette
+    Size     : 1536 x 1024 px
+    Notes    : Used as Theme C card visual / background
+
+--------------------------------------------------------------------------------
+SECTION: LED CANVAS & TECHNOLOGY
+--------------------------------------------------------------------------------
+
+  led-aerial-canvas.png          [READY]
+    Section  : LED canvas — aerial overview with full content
+    Shows    : Top-down drone view, balloon + full LED ring displaying
+               Starry Night content, rich and detailed
+    Size     : 1080 x 864 px
+
+  led-aerial-overview.png        [READY]
+    Section  : LED canvas — ring geometry overview
+    Shows    : Top-down drone view, balloon + LED ring minimal/dark,
+               clear view of ring dimensions and layout
+    Size     : 1080 x 864 px
+
+  led-module-diagram.png         [READY]
+    Section  : LED module life expectancy — technical exploded diagram
+    Shows    : Labelled exploded view: Tulip Head (3×3), Stem (3×3),
+               Sealed Base (1×) with dimensions and component callouts
+    Size     : 1402 x 1122 px
+    Notes    : White/light background. Use on dark card with care (may need
+               background treatment in CSS).
+
+  led-module-render.png          [READY]
+    Section  : LED module — clean 3D product render
+    Shows    : Single 600×600mm LED block with 9 stems and tulip heads,
+               neutral background, simple presentation
+    Size     : 1080 x 864 px
+
+--------------------------------------------------------------------------------
+SECTION: INVESTMENT TIERS
+--------------------------------------------------------------------------------
+
+  investment-tier-high.png       [READY]
+    Tier     : High Tier — Option C (Sealed Aluminum Block, Raised Frame)
+    Shows    : Clean product render, white background — aluminum block on
+               raised structural frame, 9 LED stems on top, labelled
+               (Tulip Head, Stem, Sealed Block, Raised Frame, Service Plenum)
+    Size     : 1448 x 1086 px
+
+  investment-tier-low.png        [PLACEHOLDER — OVERWRITE]
+    Tier     : Low Tier — Option E2 (LWAC Concrete Tile, Flush on Ground)
+    Shows    : Clean product render, white background — 60mm LWAC concrete
+               tile flat on ground, 9 LED stems on top, lifting holes visible
+               at corners, same style/framing as investment-tier-high.png
+    Target   : 1080 x 864 px (match style of investment-tier-high.png)
+
+--------------------------------------------------------------------------------
+PENDING SUMMARY — 6 files to overwrite
+--------------------------------------------------------------------------------
+
+  experience-walkway.png         Target: 1080 x 864 px
+  theme-a-gondola.png            Target: 1080 x 864 px
+  theme-b-gondola.png            Target: 1080 x 864 px
+  theme-c-drone.png              Target: 1080 x 864 px
+  theme-c-gondola.png            Target: 1080 x 864 px
+  investment-tier-low.png        Target: 1080 x 864 px
+
+  All pending files have a placeholder image in place so the HTML
+  will not break. Just save your render with the exact filename above
+  into this folder — it will replace the placeholder automatically.
+
+================================================================================
+  Total: 25 images (19 ready, 6 placeholder)
+  All files live in: HTML_assets/
+  HTML references images as: HTML_assets/[filename]
+================================================================================
