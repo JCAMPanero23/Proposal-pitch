@@ -194,10 +194,13 @@ SECTION: INVESTMENT TIERS
     Size     : 1448 x 1086 px
 
   investment-tier-low.png        [PLACEHOLDER — OVERWRITE]
-    Tier     : Low Tier — Option E2 (LWAC Concrete Tile, Flush on Ground)
-    Shows    : Clean product render, white background — 60mm LWAC concrete
-               tile flat on ground, 9 LED stems on top, lifting holes visible
-               at corners, same style/framing as investment-tier-high.png
+    Tier     : Low Tier — 50mm GFRC Concrete Tile on Adjustable Feet
+    Shows    : Clean product render, white background — 50mm GFRC (glass
+               fiber reinforced concrete) tile on 4 heavy-duty 316SS
+               adjustable corner feet (125–175mm range), 9 LED stems with
+               tulip heads at varying heights on top; underside visible
+               showing two recessed driver cavities and corner foot inserts;
+               same style/framing as investment-tier-high.png
     Target   : 1080 x 864 px (match style of investment-tier-high.png)
 
 --------------------------------------------------------------------------------

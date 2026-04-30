@@ -111,34 +111,37 @@ Saadiyat Island had ~10% YoY visitor growth in 2024 with 74% hotel occupancy. Th
 
 ## Part 3 — Initial Investment (CAPEX)
 
-Two LED field tiers at identical LED density (9-LED, 55,575 nodes, same aerial show quality). Choice is structural durability and serviceability vs. upfront cost.
+Two LED field tiers at identical LED density (9-LED, 55,575 nodes, same aerial show quality). Both tiers use the same 316 stainless steel adjustable feet system (125–175mm height range) — the choice is tile material: precision-machined aluminum plate vs. cast GFRC concrete.
 
-### High Tier — Aluminum Sealed Block (Option C)
+### High Tier — Aluminum Plate Tile on Adjustable Feet
 
 | Component | Cost (AED) |
 |---|---:|
-| LED field — sealed aluminum block on raised frame | 16,500,000 |
+| LED field — 8mm 6061-T6 aluminum plate tile, 4× 316SS adjustable feet | 15,100,000 |
 | Balloon (gondola + envelope + winch system) | 8,000,000 |
 | Content launch package — 3 themed hero shows + ambient library | 2,800,000 |
-| **Total CAPEX** | **27,300,000** |
+| **Total CAPEX** | **25,900,000** |
 
-- Raised 100–300mm above grade, full service plenum below
-- Each 600mm block lifts out individually for maintenance
+- 8mm 6061-T6 aluminum plate, hard-anodised finish, ~14 kg per tile
+- 4× 316 stainless steel heavy-duty adjustable corner feet, 125–175mm range
+- IP67 driver cavity machined into the tile body
+- Each 600mm tile lifts out individually — single-person service, no crane
 - Structural life: 20–30 years
 
-### Low Tier — LWAC Concrete Tile (Option E2) ★ Recommended
+### Low Tier — GFRC Concrete Tile on Adjustable Feet ★ Recommended
 
 | Component | Cost (AED) |
 |---|---:|
-| LED field — 60mm LWAC concrete tile, flush on ground | 13,400,000 |
+| LED field — 50mm GFRC tile, cast-in 316SS adjustable feet | 14,500,000 |
 | Balloon (gondola + envelope + winch system) | 8,000,000 |
 | Content launch package — 3 themed hero shows + ambient library | 2,800,000 |
-| **Total CAPEX** | **24,200,000** |
+| **Total CAPEX** | **25,300,000** |
 
-- Flush to grade, clean aerial reading, no trip-hazard raised deck
-- Each 600mm tile: ~37 kg — single-person lift, no crane for service
-- Batch-cast on site using locally sourced UAE LECA aggregate
-- Structural life: 30–50+ years
+- 50mm GFRC (Glass Fiber Reinforced Concrete) with AR glass fiber premix 3–5% by weight, ~34 kg per tile
+- Same 4× 316SS adjustable corner feet via cast-in M16 threaded inserts
+- Driver cavity recessed into tile underside — viable at 50mm with fiber reinforcement
+- Each 600mm tile lifts out individually — single-person service, no crane
+- Locally batch-cast on site; structural life: 30–50+ years
 
 ### Recurring CAPEX
 
@@ -212,8 +215,8 @@ The two-tier investor choice is fundamentally a structural shell decision — th
 | **Tulip diffuser head** | — | **2–3 years** (UV yellowing in direct UAE sun) | Hand-pull from stem, snap new one on. No tools. ~2 min per head. |
 | **Stem assembly** | — | **5–8 years** (sand abrasion, UV polymer fatigue) | Unscrew from tile/frame socket. No tile movement. |
 | **Driver electronics (per cell)** | ~10 yrs rated | **7–10 years** (thermal cycling, humidity) | Two-person team lifts one tile with suction grips, swap driver, re-seat tile. ~5 min. |
-| **Concrete tile (Low Tier E2)** | 30–50+ years structural | No replacement cycle expected | — |
-| **Aluminum block (High Tier C)** | 20–30 years structural | No replacement cycle expected | — |
+| **GFRC concrete tile (Low Tier)** | 30–50+ years structural | No replacement cycle expected | — |
+| **Aluminum plate tile (High Tier)** | 20–30 years structural | No replacement cycle expected | — |
 
 ### Key investor message
 

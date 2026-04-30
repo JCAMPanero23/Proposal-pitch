@@ -1,8 +1,8 @@
 # LED Field Lights - Modular Block System
 **Canvas From The Sky - Abu Dhabi Investor Pitch**
 
-*Version 9 - 9-LED density locked, 16-LED variant dropped, content cost per season/event added*
-*Updated: 2026-04-28*
+*Version 10 - Two investor tiers locked (High: aluminum plate + SS feet; Low: 50mm GFRC + SS feet), framing options archived*
+*Updated: 2026-04-29*
 
 ---
 
@@ -24,7 +24,7 @@ The UAE dirham is pegged to the US dollar, so this is stable enough for pitch-st
 
 The LED field is the core physical technology behind **Canvas From The Sky**. It turns the land around the tethered balloon into a programmable illuminated canvas that is atmospheric at ground level and fully legible from altitude.
 
-Following CEO review, the system has been resized and rationalized for a more practical investor-stage deployment:
+Following CEO review, the system has been resized and rationalized for investor-stage deployment:
 
 - **Outer diameter:** 60m
 - **Inner clear circle:** 12m radius / 24m diameter
@@ -32,10 +32,14 @@ Following CEO review, the system has been resized and rationalized for a more pr
 - **Grid unit size:** 600mm x 600mm
 - **Working unit count:** **6,175 grid units** (6,320 gross less 145 displaced by the widened 3m walkway)
 - **LED density (locked 28 April 2026):** **9-LED (3 x 3, 200mm pitch)** = 6,175 x 9 = **55,575 LED stem nodes**
-- **Ring-edge treatment:** for sealed-block builds, square 600mm blocks with plastic-capped inactive portions; for open-frame and tile builds, the frame/tile is cut along the curve so no caps are needed
+- **Ring-edge treatment:** tiles cut along the curve at boundary cells — no plastic caps needed
 - **Access path:** **3m-wide** LED mesh walkway under tempered structural glass from the outer edge to the balloon platform (~17.4m radial run, ~52 sq m total)
 
-The 9-LED density was locked after CEO review on 28 April 2026. The earlier 16-LED variant has been dropped — 9-LED gives a calmer, airier garden, runs cooler in UAE summer (peak ~28 kW vs 50 kW), is cheaper to wire and manufacture, and reduces content-production cost ~30% per minute. **Four framing options remain on the table** (Option C aluminum block on raised frame, Option D ground-level open frame, Option E1 steel plate tile, Option E2 LWAC concrete tile). The CEO Decision Summary below compares them at the locked 9-LED density.
+The 9-LED density was locked after CEO review on 28 April 2026. The earlier 16-LED variant has been dropped. **Two investor tiers are now locked** (both tile-on-feet designs — differentiated by material only):
+- **High Tier:** 8mm 6061-T6 aluminum plate tile on 4× 316SS adjustable feet
+- **Low Tier:** 50mm GFRC concrete tile on 4× 316SS adjustable feet (via cast-in M16 inserts)
+
+Both tiers share identical LED electronics, identical adjustable-feet serviceability (125–175mm range), and the same aerial show output. The CEO Decision Summary below captures the locked choice.
 
 ---
 
@@ -47,40 +51,31 @@ This section gives the CEO a one-screen view of the remaining choice. **LED dens
 
 55,575 LED stem nodes total across 6,175 grid units. Peak power ~28 kW. The 16-LED variant was dropped because the airier 9-LED garden suits the UAE climate (less heat load), reduces both hardware cost (~AED 4M less than 16-LED) and content-authoring cost per minute (~30% less detail to render), and still creates a major aerial spectacle.
 
-### Decision 1 - Framing option
+### Decision 1 — LED Module Tier (LOCKED)
 
-| Option | One-line description | Ground level? | Modular tile/block? | Mid-range cost (substructure only) |
-|---|---|---|---|---:|
-| **C** | Raised low-frame with sealed lift-out 600mm aluminum blocks (original design) | No (raised 100-300mm) | Yes | AED 4.6M |
-| **D** | Modular open-frame grid on prepared ground; stems anchor in frame; no top cover | **Yes (flush)** | No (frame only) | AED 3.2M |
-| **E1** | Steel plate tile (600mm × 600mm × ~60mm), flush on prepared ground; lifting holes; driver inside | **Yes (flush)** | Yes (tile) | AED 3.7M |
-| **E2** | **Light-weight pre-fabricated concrete tile** (LWAC, **60mm**), batch-cast on site, flush on prepared ground; ~37 kg per tile = single-person lift | **Yes (flush)** | Yes (tile) | **AED 2.6M** |
+Both tiers are **tile-on-adjustable-feet** designs. Same LED electronics, same 316SS corner feet, same 125–175mm height range. Material is the only difference.
 
-### Total installed system cost at locked 9-LED density (mid-range, AED, all-in)
+| Tier | Tile material | Weight/tile | Substructure mid | Total installed mid | Per module |
+|---|---|---:|---:|---:|---:|
+| **High Tier** | 8mm 6061-T6 aluminum plate, hard-anodised | ~14 kg | AED 3.6M | **AED 15.1M** | ~AED 2,445 |
+| **Low Tier** ★ | 50mm GFRC (AR glass fiber 3–5% premix), cast-in M16 SS inserts | ~34 kg | AED 2.9M | **AED 14.5M** | ~AED 2,348 |
 
-Numbers below include all hardware, controls, 3m glass walkway, installation, commissioning, and recommended spares. They are pre-quote engineering estimates anchored on **researched 2026 supplier price ranges** (see Pricing Sources & References appendix at the end of this document).
+Numbers include all hardware, controls, 3m glass walkway, installation, commissioning, and recommended spares. Pre-quote engineering estimates anchored on researched 2026 supplier price ranges (see Pricing Sources & References appendix).
 
-| Framing Option | Total (mid) | Per module |
-|---|---:|---:|
-| **Option C** (raised + sealed aluminum block) | AED 16.5M | ~AED 2,650 |
-| **Option D** (open frame on ground) | AED 13.8M | ~AED 2,235 |
-| **Option E1** (steel plate tile, flush) | AED 14.5M | ~AED 2,350 |
-| **Option E2** (LWAC tile 60mm, flush) ★ | **AED 13.4M** | **~AED 2,170** |
-
-`Per-module cost = total ÷ 6,175 grid units`. Low and high ranges are in the full Cost Model section. As a rule of thumb, the high range is roughly +50% of mid; the low range is roughly -30% of mid. The **60mm LWAC tile** spec brings each tile to a single-person-lift weight (~37 kg) — no crane needed for service.
+`Per-module cost = total ÷ 6,175 grid units`.
 
 ### Recommended option
 
-- **Recommended for permanent Abu Dhabi flagship: Option E2 (LWAC tile) + 9-LED at AED ~13.4M mid (~AED 2,170 per module, ~USD 3.65M total)**. Clean ground-level reading, locally sourced LWAC tiles batch-cast on site, single-person-lift serviceability, lowest installed cost of the four framing options.
-- **Alternate for relocatable pilot or touring**: Option D (open frame). Same all-in cost (AED 13.8M mid), no tile manufacturing, fully relocatable. Choose if the venue might move or scale.
-- **Avoid**: Option C at AED 16.5M — the raised deck is ~AED 3M more than E2 and no longer offers a meaningful advantage now that the modular tile options exist with the same lift-out serviceability.
+- **Recommended for permanent Abu Dhabi flagship: Low Tier (50mm GFRC tile + 9-LED) at AED ~14.5M mid**. Locally batch-cast on site, AR fiber reinforcement gives structural performance equivalent to 60mm plain concrete at 50mm thickness, cast-in adjustable feet give full serviceability — same operational story as the High Tier at AED 600k less.
+- **High Tier** if the investor or venue operator places a premium on lighter tiles, precision-machined aluminum aesthetics, or a material that can be re-anodised; the AED 600k premium buys a ~60% lighter tile (14 kg vs 34 kg) and a more recognisably industrial finish.
 
 ### Decision risks the CEO should be aware of
 
-- **Site permanence** - Options C and D are fully relocatable; the modular-tile options (E1, E2) are practically relocatable as well (each tile lifts out), but the perimeter joint sealing and bedding screed mean a relocation is a significant operation rather than a quick teardown.
-- **Density is locked** - the 9-LED 200mm pitch is now baked into tile-cast or frame-node spacing. Upgrading to 16-LED later would require re-fabricating tiles or frame nodes — treat the density choice as a one-way door.
-- **E2 needs an on-site batching/casting area** - footprint for steel molds, mixer/batching plant, and a covered curing zone for ~8-12 weeks. Modest space, but not zero.
-- **Hot-weather concrete protocol** for E2 - ACI 305 compliance for UAE summer pours. Low QC risk per tile because each is small and individually inspectable.
+- **Density is locked** — the 9-LED 200mm pitch is now baked into tile-cast spacing. Upgrading to 16-LED later would require re-fabricating all tiles — treat density as a one-way door.
+- **Low Tier needs on-site batching/casting area** — footprint for steel molds, mixer/batching plant, and a covered curing zone for ~8-12 weeks. Modest space, but not zero.
+- **Hot-weather concrete protocol** for Low Tier — ACI 305 compliance for UAE summer pours. Low QC risk per tile because each is small and individually inspectable.
+- **GFRC driver cavity** — at 50mm thickness the driver module must be a slim form factor; narrows the supplier set slightly vs. the machined aluminum cavity in the High Tier.
+- **Tile weight** — Low Tier at ~34 kg is a single-person lift with suction grips; High Tier at ~14 kg is a one-hand lift. Both are crane-free for service operations.
 
 ---
 
@@ -95,6 +90,56 @@ The LED field must work as two connected experiences:
    From the gondola, the ring resolves into animated artwork: national moments, cultural imagery, sponsor stories, seasonal shows, and abstract aerial paintings.
 
 The field is not simply decorative lighting. It is a repeatable cultural technology platform: a ground attraction, an aerial canvas, a sponsor medium, and a reason for guests to return.
+
+---
+
+## Locked Investor Module Tiers
+
+Both tiers use an identical tile-on-adjustable-feet architecture. The LED electronics, stem system, and foot hardware are the same. Only the tile body material differs.
+
+### High Tier — 8mm Aluminum Plate Tile on 316SS Adjustable Feet
+
+```text
+LED tulip heads (2 variants, 9 per tile)
+Flexible/adjustable stems (400–600mm in 50mm increments)
+Stem sockets threaded into the tile top face
+600mm × 600mm × 8mm 6061-T6 aluminum plate (hard-anodised, dark finish)
+IP67 driver cavity machined into the tile body
+4× heavy-duty 316SS adjustable corner feet, 125–175mm height range
+Corner foot threaded into the plate underside
+Sand-cement bedding or leveling pad below feet
+```
+
+Key properties:
+- **Weight:** ~14 kg per tile — one-hand lift, no suction grips required
+- **Material:** 6061-T6 extrusion-grade aluminum, hard-anodised for corrosion and UV resistance in UAE climate
+- **Feet:** 316 stainless steel, M16 thread, adjustable range 125–175mm; set-and-lock during commissioning
+- **Driver cavity:** machined recess in the underside, sealed with a gasketed cover plate — straightforward IP67 standard
+- **Service:** lift any tile, swap driver, re-seat — ~5 min per tile; two-person preferred but achievable solo at 14 kg
+- **Structural life:** 20–30 years
+
+### Low Tier — 50mm GFRC Concrete Tile on 316SS Adjustable Feet ★ Recommended
+
+```text
+LED tulip heads (2 variants, 9 per tile)
+Flexible/adjustable stems (400–600mm in 50mm increments)
+Stem sockets cast into the tile top face
+600mm × 600mm × 50mm GFRC tile (AR glass fiber premix, 3–5% by weight)
+Driver cavity recessed into the tile underside (slim module)
+4× heavy-duty 316SS adjustable corner feet, 125–175mm height range
+Cast-in M16 threaded SS inserts at each corner (from underside) — feet thread in from below
+Sand-cement bedding or leveling pad below feet
+```
+
+Key properties:
+- **Weight:** ~34 kg per tile — single-person lift with paving suction-cup grips; no crane
+- **Material:** GFRC with AR (Alkali-Resistant) glass fiber at 3–5% by weight. AR fiber is required — standard E-glass degrades in alkaline concrete. Premix method (fiber blended with the LWAC-type matrix, not hand-laid). Structurally equivalent to 60mm plain concrete at 50mm thickness; better impact and crack resistance
+- **Feet:** same 316 stainless steel, M16 thread, cast-in inserts at tile corners from underside; same 125–175mm adjustable range
+- **Driver cavity:** recessed into tile underside — slim driver module required; viable at 50mm with fiber reinforcement
+- **Casting:** batch-cast on site in simple steel gang molds (4–6 tiles per pour), water-cured 7 days, ready to install day 8; full casting program ~8–12 weeks
+- **Hot-weather protocol (ACI 305):** chilled mix water May–September, evening/morning pour windows, curing blankets
+- **Service:** same lift-out procedure as High Tier; suction grips recommended at 34 kg
+- **Structural life:** 30–50+ years
 
 ---
 
@@ -205,16 +250,11 @@ Six practical directions across three families. Options A-C use a sealed modular
 
 ### Recommended Cost-Effective Solution
 
-The recommendation depends on the venue's priorities. Quick guide:
+For the **Abu Dhabi permanent flagship**, the recommendation is the **Low Tier (50mm GFRC tile on 316SS adjustable feet)**: cleanest aerial reading, locally batch-cast on site, AR fiber reinforcement at 50mm provides full structural performance, and identical serviceability to the High Tier at AED 600k less.
 
-- **Option C** if the priority is in-field serviceability and the venue is willing to live with a 100-300mm raised deck.
-- **Option D** if the priority is a clean ground-level appearance, lowest civil program, and a relocatable installation (pilot or touring).
-- **Option E1 (steel plate tile)** if the priority is durable engineered metal aesthetic and willingness to pay a small premium for it.
-- **Option E2 (LWAC concrete tile)** if the priority is the cheapest permanent flush-ground installation - same form factor as E1 but in pre-fabricated lightweight aggregate concrete batch-cast on site.
+The **High Tier (8mm aluminum plate on 316SS adjustable feet)** is the right choice if the operator wants a lighter tile (~14 kg vs 34 kg), a precision-machined aluminum aesthetic, or a material that can be refinished rather than replaced.
 
-For the **Abu Dhabi permanent flagship**, the recommendation is **Option E2 (LWAC concrete tile)**: cleanest aerial reading at the lowest cost, durable in UAE heat, lift-out tiles for service, and locally sourceable materials (LECA from UAE suppliers).
-
-For a **pilot or touring version**, **Option D** remains the strongest answer.
+Note: Option D (open-frame grid, fully relocatable) and Options E1/E2 (flat steel/LWAC tiles without adjustable feet) are documented below as historical reference for the development of the current two-tier model.
 
 The earlier bulky-pad concepts (cast-in-place reinforced pad, multi-cell yard-precast LWAC, multi-cell site-cast LWAC) have been **replaced** with the modular tile approach in Options E1 and E2 - based on the latest sketch, the design intent is a tile-sized module same as Option C's block, not a large multi-cell precast panel.
 
@@ -753,16 +793,14 @@ Working unit count: **6,175 grid units** × 9 LEDs = **55,575 LED stem nodes**.
 |---:|---:|---:|
 | AED 4.1M | **AED 5.83M** | AED 8.7M |
 
-### Substructure Cost by Framing Option
+### Substructure Cost by Investor Tier
 
-Substructure here = field substrate + frame grid + civil base + drainage + cable raceways + stem-socket integration. **Option C also includes the sealed 600mm block product.**
+Substructure here = tile material + 316SS adjustable feet + civil base + drainage + cable raceways + stem-socket integration.
 
-| Framing Option | Low | Mid | High | Key drivers |
+| Investor Tier | Low | Mid | High | Key drivers |
 |---|---:|---:|---:|---|
-| C - raised frame + sealed aluminum blocks | AED 3.1M | **AED 4.6M** | AED 6.8M | sealed block manufacturing dominates; raised structural deck adds ~AED 1.4M |
-| D - modular open-frame grid on prepared ground | AED 2.0M | **AED 3.2M** | AED 4.6M | aluminum frame + node sockets + sub-base prep |
-| E1 - steel plate tile, flush on ground | AED 2.5M | **AED 3.7M** | AED 5.4M | steel plate fabrication + lifting holes + bedding + tile jointing |
-| E2 - LWAC concrete tile (60mm), batch-cast on site | AED 1.6M | **AED 2.6M** | AED 3.8M | LWAC mix + simple molds + bedding + tile jointing (locally sourced) |
+| High Tier — aluminum plate + SS feet | AED 2.5M | **AED 3.6M** | AED 5.3M | aluminum plate machining + anodising + SS feet + driver cavity machining |
+| Low Tier — 50mm GFRC + SS feet ★ | AED 1.9M | **AED 2.9M** | AED 4.4M | GFRC mix + AR fiber + SS cast-in inserts + simple molds + bedding (locally sourced) |
 
 ### Shared / Common Costs (independent of density and framing)
 
@@ -781,58 +819,50 @@ Substructure here = field substrate + frame grid + civil base + drainage + cable
 
 ### Combined Total Installed System (Mid-Range, AED M)
 
-This is the matrix shown at the top of the document, derived as `density + substructure + shared` for each combination.
+Derived as `density (5.83M) + substructure + shared (6.20M)` for each tier.
 
-| Framing Option | Total (mid, AED M) |
+| Investor Tier | Total (mid, AED M) |
 |---|---:|
-| C (raised+blocks) | 16.5 |
-| D (open frame) | 13.8 |
-| E1 (steel tile) | 14.5 |
-| **E2 (LWAC tile, 60mm)** ★ | **13.4** |
+| **High Tier** (aluminum plate + SS feet) | **15.1** |
+| **Low Tier** (50mm GFRC + SS feet) ★ | **14.5** |
 
 ### Combined Total Installed System (Low - Mid - High, AED M)
 
-| Combination | Low | Mid | High |
+| Investor Tier | Low | Mid | High |
 |---|---:|---:|---:|
-| 9-LED × C | 11.2 | **16.5** | 24.6 |
-| 9-LED × D | 9.8 | **13.8** | 20.6 |
-| 9-LED × E1 | 10.4 | **14.5** | 21.6 |
-| **9-LED × E2** ★ | 9.5 | **13.4** | 20.0 |
+| 9-LED × High Tier | 10.8 | **15.1** | 22.5 |
+| **9-LED × Low Tier** ★ | 10.1 | **14.5** | 21.5 |
 
 ### Per-Module Rough Cost (Mid-Range, AED)
 
-`Total ÷ 6,175 grid units`. Useful for talking about unit economics with the manufacturing team.
+`Total ÷ 6,175 grid units`.
 
-| Combination | Total cost | **Per module** | USD per module |
+| Investor Tier | Total cost | **Per module** | USD per module |
 |---|---:|---:|---:|
-| 9-LED × C | AED 16.5M | **~AED 2,650** | ~USD 720 |
-| 9-LED × D | AED 13.8M | **~AED 2,235** | ~USD 610 |
-| 9-LED × E1 | AED 14.5M | **~AED 2,350** | ~USD 640 |
-| **9-LED × E2** ★ | AED 13.4M | **~AED 2,170** | ~USD 590 |
+| 9-LED × High Tier | AED 15.1M | **~AED 2,445** | ~USD 666 |
+| **9-LED × Low Tier** ★ | AED 14.5M | **~AED 2,348** | ~USD 640 |
 
-For comparison, the **substructure-only per-module** cost ranges from **~AED 420** (E2 60mm) to **~AED 745** (Option C). The remaining ~AED 1,400-1,800 per module covers LEDs, electronics, walkway/control share, install, and spares.
+The **substructure-only per-module** cost is ~AED 470 (Low Tier) and ~AED 583 (High Tier). The remaining ~AED 1,765–1,862 per module covers LEDs, electronics, walkway/control share, install, and spares.
 
-### Cleaner Investor Range
+### Investor Range
 
 For investor conversation, use:
 
 ```text
-LED field installed system, recommended (E2 LWAC tile 60mm + 9-LED, locked):
-approx. AED 11M - 15M target range
-Risk allowance: up to AED 20M before supplier quotes
-Per-module budget: ~AED 2,170 (~USD 590)
+LED field — Low Tier (50mm GFRC + SS feet + 9-LED, recommended):
+approx. AED 10M - 15M target range
+Per-module budget: ~AED 2,348 (~USD 640)
 
-Alternate pilot pairing (D + 9-LED, fully relocatable):
-approx. AED 12M - 16M target range
-Risk allowance: up to AED 21M
-Per-module budget: ~AED 2,235 (~USD 610)
+LED field — High Tier (aluminum plate + SS feet + 9-LED):
+approx. AED 11M - 15M target range
+Per-module budget: ~AED 2,445 (~USD 666)
 ```
 
 USD equivalent at 3.6725 AED/USD:
 
 ```text
-Flagship pairing (E2 + 9-LED): approx. USD 3.0M - 4.1M target, USD 5.4M risk
-Pilot pairing (D + 9-LED):     approx. USD 3.3M - 4.4M target, USD 5.7M risk
+Low Tier: approx. USD 2.8M - 4.1M target
+High Tier: approx. USD 3.0M - 4.1M target
 ```
 
 ### Spares & Commissioning Stock
@@ -859,8 +889,8 @@ The spares budget is captured in the **density-related spares** line of the unit
 
 If the budget needs to come down further:
 
-- **9-LED density already locked** - the AED ~4M saving vs 16-LED is already in the budget; consider this savings already booked
-- **Choose Option D or E2** for substructure - saves ~AED 1.4-1.6M vs Option C, ~AED 0.7M vs Option E1
+- **9-LED density already locked** — the AED ~4M saving vs 16-LED is already in the budget; consider this savings already booked
+- **Choose the Low Tier (GFRC)** over High Tier — saves ~AED 600k
 - Use cluster control instead of individual stem control in pilot phase (saves ~AED 0.4M)
 - Keep tulip head variants to two molds (already in spec)
 - Make the first field 50m diameter instead of 60m (saves ~25% of LED count)
@@ -1207,12 +1237,11 @@ Investor talking points:
 - 9-LED density (locked) gives a calmer, airier light garden suited to UAE climate; runs at ~28 kW peak vs ~50 kW for the heavier alternative considered
 - 55,575 LED stem nodes still create a major aerial spectacle, fully legible from balloon-height
 - 600mm grid units reduce manufacturing and installation complexity
-- four framing options give the program flexibility - sealed aluminum block on raised frame for serviceability (Option C), ground-level open-frame for relocatable pilots (Option D), or modular tile flush on ground in steel (E1) or pre-fabricated lightweight concrete (E2) for a permanent flagship
-- recommended Abu Dhabi flagship pairing: **Option E2 (LWAC tile) + 9-LED at AED ~13.4M mid-range** (USD ~3.65M) all-in installed
-- alternate relocatable pilot pairing: **Option D + 9-LED at AED ~13.8M mid-range** (USD ~3.8M) all-in installed
+- two investor tiers share identical LED electronics and 316SS adjustable feet; only the tile material differs
+- **recommended Abu Dhabi flagship: Low Tier (50mm GFRC + 316SS adjustable feet + 9-LED) at AED ~14.5M mid-range** (USD ~3.95M) all-in installed
+- **High Tier (8mm aluminum plate + 316SS adjustable feet + 9-LED) at AED ~15.1M mid-range** (USD ~4.11M) — lighter tile, machined finish, AED 600k premium
 - stems are 400-600mm tall (plus tulip head) — they read as the dominant visual element above a flat tile, creating a sculptural ground-level garden
-- raised frame solves airflow, water, and cable-management concerns
-- adjustable flexible stems create a premium ground-level garden
+- adjustable feet (125–175mm range) give level compensation and a full service plenum for cable management, airflow, and drainage across the ring
 - multiple nightly shows support night-pass revenue
 - content can rotate without rebuilding hardware
 - the system can start as a pilot and scale to a destination attraction
