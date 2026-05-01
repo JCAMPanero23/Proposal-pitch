@@ -46,7 +46,7 @@ SECTION: GUEST EXPERIENCE (Night Ride Timeline)
                balloon hovering above, warm sunset sky
     Size     : 864 x 1080 px (portrait)
 
-  experience-walkway.png         [PLACEHOLDER — OVERWRITE]
+  experience-walkway.png         [READY] optimized
     Step     : Arrival — the glowing glass LED walkway close-up
     Shows    : Ground-level view of the 3m tempered glass LED path leading
                from the outer ring edge to the balloon platform
@@ -54,11 +54,13 @@ SECTION: GUEST EXPERIENCE (Night Ride Timeline)
                visible at end of path
     Target   : 1080 x 864 px
 
-  experience-aerial-preshow.png  [READY]
+  experience-aerial-preshow.png  [OMITTED — do not use in HTML]
     Step     : Ascent / Peak — balloon high above, LED ring dark or pre-show
     Shows    : Top-down aerial, balloon tethered above a minimal dark ring,
                black sky — the calm before the show
     Size     : 1080 x 864 px
+    Notes    : Removed from pitch per 30 April 2026 review. File kept in
+               folder but not referenced in index.html.
 
   experience-gondola-outside.png [READY]
     Step     : Show height (25m) — approaching the main show
@@ -219,7 +221,7 @@ PENDING SUMMARY — 6 files to overwrite
   into this folder — it will replace the placeholder automatically.
 
 ================================================================================
-  Total: 25 images (19 ready, 6 placeholder)
+  Total: 25 images (18 active-ready, 6 placeholder, 1 omitted)
   All files live in: HTML_assets/
   HTML references images as: HTML_assets/[filename]
 ================================================================================

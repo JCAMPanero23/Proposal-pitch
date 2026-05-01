@@ -162,6 +162,7 @@
       align-items: flex-end;
       padding-bottom: clamp(60px, 8vw, 100px);
       overflow: hidden;
+      color: var(--off-white);
     }
     #hero .hero-bg {
       position: absolute;
@@ -191,7 +192,12 @@
       margin-bottom: 28px;
     }
     #hero .hero-kicker .line { width: 40px; height: 1px; background: var(--gold-light); }
-    #hero h1 { max-width: 820px; margin-bottom: 24px; }
+    #hero .hero-kicker .t-eyebrow { color: var(--gold-light); }
+    #hero h1 {
+      max-width: 820px;
+      margin-bottom: 24px;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.75), 0 1px 6px rgba(0,0,0,0.9);
+    }
     #hero .hero-tagline { max-width: 560px; margin-bottom: 48px; }
     #hero .hero-stats { display: flex; gap: 48px; flex-wrap: wrap; }
     #hero .stat-value {
@@ -487,7 +493,48 @@
       font-family: var(--ff-display); font-size: 80px; font-weight: 700; color: var(--gold); line-height: 1;
     }
 
-    /* ─── SECTION 11 — CTA ───────────────────────────────────────────────── */
+    /* ─── SECTION 12 — COMPANY PROFILE ─────────────────────────────────────── */
+    #company .company-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      margin-bottom: 48px; align-items: start;
+    }
+    #company .company-stats {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+      margin-bottom: 48px;
+    }
+    #company .company-stat {
+      padding: 28px 24px; border-right: 1px solid var(--border); text-align: center;
+    }
+    #company .company-stat:last-child { border-right: none; }
+    #company .company-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px;
+    }
+    #company .company-col {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 32px;
+    }
+    #company .company-col-title {
+      font-family: var(--ff-display); font-size: 18px; font-weight: 400;
+      margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    #company .company-list {
+      list-style: none; display: flex; flex-direction: column; gap: 10px;
+    }
+    #company .company-list li {
+      display: flex; gap: 12px; font-size: 15px; color: var(--text-body); line-height: 1.5;
+    }
+    #company .company-callout {
+      border: 1px solid var(--gold-dim); border-radius: 4px; padding: 40px 48px;
+      background: rgba(166,124,58,0.06); text-align: center;
+    }
+    #company .company-callout-text {
+      font-family: var(--ff-display); font-size: clamp(18px,2vw,24px);
+      max-width: 760px; margin: 0 auto; line-height: 1.55; color: var(--text);
+      font-style: italic;
+    }
+
+    /* ─── SECTION 13 — CTA ───────────────────────────────────────────────── */
     #cta {
       position: relative; min-height: 60vh;
       display: flex; align-items: center; overflow: hidden;
@@ -498,7 +545,7 @@
       background-size: cover; background-position: center;
       filter: brightness(0.28);
     }
-    #cta .container { position: relative; z-index: 1; text-align: center; }
+    #cta .container { position: relative; z-index: 1; text-align: center; color: var(--off-white); }
     #cta .cta-contact { margin-top: 40px; display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
     #cta .contact-item { font-size: 14px; opacity: 0.7; }
 
@@ -515,6 +562,10 @@
       #technology .tech-images  { grid-template-columns: 1fr; }
       #technology .img-large    { grid-row: auto; }
       #technology .img-large img { height: 300px; }
+      #company .company-header,
+      #company .company-grid    { grid-template-columns: 1fr; }
+      #company .company-stats   { grid-template-columns: repeat(2,1fr); }
+      #company .company-stat:nth-child(2) { border-right: none; }
     }
     @media (max-width: 640px) {
       #location .museum-cards,
@@ -524,15 +575,18 @@
       #technology .tech-specs,
       #financials .kpi-row,
       #financials .ten-year-strip,
+      #company .company-stats,
       #themes .ticket-strip { grid-template-columns: 1fr; }
       #location .saadiyat-stat,
       #themes .ticket-item,
       #financials .ten-year-item,
-      #technology .tech-spec-item { border-right: none; border-bottom: 1px solid var(--border); }
+      #technology .tech-spec-item,
+      #company .company-stat { border-right: none; border-bottom: 1px solid var(--border); }
       #location .saadiyat-stat:last-child,
       #themes .ticket-item:last-child,
       #financials .ten-year-item:last-child,
-      #technology .tech-spec-item:last-child { border-bottom: none; }
+      #technology .tech-spec-item:last-child,
+      #company .company-stat:last-child { border-bottom: none; }
       #nav-dots { display: none; }
     }
   </style>
@@ -553,6 +607,7 @@
     <div class="nav-dot" data-target="financials"  title="Financials"></div>
     <div class="nav-dot" data-target="lifespan"    title="Life Expectancy"></div>
     <div class="nav-dot" data-target="partnership" title="Partnerships"></div>
+    <div class="nav-dot" data-target="company"     title="About Hero"></div>
     <div class="nav-dot" data-target="cta"         title="Contact"></div>
   </nav>
 
@@ -569,7 +624,7 @@
       <h1 class="t-hero">Canvas<br>From The Sky</h1>
       <p class="t-sub hero-tagline" style="color:var(--off-white); opacity:0.85;">
         <!-- FILL: one-line pitch — what it is and why Saadiyat -->
-        [TAGLINE — e.g. "The world's first programmable aerial canvas, above the cultural heart of Abu Dhabi."]
+        "The world's first programmable aerial canvas, above the cultural heart of Abu Dhabi."
       </p>
       <div class="hero-stats">
         <div>
@@ -608,7 +663,9 @@
       </h2>
       <p class="t-body" style="max-width:600px; margin-bottom:48px;">
         <!-- FILL: 2–3 sentences — concept + why now + what this unlocks -->
-        [OVERVIEW BODY]
+        Canvas From The Sky layers a 60-metre programmable LED ring around Abu Dhabi's tethered balloon transforming a premium sightseeing ride into a full cultural night 
+        destination. From the gondola at 300m, guests look down on three of the world's most significant new museums. On the ground, 
+        55,575 LED stems map that same skyline back as living art.
       </p>
       <div class="overview-image-wrap">
         <img src="HTML_assets/overview-night.png"
@@ -618,17 +675,27 @@
         <div class="pillar">
           <div class="pillar-num">01</div>
           <h3 class="t-sub" style="font-style:normal; margin-bottom:12px;">Cultural Anchor</h3>
-          <p class="t-body"><!-- FILL: ground-level sculpture + aerial show = reason to visit and return --></p>
+          <p class="t-body"><!-- FILL: ground-level sculpture + aerial show = reason to visit and return -->
+          The LED ring is a ground sculpture by day and a 60-metre canvas by night. Guests walk through the living field before they board and leave through it after the show 
+          making the experience inseparable from the place it stands in.
+          </p>
         </div>
         <div class="pillar">
           <div class="pillar-num">02</div>
           <h3 class="t-sub" style="font-style:normal; margin-bottom:12px;">Vertical Dimension</h3>
-          <p class="t-body"><!-- FILL: the one attraction that ties Louvre, ZNM, Guggenheim together from 300m --></p>
+          <p class="t-body"><!-- FILL: the one attraction that ties Louvre, ZNM, Guggenheim together from 300m -->
+          Louvre Abu Dhabi, Zayed National Museum, and Guggenheim Abu Dhabi sit within sight of each other on Saadiyat Island. 
+          Canvas From The Sky is the one attraction that rises above all three and connects them in a single view and not a competitor to the museums, 
+          but the aerial thread that ties them together.
+          </p>
         </div>
         <div class="pillar">
           <div class="pillar-num">03</div>
           <h3 class="t-sub" style="font-style:normal; margin-bottom:12px;">Recurring Revenue</h3>
-          <p class="t-body"><!-- FILL: 3 rotating themes = All-Access Pass = 3× the night revenue per guest --></p>
+          <p class="t-body"><!-- FILL: 3 rotating themes = All-Access Pass = 3× the night revenue per guest -->
+            Three distinct themed shows mean a guest who sees one has a reason to return twice more. The Night All-Access Pass (AED 695) 
+            captures all three themes in one evening at 2.4× the price of a single-theme ticket, a natural upsell with built-in repeat-visit logic.
+          </p>
         </div>
       </div>
     </div>
@@ -652,17 +719,27 @@
         <div class="museum-card">
           <span class="museum-tag t-gold">Theme A</span>
           <h3 style="font-family:var(--ff-display); font-size:20px; margin-bottom:10px;">Louvre Abu Dhabi</h3>
-          <p class="t-body"><!-- FILL: open, global permanent collection, the cultural anchor of the island --></p>
+          <p class="t-body"><!-- FILL: open, global permanent collection, the cultural anchor of the island -->
+            Open since 2017, the Louvre Abu Dhabi is the world's only universal museum 
+            its permanent collection spans every era and every civilisation. Canvas From The Sky maps that history to the sky above it, 
+            warm gold geometry, ancient motifs, light that feels older than memory.
+          </p>
         </div>
         <div class="museum-card">
           <span class="museum-tag t-gold">Theme B</span>
           <h3 style="font-family:var(--ff-display); font-size:20px; margin-bottom:10px;">Zayed National Museum</h3>
-          <p class="t-body"><!-- FILL: opening, UAE heritage and founding story, national identity --></p>
+          <p class="t-body"><!-- FILL: opening, UAE heritage and founding story, national identity -->
+            The UAE was built in a single generation. Zayed National Museum tells that founding story through the life of Sheikh Zayed, 
+            the pearl-diving coast, the desert, the falcon, and the skyline. Canvas From The Sky brings the story above the museum that carries his name.
+          </p>
         </div>
         <div class="museum-card">
           <span class="museum-tag t-gold">Theme C</span>
           <h3 style="font-family:var(--ff-display); font-size:20px; margin-bottom:10px;">Guggenheim Abu Dhabi</h3>
-          <p class="t-body"><!-- FILL: contemporary and modern art, bold abstract, future-facing --></p>
+          <p class="t-body"><!-- FILL: contemporary and modern art, bold abstract, future-facing -->
+            The largest Guggenheim in the world, focused on contemporary and modern art from the Arab world and South Asia. Canvas From The Sky's boldest, 
+            most electric theme is its aerial partner, vivid cobalt, magenta, and generative geometry, pushing a 60-metre canvas to its expressive limit.
+          </p>
         </div>
       </div>
       <div class="saadiyat-stats">
@@ -732,7 +809,11 @@
             <div class="panel-content">
               <div class="led-state">Themed Ambience</div>
               <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Arrival &amp; The Glowing Walkway</h3>
-              <p class="t-body"><!-- FILL: LED field alive on approach; glass walkway glows underfoot as guests cross to the platform --></p>
+              <p class="t-body"><!-- FILL: LED field alive on approach; glass walkway glows underfoot as guests cross to the platform -->
+                The experience begins before you board. A 3-meter walkway of tempered glass, LED-lit from beneath, 
+                leads through the living LED field to the balloon platform. 
+                55,575 stems glow in tonight's theme around you. The show is already running.
+              </p>
             </div>
           </div>
 
@@ -742,7 +823,10 @@
             <div class="panel-content">
               <div class="led-state">Rising Animation</div>
               <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Boarding &amp; Ascent</h3>
-              <p class="t-body"><!-- FILL: field dims over 30 sec; balloon lifts; LED animation rises in sync with ascent speed --></p>
+              <p class="t-body"><!-- FILL: field dims over 30 sec; balloon lifts; LED animation rises in sync with ascent speed -->
+                The LED field dims over 30 seconds as the gondola lifts. A rising animation, synced to the balloon's 50-meters-per-minute ascent rate, 
+                builds as the ground drops away. Guests watch the ring shrink below them as Abu Dhabi opens up.
+              </p>
             </div>
           </div>
 
@@ -752,7 +836,10 @@
             <div class="panel-content">
               <div class="led-state">Gentle Ambience</div>
               <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">300m — Abu Dhabi in Every Direction</h3>
-              <p class="t-body"><!-- FILL: Louvre, Guggenheim, Zayed NM framed below; 360° skyline; ring a glowing disc far beneath --></p>
+              <p class="t-body"><!-- FILL: Louvre, Guggenheim, Zayed NM framed below; 360° skyline; ring a glowing disc far beneath -->
+                At 300 meters, three world-class museums are visible below, framed by the Arabian Gulf coastline and the Abu Dhabi skyline. 
+                The gondola holds for five minutes. The LED ring glows as a small, perfect disc far beneath — the calm before the show.
+              </p>
             </div>
           </div>
 
@@ -762,7 +849,10 @@
             <div class="panel-content">
               <div class="led-state">Anticipation Build</div>
               <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Descent — Show Builds Below</h3>
-              <p class="t-body"><!-- FILL: ring resolution grows as altitude drops; 25m is the optimal LED viewing height --></p>
+              <p class="t-body"><!-- FILL: ring resolution grows as altitude drops; 25m is the optimal LED viewing height -->
+                The balloon drops 275 meters to 25 meters at 40 meters per minute. As altitude falls, the LED canvas grows in resolution and detail below the gondola,
+                each stem and tulip head becoming distinct. Anticipation builds with every meter of descent.
+              </p>
             </div>
           </div>
 
@@ -772,7 +862,11 @@
             <div class="panel-content">
               <div class="led-state">Full Power · 10-min Show</div>
               <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Main Show — 25m, Full Canvas</h3>
-              <p class="t-body"><!-- FILL: 55,575 LED nodes at full output, 60m canvas fully readable from gondola at 25m --></p>
+              <p class="t-body"><!-- FILL: 55,575 LED nodes at full output, 60m canvas fully readable from gondola at 25m -->
+               Held at 25 meters, the optimal viewing height for the full 60-metre ring. All 55,575 LED nodes at full output. 
+               The ten-minute themed show runs at full canvas resolution, the ring filling the field of view below the gondola railing. 
+               This is the moment the experience was built for. 
+              </p>
             </div>
           </div>
 
@@ -782,7 +876,10 @@
             <div class="panel-content">
               <div class="led-state">Ambient Exit</div>
               <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Finale &amp; Exit</h3>
-              <p class="t-body"><!-- FILL: show completes as gondola reaches ground; soft ambient holds while next group boards in ~8 min --></p>
+              <p class="t-body"><!-- FILL: show completes as gondola reaches ground; soft ambient holds while next group boards in ~8 min -->
+                The show completes as the gondola reaches the ground. The LED field holds a soft ambient loop as guests exit through the living sculpture. 
+                The next group boards in under eight minutes. Every cycle is self-contained, repeatable, and complete.
+              </p>
             </div>
           </div>
 
@@ -800,7 +897,10 @@
       <div class="divider"></div>
       <div class="theme-intro">
         <h2 class="t-section" style="margin-bottom:16px;">Every Show Is a Different World</h2>
-        <p class="t-body"><!-- FILL: 3 themes tied to 3 Saadiyat museums; a guest who sees all three has experienced the full cultural story of the island --></p>
+        <p class="t-body"><!-- FILL: 3 themes tied to 3 Saadiyat museums; a guest who sees all three has experienced the full cultural story of the island -->
+          Each of the three Saadiyat museums has its own dedicated LED show. A guest who experiences all three has seen the full cultural story of the island told from the sky. 
+          The Night All-Access Pass is the invitation to do exactly that.
+        </p>
       </div>
 
       <div class="theme-tabs" role="tablist">
@@ -819,7 +919,10 @@
             <div class="theme-meta">
               <span class="theme-tag t-gold">Louvre Abu Dhabi</span>
               <h3 class="t-section" style="font-size:clamp(24px,3vw,36px); margin-bottom:12px;">The Universal Collection</h3>
-              <p class="t-body"><!-- FILL: ancient civilisations, gold light, Islamic geometric, art from across all of human history --></p>
+              <p class="t-body"><!-- FILL: ancient civilisations, gold light, Islamic geometric, art from across all of human history -->
+               Ancient civilisations, trade routes, global art history, the Louvre Abu Dhabi's collection spans every culture across all of recorded time. 
+               Theme A renders that depth as warm gold Islamic geometric patterns, archaic relief motifs, and light that moves with the weight of history. 
+              </p>
             </div>
             <div class="theme-preview-grid">
               <div>
@@ -853,7 +956,10 @@
             <div class="theme-meta">
               <span class="theme-tag t-gold">Zayed National Museum</span>
               <h3 class="t-section" style="font-size:clamp(24px,3vw,36px); margin-bottom:12px;">The Nation's Story</h3>
-              <p class="t-body"><!-- FILL: UAE heritage, falconry, desert, pearl-diving, Sheikh Zayed legacy, founding story --></p>
+              <p class="t-body"><!-- FILL: UAE heritage, falconry, desert, pearl-diving, Sheikh Zayed legacy, founding story -->
+                The UAE was built in a single generation. Theme B honours that founding story of the falcon silhouettes, dhow boats, pearl divers, and desert caravans, 
+                in the amber and burnt-orange palette of the Emirates. Painted large on the night sky above the museum that carries Sheikh Zayed's name.
+              </p>
             </div>
             <div class="theme-preview-grid">
               <div>
@@ -887,7 +993,10 @@
             <div class="theme-meta">
               <span class="theme-tag t-gold">Guggenheim Abu Dhabi</span>
               <h3 class="t-section" style="font-size:clamp(24px,3vw,36px); margin-bottom:12px;">The Future Canvas</h3>
-              <p class="t-body"><!-- FILL: contemporary abstraction, bold colour fields, generative geometry, electric night palette --></p>
+              <p class="t-body"><!-- FILL: contemporary abstraction, bold colour fields, generative geometry, electric night palette -->
+               Bold, abstract, electric. Theme C is pure contemporary art of the vivid colour fields, generative geometry, cobalt and magenta that push the LED canvas to its full expressive limit. 
+               The show that asks what art can be when the canvas is 60 meters wide and visible from a kilometer in every direction. 
+              </p>
             </div>
             <div class="theme-preview-grid">
               <div>
@@ -947,7 +1056,10 @@
       <div class="divider"></div>
       <div class="tech-intro">
         <h2 class="t-section" style="margin-bottom:16px;">The Canvas Behind the Show</h2>
-        <p class="t-body"><!-- FILL: 60m ring, 6,175 tiles, 55,575 LED stems — ground sculpture by day, aerial artwork by night --></p>
+        <p class="t-body"><!-- FILL: 60m ring, 6,175 tiles, 55,575 LED stems — ground sculpture by day, aerial artwork by night -->
+          The 60-meters LED ring is built from 6,175 identical 600mm tiles, each carrying nine addressable RGBW stems. Ground sculpture by day, aerial canvas by night. 
+          Designed from the first sketch to be serviced from above, no specialist crew, no crane, no downtime.
+        </p>
       </div>
 
       <div class="tech-images">
@@ -991,7 +1103,11 @@
         </div>
         <div class="stack">
           <h3 class="t-sub" style="font-style:normal;">The 600mm Module — Built for UAE</h3>
-          <p class="t-body"><!-- FILL: each 600×600mm tile carries 9 LED stems, adjustable 400–600mm, 2 tulip variants, IP67, full service from above --></p>
+          <p class="t-body"><!-- FILL: each 600×600mm tile carries 9 LED stems, adjustable 400–600mm, 2 tulip variants, IP67, full service from above -->
+            Each 600×600mm tile carries nine LED stems adjustable between 400 and 600mm at commissioning. Tulip diffuser heads are hand-pull replaceable in two minutes with no tools. 
+            The IP67 driver sits in a sealed cavity beneath the tile, accessible by lifting with suction grips in under five minutes. Heat-rated, sand-sealed, and locally serviceable 
+            built for the UAE climate and a 30-night operating week.
+          </p>
           <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; margin-top:4px;">
             <li style="display:flex; gap:12px;"><span style="color:var(--gold);">—</span><span class="t-body">Stem heights 400–600mm in 50mm steps, set at commissioning</span></li>
             <li style="display:flex; gap:12px;"><span style="color:var(--gold);">—</span><span class="t-body">9 addressable RGBW nodes per module · 200mm pitch</span></li>
@@ -1015,6 +1131,8 @@
       <p class="t-body" style="max-width:580px; margin-bottom:48px;">
         <!-- FILL: same 9-LED density, same show quality, same SS adjustable feet; choice is tile material only —
              GFRC at AED 25.3M or aluminum at AED 25.9M -->
+        Both tiers deliver identical aerial show quality: 9-LED density, 55,575 nodes, the same 316 stainless steel adjustable foot system, the same content pipeline. 
+        The choice is in the tile material alone, the cast GFRC concrete at AED 25.3M total CAPEX, or precision-machined aluminum at AED 25.9M. Either way, the canvas is the same from the gondola.
       </p>
 
       <div class="tier-toggle">
@@ -1097,7 +1215,11 @@
       <div class="divider"></div>
       <div class="fin-intro">
         <h2 class="t-section" style="margin-bottom:16px;">Built to Return Fast</h2>
-        <p class="t-body"><!-- FILL: 300 operating days/nights, 70% load base case, AED 24.7M revenue, AED 9.8M OpEx, AED 14.9M EBITDA --></p>
+        <p class="t-body"><!-- FILL: 300 operating days/nights, 70% load base case, AED 24.7M revenue, AED 9.8M OpEx, AED 14.9M EBITDA -->
+          Three hundred operating days and nights per year. Thirty guests per ride. Day tickets from AED 195, night shows from AED 295, 
+          All-Access Pass at AED 695. At 70% load, consistent with the Dubai Balloon benchmark, this generates AED 24.7M in annual revenue against AED 9.8M in total operating cost, 
+          for a 60% EBITDA margin and a 1.6 year simple payback.
+        </p>
       </div>
 
       <div class="scenario-tabs">
@@ -1183,8 +1305,14 @@
             </tbody>
           </table>
           <div class="stack" style="padding-top:28px;">
-            <p class="t-body"><!-- FILL: content net AED 2.6M; gross ~AED 5.3M offset by ~AED 2.7M sponsor billing --></p>
-            <p class="t-body"><!-- FILL: previous balloon-only OpEx was AED 7.2M; LED adds AED 2.6M net but unlocks the full night revenue stack --></p>
+            <p class="t-body"><!-- FILL: content net AED 2.6M; gross ~AED 5.3M offset by ~AED 2.7M sponsor billing -->
+              The content line of AED 2.6M is a net figure. Gross content spend is approximately AED 5.3M per year covering four seasonal theme refreshes and eight or 
+              more sponsor event productions. Against that, sponsor show billings recover approximately AED 2.7M, reducing the net to AED 2.6M annually.
+            </p>
+            <p class="t-body"><!-- FILL: previous balloon-only OpEx was AED 7.2M; LED adds AED 2.6M net but unlocks the full night revenue stack -->
+              The previous balloon-only proposal carried AED 7.2M in annual OpEx. Adding the LED field brings the total to AED 9.8M, an increase of AED 2.6M net. 
+              That addition unlocks the full night revenue stack: themed show ticketing, All-Access Pass upsell, content sponsorship, and the museum partnership programme.
+            </p>
           </div>
         </div>
       </div>
@@ -1201,7 +1329,11 @@
       <div class="divider"></div>
       <div class="lifespan-intro">
         <h2 class="t-section" style="margin-bottom:16px;">The Structural Shell Outlives the Business Plan</h2>
-        <p class="t-body"><!-- FILL: investor buys the shell; consumable (tulip head) = AED 66 and 2 min; no obsolescence risk on the structural layer --></p>
+        <p class="t-body"><!-- FILL: investor buys the shell; consumable (tulip head) = AED 66 and 2 min; no obsolescence risk on the structural layer -->
+          The investor is buying a structural shell that will outlive this business plan by decades. The most exposed consumable — the tulip diffuser head — costs AED 66 
+          and takes two minutes to replace with no tools. The tile itself, GFRC or aluminum, carries no technology obsolescence risk and no replacement cycle within any 
+          foreseeable planning horizon.
+        </p>
       </div>
 
       <table class="component-table">
@@ -1288,25 +1420,38 @@
       <div class="divider"></div>
       <div class="partner-intro">
         <h2 class="t-section" style="margin-bottom:16px;">Force Multiplier for the Whole Island</h2>
-        <p class="t-body"><!-- FILL: not a competitor; the aerial connector that gives guests a reason to stay from 9am through midnight --></p>
+        <p class="t-body"><!-- FILL: not a competitor; the aerial connector that gives guests a reason to stay from 9am through midnight -->
+          Canvas From The Sky does not compete with the museums on Saadiyat Island. It is the attraction that gives guests a reason to arrive at 9am and stay through midnight moving 
+          between Louvre, Zayed NM, Guggenheim, and the balloon in a single full day. Every balloon ride becomes a museum referral. 
+          Every museum visit becomes a reason to come back after dark.
+        </p>
       </div>
       <div class="museum-row">
         <div class="museum-partner-card">
           <div class="t-eyebrow t-gold" style="margin-bottom:12px;">Theme A</div>
           <h3 style="font-family:var(--ff-display); font-size:20px; margin-bottom:10px;">Louvre Abu Dhabi</h3>
-          <p class="t-body" style="margin-bottom:16px;"><!-- FILL: partnership body --></p>
+          <p class="t-body" style="margin-bottom:16px;"><!-- FILL: partnership body -->
+            Theme A is built around the Louvre's permanent collection and the partnership is built around a shared audience. Balloon ticket holders receive 15% off Louvre admission; 
+            Louvre visitors receive 15% off any Canvas ticket. The combined Canvas + Louvre pass (AED 450) is a single-purchase gateway to the most complete cultural day on the island.
+          </p>
           <div style="font-size:13px; color:var(--muted);">Canvas + Louvre pass · AED 450</div>
         </div>
         <div class="museum-partner-card">
           <div class="t-eyebrow t-gold" style="margin-bottom:12px;">Theme B</div>
           <h3 style="font-family:var(--ff-display); font-size:20px; margin-bottom:10px;">Zayed National Museum</h3>
-          <p class="t-body" style="margin-bottom:16px;"><!-- FILL: partnership body --></p>
+          <p class="t-body" style="margin-bottom:16px;"><!-- FILL: partnership body -->
+            Theme B carries the Zayed National Museum's founding story into the night sky and their audience follows. The Canvas + Zayed NM pass (AED 440) targets 
+            UAE national visitors and cultural tourism travellers who come for the founding story of the Emirates and leave with a reason to return after dark.
+          </p>
           <div style="font-size:13px; color:var(--muted);">Canvas + Zayed NM pass · AED 440</div>
         </div>
         <div class="museum-partner-card">
           <div class="t-eyebrow t-gold" style="margin-bottom:12px;">Theme C</div>
           <h3 style="font-family:var(--ff-display); font-size:20px; margin-bottom:10px;">Guggenheim Abu Dhabi</h3>
-          <p class="t-body" style="margin-bottom:16px;"><!-- FILL: partnership body --></p>
+          <p class="t-body" style="margin-bottom:16px;"><!-- FILL: partnership body -->
+            > Theme C is the Guggenheim's natural aerial extension, bold, abstract, and electric. The Canvas + Guggenheim pass (AED 445) connects the balloon experience to the 
+            international contemporary art market and the hotel guests visiting Saadiyat for the museum season.
+          </p>
           <div style="font-size:13px; color:var(--muted);">Canvas + Guggenheim pass · AED 445</div>
         </div>
       </div>
@@ -1323,7 +1468,79 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       11 · CLOSING CTA
+       12 · COMPANY PROFILE — HERO EXPERIENCES GROUP
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <section id="company" class="section section--dark">
+    <div class="container">
+      <span class="t-eyebrow">Hero Experiences Group</span>
+      <div class="divider"></div>
+
+      <div class="company-header">
+        <div>
+          <h2 class="t-section" style="margin-bottom:20px;">The GCC's Leading Premium Aerial Experience Operator</h2>
+          <p class="t-body">Hero Experiences Group is the only company in the region with proven expertise across both helium tethered balloons and hot air balloon operations. They designed, launched, and operate the UAE's first permanent helium balloon attraction — delivering over 250,000 safe passenger flights with a flawless safety and compliance record.</p>
+        </div>
+        <div style="padding-top:8px;">
+          <p class="t-body">Hero Balloon Flights is one of the world's most recognised hot air balloon brands — GCAA certified and known for aviation excellence and premium guest experience. The same operational rigour, certification standards, and guest-first culture underpins every Canvas From The Sky ride.</p>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="company-stats">
+        <div class="company-stat">
+          <div class="t-stat">250,000+</div>
+          <div class="t-label" style="margin-top:8px;">Safe Passenger Flights</div>
+        </div>
+        <div class="company-stat">
+          <div class="t-stat">UAE's First</div>
+          <div class="t-label" style="margin-top:8px;">Permanent Helium Balloon Attraction</div>
+        </div>
+        <div class="company-stat">
+          <div class="t-stat">GCAA</div>
+          <div class="t-label" style="margin-top:8px;">Certified Aviation Operator</div>
+        </div>
+        <div class="company-stat">
+          <div class="t-stat">10+ Years</div>
+          <div class="t-label" style="margin-top:8px;">GCC Aviation Expertise</div>
+        </div>
+      </div>
+
+      <!-- Capabilities + Strengths -->
+      <div class="company-grid">
+        <div class="company-col">
+          <h3 class="company-col-title">Full Turnkey Capabilities</h3>
+          <ul class="company-list">
+            <li><span style="color:var(--gold);">—</span><span>End-to-end operations, logistics, and staffing</span></li>
+            <li><span style="color:var(--gold);">—</span><span>GCAA certification and ongoing regulatory compliance</span></li>
+            <li><span style="color:var(--gold);">—</span><span>Crew training, safety protocols, and live emergency drills</span></li>
+            <li><span style="color:var(--gold);">—</span><span>Ticketing systems and dynamic pricing strategy</span></li>
+            <li><span style="color:var(--gold);">—</span><span>Marketing, PR, and destination partnership management</span></li>
+            <li><span style="color:var(--gold);">—</span><span>Helium supply chain and balloon envelope maintenance</span></li>
+          </ul>
+        </div>
+        <div class="company-col">
+          <h3 class="company-col-title">Competitive Strengths</h3>
+          <ul class="company-list">
+            <li><span style="color:var(--gold);">—</span><span>Strong established government and authority relationships</span></li>
+            <li><span style="color:var(--gold);">—</span><span>Proven tourism asset deployment across the GCC</span></li>
+            <li><span style="color:var(--gold);">—</span><span>Operational readiness for immediate launch</span></li>
+            <li><span style="color:var(--gold);">—</span><span>Award-winning brands with global visibility</span></li>
+            <li><span style="color:var(--gold);">—</span><span>Decade of UAE aviation expertise and flawless safety record</span></li>
+            <li><span style="color:var(--gold);">—</span><span>Only GCC operator with tethered and hot air balloon expertise</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Positioning callout -->
+      <div class="company-callout">
+        <p class="company-callout-text">"The only partner capable of delivering Canvas From The Sky safely, efficiently, and commercially successfully from day one."</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       13 · CLOSING CTA
   ═══════════════════════════════════════════════════════════════════════════ -->
   <section id="cta" class="section">
     <div class="cta-bg"></div>
