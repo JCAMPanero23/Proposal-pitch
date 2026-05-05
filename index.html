@@ -270,44 +270,117 @@
     }
     #location .saadiyat-stat:last-child { border-right: none; }
 
-    /* ─── SECTION 4 — GUEST EXPERIENCE ──────────────────────────────────── */
-    #experience .exp-intro { max-width: 640px; margin-bottom: 64px; }
-    #experience .timeline {
-      display: grid; grid-template-columns: 280px 1fr;
+    /* ─── SECTION 4 — THE NIGHT EXPERIENCE ─────────────────────────────── */
+    #experience .exp-intro { max-width: 640px; margin-bottom: 48px; }
+    #experience .exp-shell {
+      display: grid; grid-template-columns: 190px 1fr;
       border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+      align-items: stretch;
     }
-    #experience .timeline-nav { background: var(--bg-3); border-right: 1px solid var(--border); }
-    #experience .timeline-step-btn {
-      display: flex; align-items: flex-start; gap: 16px;
-      padding: 22px 24px; cursor: pointer; border: none; background: none;
+
+    /* Step nav */
+    #experience .exp-nav { background: var(--bg-3); border-right: 1px solid var(--border); }
+    #experience .exp-step-btn {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px 18px; cursor: pointer; border: none; background: none;
       color: var(--text); text-align: left; width: 100%;
       border-bottom: 1px solid var(--border); transition: background 0.2s;
     }
-    #experience .timeline-step-btn:last-child { border-bottom: none; }
-    #experience .timeline-step-btn:hover,
-    #experience .timeline-step-btn.active { background: var(--bg); }
-    #experience .timeline-step-btn.active .step-num { color: var(--gold); }
+    #experience .exp-step-btn:last-child { border-bottom: none; }
+    #experience .exp-step-btn:hover,
+    #experience .exp-step-btn.active { background: var(--bg); }
+    #experience .exp-step-btn.active .step-num { color: var(--gold); }
     #experience .step-num {
-      font-family: var(--ff-display); font-size: 20px; font-weight: 700;
-      color: var(--muted); line-height: 1; min-width: 28px;
+      font-family: var(--ff-display); font-size: 17px; font-weight: 700;
+      color: var(--muted); line-height: 1; min-width: 22px; padding-top: 2px;
     }
-    #experience .step-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
-    #experience .step-dur   { font-size: 11px; color: var(--muted); }
-    #experience .timeline-panel { background: var(--bg-card); min-height: 540px; }
-    #experience .timeline-panel-slide { display: none; }
-    #experience .timeline-panel-slide.active { display: block; }
-    #experience .timeline-panel-slide img { width: 100%; height: 300px; object-fit: cover; }
-    #experience .panel-content { padding: 28px 32px; }
+    #experience .step-title { font-size: 12px; font-weight: 500; margin-bottom: 3px; }
+    #experience .step-dur   { font-size: 10px; color: var(--muted); }
+
+    /* Center: viewer + content panel */
+    #experience .exp-center { display: flex; flex-direction: column; }
+    #experience .exp-viewer {
+      position: relative; width: 100%; aspect-ratio: 5 / 4;
+      background: #0A0A0F; overflow: hidden; flex-shrink: 0;
+    }
+    #experience .exp-state-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; transition: opacity 0.3s ease;
+    }
+    #experience .exp-trans-layers {
+      position: absolute; inset: 0; display: none; pointer-events: none;
+    }
+    #experience .exp-trans-layers.active { display: block; }
+    #experience .exp-trans-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    #experience .exp-trans-fg {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    #experience .exp-panel-content {
+      background: var(--bg-card); flex: 1; border-top: 1px solid var(--border);
+    }
+    #experience .exp-panel-slide { display: none; padding: 22px 28px; }
+    #experience .exp-panel-slide.active { display: block; }
     #experience .led-state {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 12px;
+      color: var(--gold); margin-bottom: 10px;
     }
     #experience .led-state::before {
       content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--gold); animation: pulse 2s infinite;
+      background: var(--gold); animation: expPulse 2s infinite;
     }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    @keyframes expPulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* Altitude indicator — overlaid on right edge of viewer */
+    #experience .alt-indicator {
+      position: absolute; top: 0; right: 0; bottom: 0; width: 60px;
+      background: rgba(10,10,15,0.52);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      border-left: 1px solid rgba(201,169,110,0.18);
+      display: flex; flex-direction: column; align-items: center;
+      padding: 14px 0 10px;
+    }
+    #experience .alt-track {
+      position: relative; flex: 1; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #experience .alt-line {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      width: 1px; transform: translateX(-50%);
+      background: linear-gradient(to bottom,
+        rgba(201,169,110,0.08), rgba(201,169,110,0.4) 20%,
+        rgba(201,169,110,0.4) 80%, rgba(201,169,110,0.08));
+    }
+    #experience .alt-marker {
+      position: absolute; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #experience .alt-marker-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold-light); opacity: 0.45; flex-shrink: 0; position: relative; z-index: 1;
+    }
+    #experience .alt-marker-label {
+      position: absolute; left: calc(50% + 7px);
+      font-size: 7.5px; color: rgba(201,169,110,0.65);
+      white-space: nowrap; font-family: var(--ff-body); letter-spacing: 0.04em; line-height: 1;
+    }
+    #experience .alt-balloon {
+      position: absolute; left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: grab; user-select: none; touch-action: none;
+      transition: top 0.45s ease-in-out; /* overridden by JS per-step */
+      filter: drop-shadow(0 0 5px rgba(201,169,110,0.6));
+      z-index: 2;
+    }
+    #experience .alt-balloon:active { cursor: grabbing; }
+    #experience .alt-hint {
+      font-size: 9px; color: rgba(201,169,110,0.5);
+      letter-spacing: 0.06em; text-align: center;
+      line-height: 1; margin-top: 6px; user-select: none;
+      min-height: 12px;
+    }
 
     /* ─── SECTION 5 — THREE THEMES ───────────────────────────────────────── */
     #themes .theme-intro { max-width: 600px; margin-bottom: 48px; }
@@ -551,8 +624,9 @@
 
     /* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
     @media (max-width: 960px) {
-      #experience .timeline     { grid-template-columns: 1fr; }
-      #experience .timeline-nav { border-right: none; border-bottom: 1px solid var(--border); }
+      #experience .exp-shell    { grid-template-columns: 1fr; }
+      #experience .exp-nav      { border-right: none; border-bottom: 1px solid var(--border); max-height: 200px; overflow-y: auto; }
+      #experience .alt-indicator { width: 48px; }
       #themes .theme-layout     { grid-template-columns: 1fr; }
       #investment .tier-layout  { grid-template-columns: 1fr; }
       #technology .module-section { grid-template-columns: 1fr; }
@@ -768,118 +842,133 @@
       <div class="divider"></div>
       <div class="exp-intro">
         <h2 class="t-section" style="margin-bottom:16px;">The Night Experience</h2>
-        <p class="t-body"><!-- FILL: every ride is a complete story from arrival through the LED field to the 300m skyline and back down to the show --></p>
+        <p class="t-body">Every ride is a complete story — from the LED field at your feet through 300 metres of open sky and back down to the full canvas show below.</p>
       </div>
-      <div class="timeline">
 
-        <!-- Step nav -->
-        <nav class="timeline-nav">
-          <button class="timeline-step-btn active" data-step="0">
+      <div class="exp-shell">
+
+        <!-- LEFT: Step nav -->
+        <nav class="exp-nav">
+          <button class="exp-step-btn active" data-step="0">
             <span class="step-num">01</span>
             <div><div class="step-title">Arrival &amp; Walkway</div><div class="step-dur">~3 min</div></div>
           </button>
-          <button class="timeline-step-btn" data-step="1">
+          <button class="exp-step-btn" data-step="1">
             <span class="step-num">02</span>
             <div><div class="step-title">Boarding &amp; Ascent</div><div class="step-dur">30 sec + 6 min</div></div>
           </button>
-          <button class="timeline-step-btn" data-step="2">
+          <button class="exp-step-btn" data-step="2">
             <span class="step-num">03</span>
             <div><div class="step-title">Peak — 300m View</div><div class="step-dur">5 min</div></div>
           </button>
-          <button class="timeline-step-btn" data-step="3">
+          <button class="exp-step-btn" data-step="3">
             <span class="step-num">04</span>
             <div><div class="step-title">Descent to Show Height</div><div class="step-dur">~7 min</div></div>
           </button>
-          <button class="timeline-step-btn" data-step="4">
+          <button class="exp-step-btn" data-step="4">
             <span class="step-num">05</span>
             <div><div class="step-title">Main Show — 25m</div><div class="step-dur">~10 min</div></div>
           </button>
-          <button class="timeline-step-btn" data-step="5">
+          <button class="exp-step-btn" data-step="5">
             <span class="step-num">06</span>
             <div><div class="step-title">Finale &amp; Exit</div><div class="step-dur">~40 sec + exit</div></div>
           </button>
         </nav>
 
-        <!-- Panels -->
-        <div class="timeline-panel">
+        <!-- RIGHT: Viewer + content panel -->
+        <div class="exp-center">
 
-          <div class="timeline-panel-slide active" data-step="0">
-            <img src="HTML_assets/experience-ground-arrival.png"
-                 alt="Guests arriving through the LED field to the balloon platform" />
-            <div class="panel-content">
+          <!-- Image viewer with altitude indicator overlay -->
+          <div class="exp-viewer">
+            <img class="exp-state-img" id="expStateImg"
+                 src="HTML_assets/Vertical%20Altitude%20Experience/state_01_arrival.png"
+                 alt="Arrival — LED field lit in tonight's theme" />
+            <div class="exp-trans-layers" id="expTransLayers">
+              <img class="exp-trans-bg" id="expTransBg" src="" alt="" />
+              <img class="exp-trans-fg" id="expTransFg" src="" alt="" />
+            </div>
+
+            <!-- Altitude indicator — right side overlay -->
+            <div class="alt-indicator">
+              <div class="alt-track" id="altTrack">
+                <div class="alt-line"></div>
+                <!-- Markers: top% = 8 + (300−alt)/300×84 -->
+                <div class="alt-marker" style="top:8%">
+                  <div class="alt-marker-dot"></div>
+                  <span class="alt-marker-label">300m</span>
+                </div>
+                <div class="alt-marker" style="top:58%">
+                  <div class="alt-marker-dot"></div>
+                  <span class="alt-marker-label">120m</span>
+                </div>
+                <div class="alt-marker" style="top:85%">
+                  <div class="alt-marker-dot"></div>
+                  <span class="alt-marker-label">25m</span>
+                </div>
+                <div class="alt-marker" style="top:92%">
+                  <div class="alt-marker-dot"></div>
+                  <span class="alt-marker-label">0m</span>
+                </div>
+                <!-- Draggable balloon icon -->
+                <div class="alt-balloon" id="altBalloon" style="top:92%">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 46" width="28" height="46" aria-hidden="true">
+                    <defs>
+                      <radialGradient id="expBallGrad" cx="38%" cy="30%" r="68%">
+                        <stop offset="0%"   stop-color="#EDD580"/>
+                        <stop offset="52%"  stop-color="#C9A96E"/>
+                        <stop offset="100%" stop-color="#8B5A2A"/>
+                      </radialGradient>
+                    </defs>
+                    <!-- Body -->
+                    <ellipse cx="14" cy="18" rx="11" ry="15" fill="url(#expBallGrad)"/>
+                    <!-- Panel lines -->
+                    <line x1="14" y1="3"  x2="14" y2="33" stroke="#7A5020" stroke-width="0.5" opacity="0.32"/>
+                    <ellipse cx="14" cy="18" rx="11" ry="8" fill="none" stroke="#7A5020" stroke-width="0.5" opacity="0.32"/>
+                    <!-- Highlight -->
+                    <ellipse cx="9" cy="12" rx="3.5" ry="5" fill="white" opacity="0.17"/>
+                    <!-- Ropes -->
+                    <path d="M8 32 L11 38 M14 33 L14 38 M20 32 L17 38" stroke="#C9A96E" stroke-width="0.9" fill="none" opacity="0.85"/>
+                    <!-- Gondola -->
+                    <rect x="7"   y="38" width="14" height="7"  rx="1.5" fill="#A67C3A"/>
+                    <rect x="8.5" y="39" width="11" height="4"  rx="1"   fill="#C9A96E" opacity="0.42"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="alt-hint" id="altHint">↑ drag</div>
+            </div>
+          </div>
+
+          <!-- Content text slides -->
+          <div class="exp-panel-content">
+            <div class="exp-panel-slide active" data-step="0">
               <div class="led-state">Themed Ambience</div>
-              <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Arrival &amp; The Glowing Walkway</h3>
-              <p class="t-body"><!-- FILL: LED field alive on approach; glass walkway glows underfoot as guests cross to the platform -->
-                The experience begins before you board. A 3-meter walkway of tempered glass, LED-lit from beneath, 
-                leads through the living LED field to the balloon platform. 
-                55,575 stems glow in tonight's theme around you. The show is already running.
-              </p>
+              <h3 style="font-family:var(--ff-display);font-size:20px;margin-bottom:8px;">Arrival &amp; The Glowing Walkway</h3>
+              <p class="t-body">The experience begins before you board. A 3-metre walkway of tempered glass, LED-lit from beneath, leads through the living LED field to the balloon platform. 55,575 stems glow in tonight's theme around you. The show is already running.</p>
             </div>
-          </div>
-
-          <div class="timeline-panel-slide" data-step="1">
-            <img src="HTML_assets/experience-walkway.png"
-                 alt="Glowing glass LED walkway leading to the balloon platform" />
-            <div class="panel-content">
+            <div class="exp-panel-slide" data-step="1">
               <div class="led-state">Rising Animation</div>
-              <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Boarding &amp; Ascent</h3>
-              <p class="t-body"><!-- FILL: field dims over 30 sec; balloon lifts; LED animation rises in sync with ascent speed -->
-                The LED field dims over 30 seconds as the gondola lifts. A rising animation, synced to the balloon's 50-meters-per-minute ascent rate, 
-                builds as the ground drops away. Guests watch the ring shrink below them as Abu Dhabi opens up.
-              </p>
+              <h3 style="font-family:var(--ff-display);font-size:20px;margin-bottom:8px;">Boarding &amp; Ascent</h3>
+              <p class="t-body">The LED field dims over 30 seconds as the gondola lifts. A rising animation, synced to the balloon's ascent rate, builds as the ground drops away. Guests watch the ring shrink below them as Abu Dhabi opens up.</p>
             </div>
-          </div>
-
-          <div class="timeline-panel-slide" data-step="2">
-            <img src="HTML_assets/experience-gondola-outside.png"
-                 alt="Outside gondola POV — LED ring visible 300m below" />
-            <div class="panel-content">
+            <div class="exp-panel-slide" data-step="2">
               <div class="led-state">Gentle Ambience</div>
-              <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">300m — Abu Dhabi in Every Direction</h3>
-              <p class="t-body"><!-- FILL: Louvre, Guggenheim, Zayed NM framed below; 360° skyline; ring a glowing disc far beneath -->
-                At 300 meters, three world-class museums are visible below, framed by the Arabian Gulf coastline and the Abu Dhabi skyline. 
-                The gondola holds for five minutes. The LED ring glows as a small, perfect disc far beneath — the calm before the show.
-              </p>
+              <h3 style="font-family:var(--ff-display);font-size:20px;margin-bottom:8px;">300m — Abu Dhabi in Every Direction</h3>
+              <p class="t-body">At 300 metres, three world-class museums are visible below, framed by the Arabian Gulf coastline and the Abu Dhabi skyline. The gondola holds for five minutes. The LED ring glows as a small, perfect disc far beneath — the calm before the show.</p>
             </div>
-          </div>
-
-          <div class="timeline-panel-slide" data-step="3">
-            <img src="HTML_assets/experience-gondola-outside.png"
-                 alt="Balloon descending — LED ring growing in frame below" />
-            <div class="panel-content">
+            <div class="exp-panel-slide" data-step="3">
               <div class="led-state">Anticipation Build</div>
-              <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Descent — Show Builds Below</h3>
-              <p class="t-body"><!-- FILL: ring resolution grows as altitude drops; 25m is the optimal LED viewing height -->
-                The balloon drops 275 meters to 25 meters at 40 meters per minute. As altitude falls, the LED canvas grows in resolution and detail below the gondola,
-                each stem and tulip head becoming distinct. Anticipation builds with every meter of descent.
-              </p>
+              <h3 style="font-family:var(--ff-display);font-size:20px;margin-bottom:8px;">Descent — The Show Builds Below</h3>
+              <p class="t-body">The balloon descends 275 metres at 40 metres per minute. As altitude falls, the LED canvas grows in resolution below the gondola — each stem and tulip head becoming distinct. Anticipation builds with every metre of descent.</p>
             </div>
-          </div>
-
-          <div class="timeline-panel-slide" data-step="4">
-            <img src="HTML_assets/experience-gondola-inside.png"
-                 alt="Inside gondola — LED ring at full power below" />
-            <div class="panel-content">
+            <div class="exp-panel-slide" data-step="4">
               <div class="led-state">Full Power · 10-min Show</div>
-              <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Main Show — 25m, Full Canvas</h3>
-              <p class="t-body"><!-- FILL: 55,575 LED nodes at full output, 60m canvas fully readable from gondola at 25m -->
-               Held at 25 meters, the optimal viewing height for the full 60-metre ring. All 55,575 LED nodes at full output. 
-               The ten-minute themed show runs at full canvas resolution, the ring filling the field of view below the gondola railing. 
-               This is the moment the experience was built for. 
-              </p>
+              <h3 style="font-family:var(--ff-display);font-size:20px;margin-bottom:8px;">Main Show — 25m, Full Canvas</h3>
+              <p class="t-body">Held at 25 metres — the optimal viewing height for the full 60-metre ring. All 55,575 LED nodes at full output. The ten-minute themed show runs at full canvas resolution, the ring filling the field of view below the gondola railing. This is the moment the experience was built for.</p>
             </div>
-          </div>
-
-          <div class="timeline-panel-slide" data-step="5">
-            <img src="HTML_assets/experience-ground-arrival.png"
-                 alt="Guests exiting through the LED field" />
-            <div class="panel-content">
+            <div class="exp-panel-slide" data-step="5">
               <div class="led-state">Ambient Exit</div>
-              <h3 style="font-family:var(--ff-display); font-size:22px; margin-bottom:10px;">Finale &amp; Exit</h3>
-              <p class="t-body"><!-- FILL: show completes as gondola reaches ground; soft ambient holds while next group boards in ~8 min -->
-                The show completes as the gondola reaches the ground. The LED field holds a soft ambient loop as guests exit through the living sculpture. 
-                The next group boards in under eight minutes. Every cycle is self-contained, repeatable, and complete.
-              </p>
+              <h3 style="font-family:var(--ff-display);font-size:20px;margin-bottom:8px;">Finale &amp; Exit</h3>
+              <p class="t-body">The show completes as the gondola reaches the ground. The LED field holds a soft ambient loop as guests exit through the living sculpture. The next group boards in under eight minutes. Every cycle is self-contained, repeatable, and complete.</p>
             </div>
           </div>
 
@@ -1586,17 +1675,166 @@
       sections.forEach(function(s) { if (s) obs.observe(s); });
     })();
 
-    /* ── EXPERIENCE TIMELINE ──────────────────────────────────────────────── */
+    /* ── EXPERIENCE — VERTICAL ALTITUDE PLAYER ──────────────────────────── */
     (function () {
-      var btns   = document.querySelectorAll('.timeline-step-btn');
-      var slides = document.querySelectorAll('.timeline-panel-slide');
-      btns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var step = btn.dataset.step;
-          btns.forEach(function(b)   { b.classList.toggle('active', b.dataset.step === step); });
-          slides.forEach(function(s) { s.classList.toggle('active', s.dataset.step === step); });
-        });
+      'use strict';
+
+      function range(a, b) {
+        var arr = [];
+        for (var i = a; i <= b; i++) arr.push(i);
+        return arr;
+      }
+
+      var BASE    = 'HTML_assets/Vertical%20Altitude%20Experience/';
+      var BG_BASE = BASE + 'Balloon%20Background%20only/transition_bg_%20(';
+      var FG_BASE = BASE + 'Balloon%20only_fg/transition_fg_(';
+
+      var stateSrcs = [
+        BASE + 'state_01_arrival.png',
+        BASE + 'state_02_boarding_ascent.png',
+        BASE + 'state_03_peak_300m.png',
+        BASE + 'state_04_descent.png',
+        BASE + 'state_05_main_show_25m.png',
+        BASE + 'state_06_exit.png',
+      ];
+
+      // Frame numbers for each transition (state N → N+1)
+      var transitions = [
+        range(2,  15),   // 0→1  Arrival → Boarding
+        range(17, 24),   // 1→2  Boarding → Peak
+        range(26, 41),   // 2→3  Peak → Descent
+        range(43, 57),   // 3→4  Descent → Show
+        range(59, 66),   // 4→5  Show → Exit
+      ];
+
+      // Altitude (m) per state — maps to indicator position
+      // top% = 8 + (300 − alt) / 300 × 84  →  8% (300m/top) … 92% (0m/bottom)
+      var stateAlt = [0, 80, 300, 120, 25, 0];
+      function altToPct(alt) { return 8 + (300 - alt) / 300 * 84; }
+
+      // Drag direction required to advance each state: −1 = drag up, +1 = drag down
+      // Mirrors the indicator movement: ascending → icon goes up → drag up; descending → drag down
+      var FRAME_MS = 220; // ms per frame — controls both playback speed and icon sync
+      var dragDir  = [-1, -1, 1, 1, 1]; // indices 0–4 (state 5 is terminal)
+      var hints   = ['↑ drag', '↑ drag', '↓ drag', '↓ drag', '↓ drag', ''];
+
+      // DOM
+      var stepBtns    = document.querySelectorAll('.exp-step-btn');
+      var slides      = document.querySelectorAll('.exp-panel-slide');
+      var stateImg    = document.getElementById('expStateImg');
+      var transLayers = document.getElementById('expTransLayers');
+      var transBg     = document.getElementById('expTransBg');
+      var transFg     = document.getElementById('expTransFg');
+      var altBalloon  = document.getElementById('altBalloon');
+      var altHint     = document.getElementById('altHint');
+
+      var activeStep  = 0;
+      var isAnimating = false;
+      var frameTimer  = null;
+
+      function updateNav(step) {
+        stepBtns.forEach(function(b) { b.classList.toggle('active', +b.dataset.step === step); });
+        slides.forEach(function(s)   { s.classList.toggle('active', +s.dataset.step === step); });
+      }
+
+      function setAltitude(step) {
+        altBalloon.style.top = altToPct(stateAlt[step]).toFixed(1) + '%';
+        if (altHint) altHint.textContent = hints[step];
+      }
+
+      function showState(step) {
+        stateImg.src           = stateSrcs[step];
+        stateImg.style.opacity = '1';
+        transLayers.classList.remove('active');
+        activeStep  = step;
+        isAnimating = false;
+      }
+
+      function playTransition(fromStep, toStep) {
+        var fNums = transitions[fromStep];
+        if (!fNums || !fNums.length) { showState(toStep); return; }
+
+        var idx = 0;
+        stateImg.style.opacity = '0';
+        transLayers.classList.add('active');
+        transBg.src = BG_BASE + fNums[0] + ').png';
+        transFg.src = FG_BASE + fNums[0] + ').png';
+
+        if (frameTimer) clearInterval(frameTimer);
+        frameTimer = setInterval(function () {
+          idx++;
+          if (idx >= fNums.length) {
+            clearInterval(frameTimer); frameTimer = null;
+            showState(toStep);
+            return;
+          }
+          transBg.src = BG_BASE + fNums[idx] + ').png';
+          transFg.src = FG_BASE + fNums[idx] + ').png';
+        }, FRAME_MS);
+      }
+
+      function goToStep(newStep) {
+        if (newStep === activeStep || isAnimating) return;
+        isAnimating = true;
+        var fromStep = activeStep;
+        updateNav(newStep);
+
+        if (newStep === fromStep + 1 && fromStep < transitions.length) {
+          // Sequential forward — match icon duration to frame animation
+          var dur = (transitions[fromStep].length * FRAME_MS / 1000).toFixed(2);
+          altBalloon.style.transition = 'top ' + dur + 's ease-in-out';
+          setAltitude(newStep);
+          playTransition(fromStep, newStep);
+        } else {
+          // Non-sequential jump — quick crossfade, short icon move
+          altBalloon.style.transition = 'top 0.3s ease-in-out';
+          setAltitude(newStep);
+          stateImg.style.opacity = '0';
+          setTimeout(function () {
+            stateImg.src           = stateSrcs[newStep];
+            stateImg.style.opacity = '1';
+            transLayers.classList.remove('active');
+            activeStep  = newStep;
+            isAnimating = false;
+          }, 300);
+        }
+      }
+
+      // Nav button clicks
+      stepBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () { goToStep(+btn.dataset.step); });
       });
+
+      // Drag interaction on altitude balloon icon
+      var DRAG_THRESHOLD = 36;
+      var dragStartY     = null;
+      var isDragging     = false;
+
+      altBalloon.addEventListener('pointerdown', function (e) {
+        dragStartY = e.clientY;
+        isDragging = true;
+        altBalloon.setPointerCapture(e.pointerId);
+        e.preventDefault();
+      });
+
+      altBalloon.addEventListener('pointerup', function (e) {
+        if (!isDragging) return;
+        isDragging = false;
+        var delta = e.clientY - dragStartY;
+        dragStartY = null;
+        if (activeStep >= 5 || isAnimating) return;
+        var dir = dragDir[activeStep];
+        if (dir === -1 && delta < -DRAG_THRESHOLD) goToStep(activeStep + 1);
+        if (dir ===  1 && delta >  DRAG_THRESHOLD) goToStep(activeStep + 1);
+      });
+
+      altBalloon.addEventListener('pointercancel', function () {
+        isDragging = false; dragStartY = null;
+      });
+
+      // Init
+      stateImg.src = stateSrcs[0];
+      setAltitude(0);
     })();
 
     /* ── THEME SWITCHER ───────────────────────────────────────────────────── */
