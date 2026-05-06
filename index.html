@@ -1869,6 +1869,34 @@
       // Init
       stateImg.src = stateSrcs[0];
       setAltitude(0);
+
+      // Background preload — fetch every state image + every transition frame
+      // so they're cached in memory by the time investors scroll to this section.
+      // Runs after the browser has finished critical hero rendering.
+      function preloadAllAssets() {
+        for (var i = 1; i < stateSrcs.length; i++) {
+          (new Image()).src = stateSrcs[i];
+        }
+        for (var t = 0; t < transitions.length; t++) {
+          var fNums = transitions[t];
+          for (var f = 0; f < fNums.length; f++) {
+            (new Image()).src = BG_BASE + fNums[f] + ').png';
+            (new Image()).src = FG_BASE + fNums[f] + ').png';
+          }
+        }
+      }
+      function schedulePreload() {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(preloadAllAssets, { timeout: 3000 });
+        } else {
+          setTimeout(preloadAllAssets, 600);
+        }
+      }
+      if (document.readyState === 'complete') {
+        schedulePreload();
+      } else {
+        window.addEventListener('load', schedulePreload);
+      }
     })();
 
     /* ── THEME SWITCHER ───────────────────────────────────────────────────── */
