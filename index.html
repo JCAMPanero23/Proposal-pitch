@@ -389,6 +389,9 @@
       border: 1px solid rgba(201,169,110,0.55);
       box-shadow: 0 0 14px rgba(201,169,110,0.28);
       pointer-events: none; opacity: 0;
+    }
+    /* Tip pulses only when the viewer is idle — hidden during transitions */
+    #experience .exp-viewer:not(.is-animating) .alt-drag-tip {
       animation: dragHintPulse 5s ease-in-out infinite;
     }
     #experience .alt-drag-tip::after {
@@ -1750,12 +1753,18 @@
       var transFg     = document.getElementById('expTransFg');
       var altBalloon  = document.getElementById('altBalloon');
       var altDragTip  = document.getElementById('altDragTip');
+      var expViewer   = stateImg.parentElement; // .exp-viewer — toggles is-animating
 
       var activeStep  = 0;
       var isAnimating = false;
       var frameTimer  = null;
       var restartTimer = null;
       var RESTART_DELAY = 4500; // ms — pause on Finale before auto-restart
+
+      // Auto-play: cycles through the journey in the background until the user takes control
+      var autoPlayActive   = true;
+      var autoAdvanceTimer = null;
+      var STATE_HOLD_MS    = 5000; // ms each state stays put before auto-advancing
 
       function updateNav(step) {
         stepBtns.forEach(function(b) { b.classList.toggle('active', +b.dataset.step === step); });
@@ -1771,17 +1780,41 @@
         stateImg.src           = stateSrcs[step];
         stateImg.style.opacity = '1';
         transLayers.classList.remove('active');
+        expViewer.classList.remove('is-animating');
         activeStep  = step;
         isAnimating = false;
 
-        // Auto-restart loop: at the Finale, return to Arrival after a short pause
-        if (restartTimer) { clearTimeout(restartTimer); restartTimer = null; }
+        // Clear any pending timers so we never double-schedule
+        if (restartTimer)     { clearTimeout(restartTimer);     restartTimer = null; }
+        if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
+        if (!autoPlayActive) return;
+
         if (step === 5) {
+          // At Finale: pause, then loop back to Arrival
           restartTimer = setTimeout(function () {
             restartTimer = null;
-            if (activeStep === 5 && !isAnimating) goToStep(0);
+            if (activeStep === 5 && !isAnimating && autoPlayActive) goToStep(0);
           }, RESTART_DELAY);
+        } else {
+          // Otherwise: hold this state, then advance to the next one
+          scheduleAutoAdvance(STATE_HOLD_MS);
         }
+      }
+
+      function scheduleAutoAdvance(delay) {
+        if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
+        if (!autoPlayActive) return;
+        autoAdvanceTimer = setTimeout(function () {
+          autoAdvanceTimer = null;
+          if (!autoPlayActive || isAnimating) return;
+          if (activeStep < 5) goToStep(activeStep + 1);
+        }, delay);
+      }
+
+      function stopAutoPlay() {
+        autoPlayActive = false;
+        if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
+        if (restartTimer)     { clearTimeout(restartTimer);     restartTimer = null; }
       }
 
       function playTransition(fromStep, toStep) {
@@ -1810,6 +1843,7 @@
       function goToStep(newStep) {
         if (newStep === activeStep || isAnimating) return;
         isAnimating = true;
+        expViewer.classList.add('is-animating');
         var fromStep = activeStep;
         updateNav(newStep);
 
@@ -1828,15 +1862,19 @@
             stateImg.src           = stateSrcs[newStep];
             stateImg.style.opacity = '1';
             transLayers.classList.remove('active');
+            expViewer.classList.remove('is-animating');
             activeStep  = newStep;
             isAnimating = false;
           }, 300);
         }
       }
 
-      // Nav button clicks
+      // Nav button clicks — user takes control, stop auto-play
       stepBtns.forEach(function (btn) {
-        btn.addEventListener('click', function () { goToStep(+btn.dataset.step); });
+        btn.addEventListener('click', function () {
+          stopAutoPlay();
+          goToStep(+btn.dataset.step);
+        });
       });
 
       // Drag interaction on altitude balloon icon
@@ -1858,8 +1896,8 @@
         dragStartY = null;
         if (activeStep >= 5 || isAnimating) return;
         var dir = dragDir[activeStep];
-        if (dir === -1 && delta < -DRAG_THRESHOLD) goToStep(activeStep + 1);
-        if (dir ===  1 && delta >  DRAG_THRESHOLD) goToStep(activeStep + 1);
+        if (dir === -1 && delta < -DRAG_THRESHOLD) { stopAutoPlay(); goToStep(activeStep + 1); }
+        if (dir ===  1 && delta >  DRAG_THRESHOLD) { stopAutoPlay(); goToStep(activeStep + 1); }
       });
 
       altBalloon.addEventListener('pointercancel', function () {
@@ -1869,6 +1907,9 @@
       // Init
       stateImg.src = stateSrcs[0];
       setAltitude(0);
+
+      // Start auto-play after a brief settle time so the preload has a head start
+      scheduleAutoAdvance(3500);
 
       // Background preload — fetch every state image + every transition frame
       // so they're cached in memory by the time investors scroll to this section.
