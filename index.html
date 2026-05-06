@@ -335,7 +335,7 @@
 
     /* Altitude indicator — overlaid on right edge of viewer */
     #experience .alt-indicator {
-      position: absolute; top: 0; right: 0; bottom: 0; width: 60px;
+      position: absolute; top: 0; right: 0; bottom: 0; width: 78px;
       background: rgba(10,10,15,0.52);
       backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
       border-left: 1px solid rgba(201,169,110,0.18);
@@ -362,9 +362,10 @@
       background: var(--gold-light); opacity: 0.45; flex-shrink: 0; position: relative; z-index: 1;
     }
     #experience .alt-marker-label {
-      position: absolute; left: calc(50% + 7px);
-      font-size: 7.5px; color: rgba(201,169,110,0.65);
-      white-space: nowrap; font-family: var(--ff-body); letter-spacing: 0.04em; line-height: 1;
+      position: absolute; right: calc(50% + 10px);
+      font-size: 10.5px; color: rgba(201,169,110,0.85);
+      white-space: nowrap; font-family: var(--ff-body); letter-spacing: 0.04em;
+      line-height: 1; font-weight: 500;
     }
     #experience .alt-balloon {
       position: absolute; left: 50%;
@@ -375,11 +376,33 @@
       z-index: 2;
     }
     #experience .alt-balloon:active { cursor: grabbing; }
-    #experience .alt-hint {
-      font-size: 9px; color: rgba(201,169,110,0.5);
-      letter-spacing: 0.06em; text-align: center;
-      line-height: 1; margin-top: 6px; user-select: none;
-      min-height: 12px;
+
+    /* Drag pop-up tip — pulses every 5s next to the balloon icon */
+    #experience .alt-drag-tip {
+      position: absolute; right: 100%; top: 50%; margin-right: 14px;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+      color: var(--gold-light);
+      background: rgba(10,10,15,0.92);
+      padding: 6px 12px; border-radius: 14px;
+      border: 1px solid rgba(201,169,110,0.55);
+      box-shadow: 0 0 14px rgba(201,169,110,0.28);
+      pointer-events: none; opacity: 0;
+      animation: dragHintPulse 5s ease-in-out infinite;
+    }
+    #experience .alt-drag-tip::after {
+      content: ''; position: absolute; top: 50%; left: 100%;
+      width: 0; height: 0;
+      border-left: 6px solid rgba(201,169,110,0.55);
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      transform: translateY(-50%);
+    }
+    #experience .alt-drag-tip:empty { display: none; }
+    @keyframes dragHintPulse {
+      0%, 60%, 100% { opacity: 0; transform: translateY(-50%) translateX(0); }
+      70%, 88%      { opacity: 1; transform: translateY(-50%) translateX(-6px); }
     }
 
     /* ─── SECTION 5 — THREE THEMES ───────────────────────────────────────── */
@@ -626,7 +649,7 @@
     @media (max-width: 960px) {
       #experience .exp-shell    { grid-template-columns: 1fr; }
       #experience .exp-nav      { border-right: none; border-bottom: 1px solid var(--border); max-height: 200px; overflow-y: auto; }
-      #experience .alt-indicator { width: 48px; }
+      #experience .alt-indicator { width: 64px; }
       #themes .theme-layout     { grid-template-columns: 1fr; }
       #investment .tier-layout  { grid-template-columns: 1fr; }
       #technology .module-section { grid-template-columns: 1fr; }
@@ -911,6 +934,7 @@
                 </div>
                 <!-- Draggable balloon icon -->
                 <div class="alt-balloon" id="altBalloon" style="top:92%">
+                  <div class="alt-drag-tip" id="altDragTip">↑ drag</div>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 46" width="28" height="46" aria-hidden="true">
                     <defs>
                       <radialGradient id="expBallGrad" cx="38%" cy="30%" r="68%">
@@ -934,7 +958,6 @@
                   </svg>
                 </div>
               </div>
-              <div class="alt-hint" id="altHint">↑ drag</div>
             </div>
           </div>
 
@@ -1726,11 +1749,13 @@
       var transBg     = document.getElementById('expTransBg');
       var transFg     = document.getElementById('expTransFg');
       var altBalloon  = document.getElementById('altBalloon');
-      var altHint     = document.getElementById('altHint');
+      var altDragTip  = document.getElementById('altDragTip');
 
       var activeStep  = 0;
       var isAnimating = false;
       var frameTimer  = null;
+      var restartTimer = null;
+      var RESTART_DELAY = 4500; // ms — pause on Finale before auto-restart
 
       function updateNav(step) {
         stepBtns.forEach(function(b) { b.classList.toggle('active', +b.dataset.step === step); });
@@ -1739,7 +1764,7 @@
 
       function setAltitude(step) {
         altBalloon.style.top = altToPct(stateAlt[step]).toFixed(1) + '%';
-        if (altHint) altHint.textContent = hints[step];
+        if (altDragTip) altDragTip.textContent = hints[step];
       }
 
       function showState(step) {
@@ -1748,6 +1773,15 @@
         transLayers.classList.remove('active');
         activeStep  = step;
         isAnimating = false;
+
+        // Auto-restart loop: at the Finale, return to Arrival after a short pause
+        if (restartTimer) { clearTimeout(restartTimer); restartTimer = null; }
+        if (step === 5) {
+          restartTimer = setTimeout(function () {
+            restartTimer = null;
+            if (activeStep === 5 && !isAnimating) goToStep(0);
+          }, RESTART_DELAY);
+        }
       }
 
       function playTransition(fromStep, toStep) {
