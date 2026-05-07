@@ -317,6 +317,16 @@
     #experience .exp-trans-fg {
       position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
     }
+    /* Per-state overlay — fades in (1s) when the state settles, stays visible
+       through the idle hold, fades out (1s) the moment a transition begins. */
+    #experience .exp-state-overlay {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0; pointer-events: none; z-index: 1;
+      transition: opacity 1s ease-in-out;
+    }
+    #experience .exp-viewer:not(.is-animating) .exp-state-overlay.has-src {
+      opacity: 1;
+    }
     #experience .exp-panel-content {
       background: var(--bg-card); flex: 1; border-top: 1px solid var(--border);
     }
@@ -336,6 +346,7 @@
     /* Altitude indicator — overlaid on right edge of viewer */
     #experience .alt-indicator {
       position: absolute; top: 0; right: 0; bottom: 0; width: 78px;
+      z-index: 3; /* above .exp-state-overlay (z-index 1) */
       background: rgba(10,10,15,0.52);
       backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
       border-left: 1px solid rgba(201,169,110,0.18);
@@ -913,6 +924,7 @@
               <img class="exp-trans-bg" id="expTransBg" src="" alt="" />
               <img class="exp-trans-fg" id="expTransFg" src="" alt="" />
             </div>
+            <img class="exp-state-overlay" id="expStateOverlay" src="" alt="" />
 
             <!-- Altitude indicator — right side overlay -->
             <div class="alt-indicator">
@@ -1724,6 +1736,16 @@
         BASE + 'state_06_exit.png',
       ];
 
+      // Per-state overlay images — fade in/hold/fade out on top of the state image
+      var overlaySrcs = [
+        BASE + 'state_01_arrival_Overlay.png',
+        BASE + 'state_02_boarding_ascent_Overlay.png',
+        BASE + 'state_03_peak_300m_Overlay.png',
+        BASE + 'state_04_descent_Overlay.png',
+        BASE + 'state_05_main_show_25m_Overlay.png',
+        BASE + 'state_06_exit_Overlay.png',
+      ];
+
       // Frame numbers for each transition (state N → N+1)
       var transitions = [
         range(2,  15),   // 0→1  Arrival → Boarding
@@ -1741,8 +1763,8 @@
       // Drag direction required to advance each state: −1 = drag up, +1 = drag down
       // Mirrors the indicator movement: ascending → icon goes up → drag up; descending → drag down
       var FRAME_MS = 220; // ms per frame — controls both playback speed and icon sync
-      var dragDir  = [-1, -1, 1, 1, 1]; // indices 0–4 (state 5 is terminal)
-      var hints   = ['↑ drag', '↑ drag', '↓ drag', '↓ drag', '↓ drag', ''];
+      var dragDir  = [-1, -1, 1, 1, 1, -1]; // state 5: drag up to restart back to state 0
+      var hints   = ['↑ drag', '↑ drag', '↓ drag', '↓ drag', '↓ drag', '↑ restart'];
 
       // DOM
       var stepBtns    = document.querySelectorAll('.exp-step-btn');
@@ -1753,18 +1775,19 @@
       var transFg     = document.getElementById('expTransFg');
       var altBalloon  = document.getElementById('altBalloon');
       var altDragTip  = document.getElementById('altDragTip');
+      var stateOverlay = document.getElementById('expStateOverlay');
       var expViewer   = stateImg.parentElement; // .exp-viewer — toggles is-animating
 
       var activeStep  = 0;
       var isAnimating = false;
       var frameTimer  = null;
       var restartTimer = null;
-      var RESTART_DELAY = 4500; // ms — pause on Finale before auto-restart
+      var RESTART_DELAY = 7000; // ms — pause on Finale before auto-restart (matches state hold)
 
       // Auto-play: cycles through the journey in the background until the user takes control
       var autoPlayActive   = true;
       var autoAdvanceTimer = null;
-      var STATE_HOLD_MS    = 5000; // ms each state stays put before auto-advancing
+      var STATE_HOLD_MS    = 7000; // ms each state stays put — matches overlay 2s+3s+2s fade cycle
 
       function updateNav(step) {
         stepBtns.forEach(function(b) { b.classList.toggle('active', +b.dataset.step === step); });
@@ -1779,6 +1802,8 @@
       function showState(step) {
         stateImg.src           = stateSrcs[step];
         stateImg.style.opacity = '1';
+        stateOverlay.src       = overlaySrcs[step];
+        stateOverlay.classList.add('has-src');
         transLayers.classList.remove('active');
         expViewer.classList.remove('is-animating');
         activeStep  = step;
@@ -1861,6 +1886,8 @@
           setTimeout(function () {
             stateImg.src           = stateSrcs[newStep];
             stateImg.style.opacity = '1';
+            stateOverlay.src       = overlaySrcs[newStep];
+            stateOverlay.classList.add('has-src');
             transLayers.classList.remove('active');
             expViewer.classList.remove('is-animating');
             activeStep  = newStep;
@@ -1894,10 +1921,11 @@
         isDragging = false;
         var delta = e.clientY - dragStartY;
         dragStartY = null;
-        if (activeStep >= 5 || isAnimating) return;
+        if (isAnimating) return;
         var dir = dragDir[activeStep];
-        if (dir === -1 && delta < -DRAG_THRESHOLD) { stopAutoPlay(); goToStep(activeStep + 1); }
-        if (dir ===  1 && delta >  DRAG_THRESHOLD) { stopAutoPlay(); goToStep(activeStep + 1); }
+        var nextStep = activeStep === 5 ? 0 : activeStep + 1; // wrap from Finale → Arrival
+        if (dir === -1 && delta < -DRAG_THRESHOLD) { stopAutoPlay(); goToStep(nextStep); }
+        if (dir ===  1 && delta >  DRAG_THRESHOLD) { stopAutoPlay(); goToStep(nextStep); }
       });
 
       altBalloon.addEventListener('pointercancel', function () {
@@ -1905,18 +1933,22 @@
       });
 
       // Init
-      stateImg.src = stateSrcs[0];
+      stateImg.src     = stateSrcs[0];
+      stateOverlay.src = overlaySrcs[0];
+      stateOverlay.classList.add('has-src');
       setAltitude(0);
 
-      // Start auto-play after a brief settle time so the preload has a head start
-      scheduleAutoAdvance(3500);
+      // Start auto-play — first state holds the full STATE_HOLD_MS so the overlay's
+      // 2s+3s+2s fade cycle can complete before the first transition fires.
+      scheduleAutoAdvance(STATE_HOLD_MS);
 
-      // Background preload — fetch every state image + every transition frame
-      // so they're cached in memory by the time investors scroll to this section.
+      // Background preload — fetch every state image, every overlay, and every
+      // transition frame so they're cached by the time investors scroll to this section.
       // Runs after the browser has finished critical hero rendering.
       function preloadAllAssets() {
         for (var i = 1; i < stateSrcs.length; i++) {
           (new Image()).src = stateSrcs[i];
+          (new Image()).src = overlaySrcs[i];
         }
         for (var t = 0; t < transitions.length; t++) {
           var fNums = transitions[t];
