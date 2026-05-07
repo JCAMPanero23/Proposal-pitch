@@ -1762,7 +1762,15 @@
 
       // Drag direction required to advance each state: −1 = drag up, +1 = drag down
       // Mirrors the indicator movement: ascending → icon goes up → drag up; descending → drag down
-      var FRAME_MS = 220; // ms per frame — controls both playback speed and icon sync
+      var FRAME_MS = 220; // ms per frame — default playback speed (also drives icon sync)
+      // Per-transition overrides — slow down specific transitions for cinematic pacing.
+      // Keys are fromStep (0-indexed). 1 → Boarding→Peak: stretched to ~3.5s to match 2→3.
+      var FRAME_MS_BY_TRANSITION = { 1: 440 };
+      function frameMs(fromStep) {
+        return FRAME_MS_BY_TRANSITION[fromStep] != null
+          ? FRAME_MS_BY_TRANSITION[fromStep]
+          : FRAME_MS;
+      }
       var dragDir  = [-1, -1, 1, 1, 1, -1]; // state 5: drag up to restart back to state 0
       var hints   = ['↑ drag', '↑ drag', '↓ drag', '↓ drag', '↓ drag', '↑ restart'];
 
@@ -1862,7 +1870,7 @@
           }
           transBg.src = BG_BASE + fNums[idx] + ').png';
           transFg.src = FG_BASE + fNums[idx] + ').png';
-        }, FRAME_MS);
+        }, frameMs(fromStep));
       }
 
       function goToStep(newStep) {
@@ -1874,7 +1882,7 @@
 
         if (newStep === fromStep + 1 && fromStep < transitions.length) {
           // Sequential forward — match icon duration to frame animation
-          var dur = (transitions[fromStep].length * FRAME_MS / 1000).toFixed(2);
+          var dur = (transitions[fromStep].length * frameMs(fromStep) / 1000).toFixed(2);
           altBalloon.style.transition = 'top ' + dur + 's ease-in-out';
           setAltitude(newStep);
           playTransition(fromStep, newStep);
