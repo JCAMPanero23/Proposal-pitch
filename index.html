@@ -307,16 +307,14 @@
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: cover; transition: opacity 0.3s ease;
     }
-    #experience .exp-trans-layers {
-      position: absolute; inset: 0; display: none; pointer-events: none;
+    /* Fades out (250ms) when .active is removed — gives the underlying state
+       image time to decode and paint, eliminating the black flash at swap. */
+    #experience .exp-trans-frame {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease-out;
     }
-    #experience .exp-trans-layers.active { display: block; }
-    #experience .exp-trans-bg {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-    }
-    #experience .exp-trans-fg {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-    }
+    #experience .exp-trans-frame.active { opacity: 1; transition: none; }
     /* Per-state overlay — fades in (1s) when the state settles, stays visible
        through the idle hold, fades out (1s) the moment a transition begins. */
     #experience .exp-state-overlay {
@@ -920,10 +918,7 @@
             <img class="exp-state-img" id="expStateImg"
                  src="HTML_assets/Vertical%20Altitude%20Experience/state_01_arrival.png"
                  alt="Arrival — LED field lit in tonight's theme" />
-            <div class="exp-trans-layers" id="expTransLayers">
-              <img class="exp-trans-bg" id="expTransBg" src="" alt="" />
-              <img class="exp-trans-fg" id="expTransFg" src="" alt="" />
-            </div>
+            <img class="exp-trans-frame" id="expTransFrame" src="" alt="" />
             <img class="exp-state-overlay" id="expStateOverlay" src="" alt="" />
 
             <!-- Altitude indicator — right side overlay -->
@@ -1292,7 +1287,7 @@
             <div class="capex-breakdown">
               <div class="capex-row"><span class="capex-label">LED field — GFRC tile + 316SS adjustable feet</span><span class="capex-val">AED 14,500,000</span></div>
               <div class="capex-row"><span class="capex-label">Balloon · gondola + envelope + winch</span><span class="capex-val">AED 8,000,000</span></div>
-              <div class="capex-row"><span class="capex-label">Content launch · 3 hero shows + ambient</span><span class="capex-val">AED 2,800,000</span></div>
+              <div class="capex-row"><span class="capex-label">Content launch · 3 hero shows + ambient + software</span><span class="capex-val">AED 2,800,000</span></div>
               <div class="capex-row total"><span class="capex-label">Total CAPEX</span><span class="capex-val">AED 25,300,000</span></div>
             </div>
           </div>
@@ -1323,7 +1318,7 @@
             <div class="capex-breakdown">
               <div class="capex-row"><span class="capex-label">LED field — aluminum tile + 316SS adjustable feet</span><span class="capex-val">AED 15,100,000</span></div>
               <div class="capex-row"><span class="capex-label">Balloon · gondola + envelope + winch</span><span class="capex-val">AED 8,000,000</span></div>
-              <div class="capex-row"><span class="capex-label">Content launch · 3 hero shows + ambient</span><span class="capex-val">AED 2,800,000</span></div>
+              <div class="capex-row"><span class="capex-label">Content launch · 3 hero shows + ambient + software</span><span class="capex-val">AED 2,800,000</span></div>
               <div class="capex-row total"><span class="capex-label">Total CAPEX</span><span class="capex-val">AED 25,900,000</span></div>
             </div>
           </div>
@@ -1357,6 +1352,11 @@
 
       <!-- Conservative -->
       <div class="scenario-panel" id="scenario-conservative">
+        <p class="t-body" style="max-width:780px; margin-bottom:32px;">
+          The underwriting floor. A cautious 40% average load — well below the Dubai Balloon benchmark —
+          with sponsorship and museum cross-sell held flat and no premium VIP uplift. Even in this case the attraction
+          covers operating cost and recovers CAPEX inside six years.
+        </p>
         <div class="kpi-row">
           <div class="kpi-card"><div class="kpi-value">AED 13.9M</div><div class="kpi-label">Annual Revenue</div></div>
           <div class="kpi-card"><div class="kpi-value">AED 4.1M</div><div class="kpi-label">EBITDA</div></div>
@@ -1367,6 +1367,11 @@
 
       <!-- Base Case -->
       <div class="scenario-panel active" id="scenario-base">
+        <p class="t-body" style="max-width:780px; margin-bottom:32px;">
+          The underwriting case. A 70% average load matched to the proven Dubai Balloon benchmark, with the full
+          night revenue stack live: themed show ticketing, the All-Access Pass, four seasonal sponsor refreshes,
+          and the museum partnership. This is what the financial plan is built on.
+        </p>
         <div class="kpi-row">
           <div class="kpi-card"><div class="kpi-value">AED 24.7M</div><div class="kpi-label">Annual Revenue</div></div>
           <div class="kpi-card"><div class="kpi-value">AED 14.9M</div><div class="kpi-label">EBITDA</div></div>
@@ -1377,6 +1382,11 @@
 
       <!-- Strong -->
       <div class="scenario-panel" id="scenario-strong">
+        <p class="t-body" style="max-width:780px; margin-bottom:32px;">
+          The upside case. An 85%+ average load supported by anchor sponsor renewals, premium All-Access Pass
+          uptake, full VIP gondola booking through peak season, and content syndication across partner venues.
+          CAPEX returns inside the first year and the surplus compounds into refresh cycles and a second site.
+        </p>
         <div class="kpi-row">
           <div class="kpi-card"><div class="kpi-value">AED 39.7M</div><div class="kpi-label">Annual Revenue</div></div>
           <div class="kpi-card"><div class="kpi-value">AED 29.9M</div><div class="kpi-label">EBITDA</div></div>
@@ -1576,7 +1586,7 @@
           <div class="t-eyebrow t-gold" style="margin-bottom:12px;">Theme C</div>
           <h3 style="font-family:var(--ff-display); font-size:20px; margin-bottom:10px;">Guggenheim Abu Dhabi</h3>
           <p class="t-body" style="margin-bottom:16px;"><!-- FILL: partnership body -->
-            > Theme C is the Guggenheim's natural aerial extension, bold, abstract, and electric. The Canvas + Guggenheim pass (AED 445) connects the balloon experience to the 
+            Theme C is the Guggenheim's natural aerial extension, bold, abstract, and electric. The Canvas + Guggenheim pass (AED 445) connects the balloon experience to the 
             international contemporary art market and the hotel guests visiting Saadiyat for the museum season.
           </p>
           <div style="font-size:13px; color:var(--muted);">Canvas + Guggenheim pass · AED 445</div>
@@ -1723,37 +1733,41 @@
         return arr;
       }
 
-      var BASE    = 'HTML_assets/Vertical%20Altitude%20Experience/';
-      var BG_BASE = BASE + 'Balloon%20Background%20only/transition_bg_%20(';
-      var FG_BASE = BASE + 'Balloon%20only_fg/transition_fg_(';
+      var BASE        = 'HTML_assets/Vertical%20Altitude%20Experience/v2/';
+      var FRAME_BASE  = BASE + 'composite/transition_';
 
       var stateSrcs = [
-        BASE + 'state_01_arrival.png',
-        BASE + 'state_02_boarding_ascent.png',
-        BASE + 'state_03_peak_300m.png',
-        BASE + 'state_04_descent.png',
-        BASE + 'state_05_main_show_25m.png',
-        BASE + 'state_06_exit.png',
+        BASE + 'states/state_01_arrival.webp',
+        BASE + 'states/state_02_boarding_ascent.webp',
+        BASE + 'states/state_03_peak_300m.webp',
+        BASE + 'states/state_04_descent.webp',
+        BASE + 'states/state_05_main_show_25m.webp',
+        BASE + 'states/state_06_exit.webp',
       ];
 
       // Per-state overlay images — fade in/hold/fade out on top of the state image
       var overlaySrcs = [
-        BASE + 'state_01_arrival_Overlay.png',
-        BASE + 'state_02_boarding_ascent_Overlay.png',
-        BASE + 'state_03_peak_300m_Overlay.png',
-        BASE + 'state_04_descent_Overlay.png',
-        BASE + 'state_05_main_show_25m_Overlay.png',
-        BASE + 'state_06_exit_Overlay.png',
+        BASE + 'overlays/state_01_arrival_overlay.webp',
+        BASE + 'overlays/state_02_boarding_ascent_overlay.webp',
+        BASE + 'overlays/state_03_peak_300m_overlay.webp',
+        BASE + 'overlays/state_04_descent_overlay.webp',
+        BASE + 'overlays/state_05_main_show_25m_overlay.webp',
+        BASE + 'overlays/state_06_exit_overlay.webp',
       ];
 
-      // Frame numbers for each transition (state N → N+1)
+      // Frame numbers for each transition (state N → N+1) — 16-frame parity
       var transitions = [
-        range(2,  15),   // 0→1  Arrival → Boarding
-        range(17, 24),   // 1→2  Boarding → Peak
-        range(26, 41),   // 2→3  Peak → Descent
-        range(43, 57),   // 3→4  Descent → Show
-        range(59, 66),   // 4→5  Show → Exit
+        range(1,  16),   // 0→1  Arrival → Boarding
+        range(17, 32),   // 1→2  Boarding → Peak
+        range(33, 48),   // 2→3  Peak → Descent
+        range(49, 64),   // 3→4  Descent → Show
+        range(65, 80),   // 4→5  Show → Exit
       ];
+
+      // Build padded frame URL: 7 → 'transition_0007.webp'
+      function frameUrl(n) {
+        return FRAME_BASE + String(n).padStart(4, '0') + '.webp';
+      }
 
       // Altitude (m) per state — maps to indicator position
       // top% = 8 + (300 − alt) / 300 × 84  →  8% (300m/top) … 92% (0m/bottom)
@@ -1762,15 +1776,7 @@
 
       // Drag direction required to advance each state: −1 = drag up, +1 = drag down
       // Mirrors the indicator movement: ascending → icon goes up → drag up; descending → drag down
-      var FRAME_MS = 220; // ms per frame — default playback speed (also drives icon sync)
-      // Per-transition overrides — slow down specific transitions for cinematic pacing.
-      // Keys are fromStep (0-indexed). 1 → Boarding→Peak: stretched to ~3.5s to match 2→3.
-      var FRAME_MS_BY_TRANSITION = { 1: 440 };
-      function frameMs(fromStep) {
-        return FRAME_MS_BY_TRANSITION[fromStep] != null
-          ? FRAME_MS_BY_TRANSITION[fromStep]
-          : FRAME_MS;
-      }
+      var FRAME_MS = 220; // ms per frame — uniform pacing across all 16-frame transitions
       var dragDir  = [-1, -1, 1, 1, 1, -1]; // state 5: drag up to restart back to state 0
       var hints   = ['↑ drag', '↑ drag', '↓ drag', '↓ drag', '↓ drag', '↑ restart'];
 
@@ -1778,9 +1784,7 @@
       var stepBtns    = document.querySelectorAll('.exp-step-btn');
       var slides      = document.querySelectorAll('.exp-panel-slide');
       var stateImg    = document.getElementById('expStateImg');
-      var transLayers = document.getElementById('expTransLayers');
-      var transBg     = document.getElementById('expTransBg');
-      var transFg     = document.getElementById('expTransFg');
+      var transFrame  = document.getElementById('expTransFrame');
       var altBalloon  = document.getElementById('altBalloon');
       var altDragTip  = document.getElementById('altDragTip');
       var stateOverlay = document.getElementById('expStateOverlay');
@@ -1807,31 +1811,50 @@
         if (altDragTip) altDragTip.textContent = hints[step];
       }
 
+      // Decode an image off-screen so the <img> swap paints atomically.
+      function primeDecode(src) {
+        var img = new Image();
+        img.src = src;
+        return img.decode ? img.decode().catch(function(){}) : Promise.resolve();
+      }
+
       function showState(step) {
-        stateImg.src           = stateSrcs[step];
-        stateImg.style.opacity = '1';
-        stateOverlay.src       = overlaySrcs[step];
-        stateOverlay.classList.add('has-src');
-        transLayers.classList.remove('active');
-        expViewer.classList.remove('is-animating');
-        activeStep  = step;
-        isAnimating = false;
+        var nextStateSrc   = stateSrcs[step];
+        var nextOverlaySrc = overlaySrcs[step];
 
-        // Clear any pending timers so we never double-schedule
-        if (restartTimer)     { clearTimeout(restartTimer);     restartTimer = null; }
-        if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-        if (!autoPlayActive) return;
+        // Pre-decode BOTH the state image and the overlay in parallel — neither
+        // can briefly render as an empty <img> during its CSS fade-in.
+        var ready = Promise.all([
+          primeDecode(nextStateSrc),
+          primeDecode(nextOverlaySrc),
+        ]);
 
-        if (step === 5) {
-          // At Finale: pause, then loop back to Arrival
-          restartTimer = setTimeout(function () {
-            restartTimer = null;
-            if (activeStep === 5 && !isAnimating && autoPlayActive) goToStep(0);
-          }, RESTART_DELAY);
-        } else {
-          // Otherwise: hold this state, then advance to the next one
-          scheduleAutoAdvance(STATE_HOLD_MS);
-        }
+        ready.then(function () {
+          stateImg.src           = nextStateSrc;
+          stateImg.style.opacity = '1';
+          stateOverlay.src       = nextOverlaySrc;
+          stateOverlay.classList.add('has-src');
+          transFrame.classList.remove('active');
+          expViewer.classList.remove('is-animating');
+          activeStep  = step;
+          isAnimating = false;
+
+          // Clear any pending timers so we never double-schedule
+          if (restartTimer)     { clearTimeout(restartTimer);     restartTimer = null; }
+          if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
+          if (!autoPlayActive) return;
+
+          if (step === 5) {
+            // At Finale: pause, then loop back to Arrival
+            restartTimer = setTimeout(function () {
+              restartTimer = null;
+              if (activeStep === 5 && !isAnimating && autoPlayActive) goToStep(0);
+            }, RESTART_DELAY);
+          } else {
+            // Otherwise: hold this state, then advance to the next one
+            scheduleAutoAdvance(STATE_HOLD_MS);
+          }
+        });
       }
 
       function scheduleAutoAdvance(delay) {
@@ -1856,9 +1879,8 @@
 
         var idx = 0;
         stateImg.style.opacity = '0';
-        transLayers.classList.add('active');
-        transBg.src = BG_BASE + fNums[0] + ').png';
-        transFg.src = FG_BASE + fNums[0] + ').png';
+        transFrame.classList.add('active');
+        transFrame.src = frameUrl(fNums[0]);
 
         if (frameTimer) clearInterval(frameTimer);
         frameTimer = setInterval(function () {
@@ -1868,9 +1890,8 @@
             showState(toStep);
             return;
           }
-          transBg.src = BG_BASE + fNums[idx] + ').png';
-          transFg.src = FG_BASE + fNums[idx] + ').png';
-        }, frameMs(fromStep));
+          transFrame.src = frameUrl(fNums[idx]);
+        }, FRAME_MS);
       }
 
       function goToStep(newStep) {
@@ -1882,7 +1903,7 @@
 
         if (newStep === fromStep + 1 && fromStep < transitions.length) {
           // Sequential forward — match icon duration to frame animation
-          var dur = (transitions[fromStep].length * frameMs(fromStep) / 1000).toFixed(2);
+          var dur = (transitions[fromStep].length * FRAME_MS / 1000).toFixed(2);
           altBalloon.style.transition = 'top ' + dur + 's ease-in-out';
           setAltitude(newStep);
           playTransition(fromStep, newStep);
@@ -1896,7 +1917,7 @@
             stateImg.style.opacity = '1';
             stateOverlay.src       = overlaySrcs[newStep];
             stateOverlay.classList.add('has-src');
-            transLayers.classList.remove('active');
+            transFrame.classList.remove('active');
             expViewer.classList.remove('is-animating');
             activeStep  = newStep;
             isAnimating = false;
@@ -1961,8 +1982,7 @@
         for (var t = 0; t < transitions.length; t++) {
           var fNums = transitions[t];
           for (var f = 0; f < fNums.length; f++) {
-            (new Image()).src = BG_BASE + fNums[f] + ').png';
-            (new Image()).src = FG_BASE + fNums[f] + ').png';
+            (new Image()).src = frameUrl(fNums[f]);
           }
         }
       }

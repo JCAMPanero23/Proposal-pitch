@@ -1,0 +1,11 @@
+{
+  "name": "canvas-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "convert-overlays": "node convert-overlays.js"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}
