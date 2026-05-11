@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canvas From The Sky — Investor Brochure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Palette — light brochure, dark-on-parchment with gold accents ─── */
+    :root {
+      --gold:        #A67C3A;
+      --gold-deep:   #8B5A2A;
+      --gold-soft:   rgba(166, 124, 58, 0.5);
+      --gold-tint:   rgba(166, 124, 58, 0.06);
+      --gold-tint-2: rgba(166, 124, 58, 0.12);
+
+      --bg:          #FFFFFF;   /* unified white page */
+      --bg-2:        #FFFFFF;
+      --bg-3:        #FFFFFF;
+      --bg-tint:     #FAF8F4;   /* subtle warm tint for cards/callouts */
+
+      --text:        #18140E;
+      --text-body:   #3C3428;
+      --text-muted:  #7A7065;
+      --border:      rgba(24, 20, 14, 0.14);
+      --border-soft: rgba(24, 20, 14, 0.08);
+
+      --ink:         #0A0A0F;
+      --ink-paper:   #F0EDE6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      background: #DCDAD3;
+      color: var(--text-body);
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 11pt;
+      line-height: 1.55;
+    }
+
+    /* ── A4 page model ────────────────────────────────────────────────────
+       Each .page renders as one A4 sheet (210 × 297 mm). On screen, pages
+       are stacked vertically with a subtle drop-shadow so the user sees
+       the printed result before sending to PDF.                           */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 18mm 18mm 16mm;
+      margin: 8mm auto;
+      background: var(--bg);
+      color: var(--text-body);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+    }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+
+    /* Variants — all unified to white; classes retained for backwards-compat
+       so existing markup still validates without dragging in tonal shifts.  */
+    .page--ink    { background: #FFFFFF; color: var(--text-body); }
+    .page--white  { background: #FFFFFF; }
+    .page--cream  { background: #FFFFFF; }
+
+    /* ── Type system ─────────────────────────────────────────────────── */
+    .eyebrow {
+      font-size: 8.5pt;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .display-xl {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 44pt;
+      line-height: 1.04;
+      letter-spacing: -0.015em;
+      color: var(--text);
+    }
+    .display-l {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 26pt;
+      line-height: 1.12;
+      letter-spacing: -0.005em;
+      color: var(--text);
+      margin-bottom: 6pt;
+    }
+    .display-m {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 18pt;
+      line-height: 1.18;
+      color: var(--text);
+    }
+    .lede {
+      font-size: 12pt;
+      line-height: 1.55;
+      color: var(--text-body);
+      max-width: 170mm;
+    }
+    .body {
+      font-size: 10.5pt;
+      line-height: 1.65;
+      color: var(--text-body);
+    }
+    .body-sm {
+      font-size: 9.5pt;
+      line-height: 1.6;
+      color: var(--text-body);
+    }
+    /* (Dark-page text overrides removed — all pages render on white.) */
+
+    .divider {
+      width: 36pt; height: 2pt;
+      background: var(--gold);
+      margin: 6pt 0 10pt;
+    }
+    .divider-full {
+      height: 1px; background: var(--border);
+      margin: 12pt 0;
+    }
+
+    p + p { margin-top: 8pt; }
+
+    /* ── Page header / footer (running) ──────────────────────────────── */
+    .page-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 8pt; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-muted);
+      padding-bottom: 6mm;
+      border-bottom: 1px solid var(--border-soft);
+      margin-bottom: 8mm;
+      font-weight: 500;
+    }
+    .page-head .brand { color: var(--gold); font-weight: 600; }
+    .page-foot {
+      margin-top: auto;
+      padding-top: 6mm;
+      border-top: 1px solid var(--border-soft);
+      font-size: 7.5pt; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex; justify-content: space-between;
+      font-weight: 500;
+    }
+    /* (Dark page-head/foot overrides removed.) */
+
+    /* ── Stats / number rows ─────────────────────────────────────────── */
+    .stat-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8mm; margin-top: 8mm; }
+    .stat-row-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6mm; margin-top: 8mm; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 26pt; color: var(--gold); line-height: 1; font-weight: 700;
+    }
+    .stat-num-sm {
+      font-family: 'Playfair Display', serif;
+      font-size: 20pt; color: var(--gold); line-height: 1; font-weight: 700;
+    }
+    .stat-lbl {
+      font-size: 7.5pt; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-muted); margin-top: 4pt; font-weight: 500;
+    }
+    /* (Dark-page stat-row overrides removed.) */
+
+    /* ── Two/three column layouts ────────────────────────────────────── */
+    .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10mm; margin-top: 6mm; }
+    .cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8mm; margin-top: 6mm; }
+    .col-num {
+      font-size: 8pt; color: var(--gold);
+      letter-spacing: 0.22em; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 6pt;
+    }
+    .col-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 13pt; color: var(--text); font-weight: 600;
+      line-height: 1.25; margin-bottom: 6pt;
+    }
+    .col-body {
+      font-size: 10pt; line-height: 1.6; color: var(--text-body);
+    }
+
+    /* ── Cover page ─ split: hero image top half, white body bottom half ── */
+    .cover {
+      padding: 0;
+      background: #FFFFFF;
+      color: var(--text-body);
+    }
+    .cover-hero {
+      position: relative;
+      height: 148.5mm;            /* exactly half of A4 portrait */
+      width: 100%;
+      background-image: url('HTML_assets/hero-aerial-night.png');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+    /* Subtle bottom-edge gradient so the image transitions cleanly into
+       white rather than ending on a hard horizontal seam.                  */
+    .cover-hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg,
+        rgba(10,10,15,0.05) 0%,
+        rgba(10,10,15,0.10) 60%,
+        rgba(10,10,15,0.55) 100%);
+    }
+    .cover-hero-overlay {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 0 18mm 14mm;
+      z-index: 1;
+      color: #F0EDE6;
+    }
+    .cover-hero-overlay .eyebrow { color: #E5C887; }
+    .cover-hero-overlay .display-xl {
+      color: #FFFFFF;
+      font-size: 50pt;
+      margin-top: 6mm;
+      text-shadow: 0 2px 18px rgba(10,10,15,0.45);
+    }
+    .cover-body {
+      padding: 14mm 18mm 18mm;
+      display: flex; flex-direction: column;
+      flex: 1;
+      background: #FFFFFF;
+      color: var(--text-body);
+    }
+    .cover-body .lede {
+      color: var(--text-body);
+      font-size: 13pt;
+      max-width: 170mm;
+    }
+    .cover-divider {
+      width: 36pt; height: 2pt;
+      background: var(--gold);
+      margin: 0 0 8mm;
+    }
+    .cover-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6mm;
+      margin-top: 10mm;
+      padding-top: 8mm;
+      border-top: 1px solid var(--border);
+    }
+    .cover-stats .stat-num-sm { color: var(--gold); font-size: 22pt; }
+    .cover-stats .stat-lbl { color: var(--text-muted); }
+    .cover-meta {
+      display: flex; justify-content: space-between;
+      align-items: flex-end;
+      margin-top: auto;
+      padding-top: 8mm;
+    }
+    .cover-meta .brand-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 12pt; color: var(--gold);
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
+    .cover-meta .meta-right {
+      font-size: 8.5pt; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: right;
+      font-weight: 500;
+    }
+
+    /* ── Image blocks ────────────────────────────────────────────────── */
+    .figure {
+      width: 100%;
+      border-radius: 3pt;
+      overflow: hidden;
+      background: var(--bg-3);
+      display: block;
+    }
+    .figure img {
+      width: 100%; height: auto; display: block;
+    }
+    .figure--cap { padding: 0; }
+    .figure-caption {
+      font-size: 8pt; letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-top: 4pt;
+      font-style: italic;
+    }
+
+    /* ── Page-fill stack wrappers ─────────────────────────────────────
+       Both classes grow to consume leftover vertical space inside a .page
+       so the footer ends up flush at the bottom edge instead of leaving a
+       dead gap. .steps-stack is used on the Guest Experience pages; the
+       generic .page-stack is used on any other page that doesn't naturally
+       fill — wrap logical content groups as direct children to keep them
+       from being torn apart by space-between distribution.                 */
+    .steps-stack {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      gap: 6mm;
+      margin-top: 4mm;
+    }
+    .page-stack {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 4mm;
+    }
+    /* Reset the default first-child margin-top inside a stack so groups
+       hug the top of their slot instead of nudging downward.              */
+    .page-stack > * { min-height: 0; }
+    .page-stack .intro-block > h2.display-l { margin-top: 6pt; }
+    .page-stack .intro-block > .divider    { margin-top: 6pt; }
+    .page-stack .intro-block > .lede       { margin-top: 6pt; }
+    .step-block {
+      display: grid;
+      grid-template-columns: 78mm 1fr;
+      gap: 8mm;
+      align-items: center;
+    }
+    /* When step blocks live inside .steps-stack the wrapper handles spacing;
+       drop the legacy top-margin so spacing isn't double-counted.           */
+    .steps-stack .step-block { margin-top: 0; }
+    .step-block .step-img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: #1F1F26;
+      border-radius: 3pt;
+      overflow: hidden;
+      position: relative;
+    }
+    .step-block .step-img img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+    }
+    .step-block .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 24pt; color: var(--gold);
+      line-height: 1; font-weight: 700;
+    }
+    .step-block .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 14pt; color: var(--text);
+      font-weight: 600; line-height: 1.2;
+      margin: 2pt 0 1pt;
+    }
+    .step-block .step-meta {
+      font-size: 8pt; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 600; margin-bottom: 6pt;
+    }
+    .step-block .step-body {
+      font-size: 10pt; line-height: 1.6;
+      color: var(--text-body);
+    }
+    .step-block .step-body + .step-body { margin-top: 6pt; }
+
+    /* ── Theme cards ─────────────────────────────────────────────────── */
+    .theme-card {
+      display: grid;
+      grid-template-columns: 86mm 1fr;
+      gap: 8mm;
+      margin-top: 6mm;
+      padding-top: 6mm;
+      border-top: 1px solid var(--border);
+      align-items: center;
+    }
+    .theme-card:first-of-type { border-top: 0; padding-top: 0; }
+    .theme-card .figure {
+      aspect-ratio: 4 / 3;
+      background: var(--bg-3);
+      overflow: hidden;
+    }
+    .theme-card .figure img {
+      width: 100%; height: 100%;
+      object-fit: contain; object-position: center;
+    }
+    .theme-card .theme-tag {
+      font-size: 8pt; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 600;
+    }
+    .theme-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16pt; color: var(--text);
+      margin: 3pt 0 6pt; font-weight: 600;
+    }
+    .theme-meta {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6mm; margin-top: 6pt;
+      padding-top: 6pt;
+      border-top: 1px solid var(--border-soft);
+    }
+    .theme-meta .lbl {
+      font-size: 7.5pt; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-muted);
+      font-weight: 500; margin-bottom: 2pt;
+    }
+    .theme-meta .val {
+      font-size: 9.5pt; color: var(--text-body);
+    }
+
+    /* ── Ticket strip ────────────────────────────────────────────────── */
+    .tickets {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 4mm; margin-top: 6mm;
+      padding-top: 6mm;
+      border-top: 1px solid var(--border);
+    }
+    .ticket .label {
+      font-size: 7.5pt; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-muted);
+      font-weight: 500; margin-bottom: 4pt;
+    }
+    .ticket .price {
+      font-family: 'Playfair Display', serif;
+      font-size: 18pt; color: var(--gold);
+      line-height: 1; font-weight: 700;
+    }
+    .ticket .sub {
+      font-size: 8.5pt; color: var(--text-muted); margin-top: 3pt;
+    }
+
+    /* ── Tier cards (Investment) ─────────────────────────────────────── */
+    .tier-pair {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6mm; margin-top: 6mm;
+    }
+    .tier-card {
+      border: 1px solid var(--border);
+      border-radius: 4pt;
+      padding: 8mm 7mm;
+      background: var(--bg-2);
+      display: flex; flex-direction: column;
+    }
+    .tier-card.is-featured {
+      border-color: var(--gold);
+      background: var(--gold-tint);
+    }
+    .tier-flag {
+      font-size: 7.5pt; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 700; margin-bottom: 4pt;
+    }
+    .tier-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 14pt; color: var(--text);
+      font-weight: 600; margin-bottom: 4pt;
+    }
+    .tier-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 26pt; color: var(--gold);
+      line-height: 1; font-weight: 700;
+    }
+    .tier-unit {
+      font-size: 7.5pt; color: var(--text-muted);
+      letter-spacing: 0.18em; text-transform: uppercase;
+      margin-top: 2pt; margin-bottom: 8pt; font-weight: 500;
+    }
+    .tier-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 4pt;
+    }
+    .tier-list li {
+      font-size: 9pt; color: var(--text-body); line-height: 1.5;
+      padding-left: 10pt; position: relative;
+    }
+    .tier-list li::before {
+      content: '—'; position: absolute; left: 0; color: var(--gold);
+    }
+    .capex-breakdown {
+      margin-top: 6mm; padding-top: 4mm;
+      border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 3pt;
+    }
+    .capex-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 6mm;
+      font-size: 9pt; color: var(--text-body); padding: 2pt 0;
+    }
+    /* Label column: takes remaining width, may wrap if long */
+    .capex-row > span:first-child {
+      flex: 1;
+      min-width: 0;
+    }
+    /* Value column: single-line, right-aligned, never shrinks */
+    .capex-row .val {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600; color: var(--gold);
+      font-size: 10pt;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .capex-row.total {
+      border-top: 1px solid var(--border);
+      margin-top: 4pt; padding-top: 6pt;
+      color: var(--text); font-weight: 600;
+    }
+    .capex-row.total .val { font-size: 11pt; }
+
+    /* ── Financial scenario cards ────────────────────────────────────── */
+    .scenario {
+      border: 1px solid var(--border);
+      border-radius: 4pt;
+      padding: 7mm 7mm;
+      background: var(--bg-2);
+      margin-bottom: 6mm;
+    }
+    .scenario.is-base {
+      border-color: var(--gold);
+      background: var(--gold-tint);
+    }
+    .scenario-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 4pt;
+    }
+    .scenario-head h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 14pt; color: var(--text);
+      font-weight: 600;
+    }
+    .scenario-head .flag {
+      font-size: 7.5pt; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 700;
+    }
+    .scenario .desc {
+      font-size: 9.5pt; line-height: 1.55;
+      color: var(--text-body); margin-bottom: 6pt;
+    }
+    .scenario .kpi-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 4mm; padding-top: 4mm;
+      border-top: 1px solid var(--border-soft);
+    }
+    .scenario .kpi-row .stat-num-sm { font-size: 16pt; }
+    .scenario .kpi-row .stat-lbl { font-size: 7pt; margin-top: 3pt; }
+
+    /* ── Comparison table ────────────────────────────────────────────── */
+    .compare-table {
+      width: 100%; border-collapse: collapse;
+      margin-top: 4mm;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .compare-table thead th {
+      text-align: right;
+      padding: 6pt 8pt 6pt 0;
+      font-size: 7.5pt; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-muted);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table thead th:first-child { text-align: left; padding-left: 0; }
+    .compare-table tbody td {
+      padding: 6pt 8pt 6pt 0;
+      text-align: right;
+      color: var(--text-body);
+      font-size: 9pt;
+      font-variant-numeric: tabular-nums;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .compare-table tbody td:first-child {
+      text-align: left; padding-left: 0;
+      color: var(--text); font-weight: 500;
+    }
+    .compare-table tbody tr.total td {
+      border-bottom: 0; border-top: 1px solid var(--gold);
+      padding-top: 8pt; color: var(--text); font-weight: 700;
+    }
+    .compare-table tbody tr.total td:not(:first-child) {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 11pt;
+    }
+
+    /* ── 10-year strip ───────────────────────────────────────────────── */
+    .tenyr-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8mm; margin-top: 6mm;
+      padding: 6mm 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .tenyr-strip .stat-num { font-size: 24pt; }
+
+    /* ── Partner cards (museum) ──────────────────────────────────────── */
+    .partner-card {
+      border-top: 2px solid var(--gold);
+      padding-top: 5mm;
+      display: flex; flex-direction: column;
+    }
+    .partner-card .theme-tag {
+      font-size: 7.5pt; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 700; margin-bottom: 4pt;
+    }
+    .partner-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 13pt; color: var(--text);
+      font-weight: 600; margin-bottom: 4pt;
+    }
+    .partner-card p {
+      font-size: 9pt; line-height: 1.55;
+      color: var(--text-body); margin-bottom: 5pt; flex: 1;
+    }
+    .partner-card .pass-price {
+      font-size: 9pt; color: var(--gold);
+      letter-spacing: 0.04em; font-weight: 600;
+      padding-top: 4pt; border-top: 1px solid var(--border);
+    }
+    .discount-callout {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8mm; margin-top: 6mm;
+      padding: 6mm 8mm;
+      border: 1px solid var(--gold-soft);
+      background: var(--gold-tint);
+      border-radius: 4pt;
+    }
+    .discount-callout .label {
+      font-size: 7.5pt; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 700; margin-bottom: 3pt;
+    }
+    .discount-callout h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 13pt; color: var(--text);
+      font-weight: 600; line-height: 1.3;
+      max-width: 100mm;
+    }
+    .discount-callout .discount-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 38pt; color: var(--gold);
+      line-height: 1; font-weight: 700;
+    }
+
+    /* ── Longevity table ─────────────────────────────────────────────── */
+    .lifespan-table {
+      width: 100%; border-collapse: collapse;
+      margin-top: 4mm; font-family: 'DM Sans', sans-serif;
+    }
+    .lifespan-table thead th {
+      text-align: left; padding: 6pt 8pt;
+      font-size: 7.5pt; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-muted);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+    .lifespan-table tbody td {
+      padding: 7pt 8pt;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 9pt; color: var(--text-body);
+      vertical-align: top;
+    }
+    .lifespan-table tbody strong {
+      color: var(--text); font-weight: 600;
+    }
+    .replace-tag {
+      display: inline-block;
+      font-size: 7pt; padding: 2pt 6pt;
+      border-radius: 2pt; letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 700;
+    }
+    .replace-tag.consumable { background: var(--gold-tint-2); color: var(--gold); }
+    .replace-tag.structural { background: rgba(20, 120, 60, 0.12); color: #1a7a3a; }
+
+    .lifespan-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 5mm; margin-top: 6mm;
+      padding-top: 5mm;
+      border-top: 1px solid var(--border);
+    }
+    .lifespan-grid .step {
+      border-left: 2px solid var(--gold);
+      padding-left: 5mm;
+    }
+    .lifespan-grid .step .year {
+      font-family: 'Playfair Display', serif;
+      font-size: 13pt; color: var(--gold);
+      font-weight: 700; margin-bottom: 2pt;
+    }
+    .lifespan-grid .step .title {
+      font-size: 9pt; color: var(--text);
+      font-weight: 600; line-height: 1.35;
+      margin-bottom: 3pt;
+    }
+    .lifespan-grid .step .cost {
+      font-size: 8pt; color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Operator credentials ────────────────────────────────────────── */
+    .operator-creds {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border); border-radius: 3pt;
+      overflow: hidden;
+      margin-top: 6mm;
+      background: var(--bg-2);
+    }
+    .operator-creds > div {
+      padding: 5mm 4mm;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .operator-creds > div:last-child { border-right: none; }
+    .operator-creds .val {
+      font-family: 'Playfair Display', serif;
+      font-size: 14pt; color: var(--gold);
+      font-weight: 700; line-height: 1.15;
+    }
+    .operator-creds .lbl {
+      font-size: 7pt; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-muted);
+      font-weight: 500; margin-top: 4pt;
+    }
+    .operator-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8mm; margin-top: 6mm;
+    }
+    .operator-col h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 12pt; color: var(--text);
+      font-weight: 600;
+      padding-bottom: 4pt; margin-bottom: 6pt;
+      border-bottom: 1px solid var(--border);
+    }
+    .pull-quote {
+      margin-top: 6mm;
+      padding: 6mm 8mm;
+      border: 1px solid var(--gold-soft);
+      background: var(--gold-tint);
+      border-radius: 4pt;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 12pt; line-height: 1.5;
+      color: var(--text); text-align: center;
+    }
+
+    /* ── Highlight box (executive summary, key points) ───────────────── */
+    .callout {
+      background: var(--bg-tint);
+      border: 1px solid var(--border-soft);
+      border-left: 3px solid var(--gold);
+      padding: 5mm 6mm;
+      margin: 5mm 0;
+      border-radius: 0 3pt 3pt 0;
+    }
+    .callout .callout-label {
+      font-size: 7.5pt; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 700; margin-bottom: 3pt;
+    }
+    .callout .callout-body {
+      font-size: 9.5pt; line-height: 1.6;
+      color: var(--text-body);
+    }
+    .callout .callout-body strong { color: var(--text); }
+
+    /* ── Toolbar (screen only) ──────────────────────────────────────── */
+    .screen-toolbar {
+      position: fixed; top: 12px; right: 12px;
+      z-index: 100;
+      display: flex; gap: 8px;
+    }
+    .screen-toolbar button {
+      background: var(--ink); color: #C9A96E;
+      border: 1px solid rgba(201,169,110,0.35);
+      padding: 8px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.06em;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    }
+    .screen-toolbar button:hover { background: #1a1a22; }
+
+    /* ── Print rules ─────────────────────────────────────────────────── */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      html, body {
+        background: #fff;
+        margin: 0; padding: 0;
+      }
+      .screen-toolbar { display: none !important; }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+        break-after: page;
+        width: 210mm;
+        min-height: 297mm;
+      }
+      .page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+      .cover-content { padding: 22mm 18mm 18mm; }
+      /* Force browser to render background images & colors in print */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen-only print/back controls — hidden when printing -->
+  <div class="screen-toolbar">
+    <button onclick="window.print()" type="button">Save as PDF</button>
+    <button onclick="window.close()" type="button">Close</button>
+  </div>
+
+  <!-- ── PAGE 1 · COVER · half-image top, white body bottom ─────── -->
+  <section class="page cover">
+    <!-- Top half: full-bleed hero image with title overlay -->
+    <div class="cover-hero">
+      <div class="cover-hero-overlay">
+        <span class="eyebrow">Saadiyat Island · Abu Dhabi · Investor Brochure</span>
+        <h1 class="display-xl">Canvas<br>From The Sky</h1>
+      </div>
+    </div>
+
+    <!-- Bottom half: white with lede, stats, and brand line -->
+    <div class="cover-body">
+      <div class="cover-divider"></div>
+      <p class="lede">
+        The world's first programmable aerial canvas, above the cultural heart of Abu Dhabi.
+        A 60-metre LED ring around a tethered balloon — a sightseeing ride by day, a ticketed
+        cultural-show destination by night, anchored alongside Saadiyat's three world-class museums.
+      </p>
+
+      <div class="cover-stats">
+        <div><div class="stat-num-sm">55,575</div><div class="stat-lbl">LED Stems</div></div>
+        <div><div class="stat-num-sm">60 m</div><div class="stat-lbl">Ring Diameter</div></div>
+        <div><div class="stat-num-sm">300 m</div><div class="stat-lbl">Altitude</div></div>
+        <div><div class="stat-num-sm">24.7 M</div><div class="stat-lbl">Annual Rev · AED</div></div>
+      </div>
+
+      <div class="cover-meta">
+        <div class="brand-mark">Hero Experiences Group</div>
+        <div class="meta-right">Prepared for Co-Investment Review<br>2026 Edition</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PAGE 2 · EXECUTIVE SUMMARY ───────────────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>Executive Summary · 02</span>
+    </header>
+
+    <span class="eyebrow">Executive Summary</span>
+    <h2 class="display-l" style="margin-top: 6pt;">A cultural anchor for the Saadiyat night.</h2>
+    <div class="divider"></div>
+
+    <p class="body">
+      <strong style="color: var(--text);">Canvas From The Sky</strong> is a permanent tethered-balloon attraction
+      anchored on Saadiyat Island, Abu Dhabi — and the world's first programmable aerial light canvas. A 60-metre
+      ring of 55,575 individually addressable LED stems surrounds the balloon platform and renders a different
+      themed show every night, in dialogue with the three world-class museums within sight: Louvre Abu Dhabi,
+      Zayed National Museum, and Guggenheim Abu Dhabi.
+    </p>
+    <p class="body">
+      The attraction operates by day as a panoramic sightseeing balloon ride and transforms after dusk into a
+      ticketed cultural-show destination. Three distinct themed shows run nightly. A single Night All-Access Pass
+      lets the same guest see all three in one evening — the natural upsell, with built-in repeat-visit logic.
+    </p>
+
+    <div class="callout">
+      <div class="callout-label">The Proposition</div>
+      <div class="callout-body">
+        A <strong>fully designed, engineered, and operationally credible</strong> aerial attraction that converts
+        Saadiyat's existing daytime cultural traffic into a complete night destination. Day-and-night dual revenue,
+        a built-in three-theme upsell, an existing GCAA-certified operator, and a structural shell with a 30+ year
+        service life.
+      </div>
+    </div>
+
+    <h3 class="display-m" style="margin-top: 8mm;">The numbers at a glance</h3>
+    <div class="divider"></div>
+
+    <div class="stat-row-4">
+      <div><div class="stat-num-sm">AED 25.3M</div><div class="stat-lbl">Total CAPEX · Recommended Tier</div></div>
+      <div><div class="stat-num-sm">AED 24.7M</div><div class="stat-lbl">Annual Revenue · Base Case</div></div>
+      <div><div class="stat-num-sm">60%</div><div class="stat-lbl">EBITDA Margin · Base Case</div></div>
+      <div><div class="stat-num-sm">~1.6 yr</div><div class="stat-lbl">Simple Payback · Base Case</div></div>
+    </div>
+    <div class="stat-row-4" style="margin-top: 6mm;">
+      <div><div class="stat-num-sm">~58%</div><div class="stat-lbl">10-yr IRR · Base Case</div></div>
+      <div><div class="stat-num-sm">AED 85M</div><div class="stat-lbl">10-yr NPV @ 8%</div></div>
+      <div><div class="stat-num-sm">5.5×</div><div class="stat-lbl">10-yr MOIC</div></div>
+      <div><div class="stat-num-sm">250,000+</div><div class="stat-lbl">Operator Flight Record</div></div>
+    </div>
+
+    <p class="body" style="margin-top: 8mm;">
+      The remainder of this brochure walks through the guest experience, the LED canvas technology, the museum
+      partnership model, the investment structure across two tile-material tiers, and the full financial picture
+      under three demand scenarios. Hardware decisions are locked. Operator capacity is in place. The next step
+      is land allocation and co-investment to activate.
+    </p>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>02</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 3 · THE OPPORTUNITY ─────────────────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>The Opportunity · 03</span>
+    </header>
+
+    <div class="page-stack">
+      <div class="intro-block">
+        <span class="eyebrow">The Opportunity</span>
+        <h2 class="display-l">The aerial connector<br>of Saadiyat's cultural spine.</h2>
+        <div class="divider"></div>
+        <p class="lede">
+          A 60-metre programmable LED ring around Abu Dhabi's tethered balloon — turning a sightseeing ride into a
+          full cultural night destination, framed by the three museums within sight on Saadiyat Island.
+        </p>
+      </div>
+
+      <div class="cols-3" style="margin-top: 0;">
+        <div>
+          <div class="col-num">01</div>
+          <div class="col-title">Cultural Anchor</div>
+          <p class="col-body">
+            Ground sculpture by day, 60-metre aerial canvas by night. Guests walk through the living LED field on
+            a glass walkway before they board, and leave back through it after the show. The attraction is its own
+            arrival ritual.
+          </p>
+        </div>
+        <div>
+          <div class="col-num">02</div>
+          <div class="col-title">Vertical Dimension</div>
+          <p class="col-body">
+            Louvre Abu Dhabi, Zayed National Museum, and Guggenheim Abu Dhabi all sit within direct sight on
+            Saadiyat. Canvas From The Sky is the one attraction that rises above all three and ties them into a
+            single panoramic view from 300 metres.
+          </p>
+        </div>
+        <div>
+          <div class="col-num">03</div>
+          <div class="col-title">Recurring Revenue</div>
+          <p class="col-body">
+            Three distinct themed shows. The Night All-Access Pass at AED 695 captures all three in one evening at
+            2.4× the single-theme price — a natural upsell with built-in repeat-visit logic for residents and
+            long-stay travellers.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin: 0;">
+        <div class="callout-label">Why now</div>
+        <div class="callout-body">
+          Saadiyat's hotel occupancy averages <strong>74%</strong>, visitor numbers grew <strong>+10% YoY</strong>
+          in 2024, and Abu Dhabi's tourism plan targets <strong>39.3M visitors by 2030</strong>. The cultural
+          infrastructure is already in place; what the island still lacks is a single anchor that converts daytime
+          museum traffic into a full evening of dwell-time and spend.
+        </div>
+      </div>
+
+      <div>
+        <h3 class="display-m">Saadiyat market signals</h3>
+        <div class="divider"></div>
+        <div class="stat-row-3" style="margin-top: 0;">
+          <div><div class="stat-num">+10%</div><div class="stat-lbl">YoY Visitor Growth · 2024</div></div>
+          <div><div class="stat-num">74%</div><div class="stat-lbl">Saadiyat Hotel Occupancy</div></div>
+          <div><div class="stat-num">39.3M</div><div class="stat-lbl">Abu Dhabi Tourism Target · 2030</div></div>
+        </div>
+      </div>
+
+      <p class="body">
+        The opportunity is not to build another viewing platform. It is to build the cultural connector — the one
+        vantage point that frames Louvre, Zayed NM, and Guggenheim as a single composition, and the one stage
+        large enough to render their stories on a 60-metre aerial canvas.
+      </p>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>03</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 4 · GUEST EXPERIENCE · INTRO + STEPS 1–2 ────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>The Night Experience · 04</span>
+    </header>
+
+    <span class="eyebrow">Night Ride · ~41 minutes</span>
+    <h2 class="display-l" style="margin-top: 6pt;">A complete story, every cycle.</h2>
+    <div class="divider"></div>
+
+    <p class="lede">
+      From the LED field at your feet, through 300 metres of open sky, back to the full canvas show below. Every
+      cycle is self-contained, repeatable, and complete — a six-act arc that resolves before the next group
+      boards.
+    </p>
+
+    <div class="steps-stack">
+      <div class="step-block">
+        <div class="step-img">
+          <img src="HTML_assets/Vertical%20Altitude%20Experience/state_01_arrival_Overlay.png" alt="Arrival and glowing walkway — overlay view" />
+        </div>
+        <div>
+          <div class="step-num">01</div>
+          <div class="step-title">Arrival &amp; The Glowing Walkway</div>
+          <div class="step-meta">~3 min · Themed Ambience</div>
+          <p class="step-body">
+            The experience begins before you board. A 3-metre glass walkway, LED-lit from beneath, leads through
+            the living LED field to the balloon platform. All 55,575 stems glow in tonight's theme around you —
+            the show is already running. The walkway is the threshold between Saadiyat's daytime cultural
+            experience and the aerial canvas above.
+          </p>
+          <p class="step-body">
+            Guests cross 52 square metres of LED-mesh-under-glass, then step onto the gondola platform with the
+            full ring visible on every side. The wayfinding is intentional: the entire ground sculpture is the
+            queue.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-img">
+          <img src="HTML_assets/Vertical%20Altitude%20Experience/state_02_boarding_ascent_Overlay.png" alt="Boarding and ascent — overlay view of LED ring shrinking below" />
+        </div>
+        <div>
+          <div class="step-num">02</div>
+          <div class="step-title">Boarding &amp; Ascent</div>
+          <div class="step-meta">6.5 min · Rising Animation</div>
+          <p class="step-body">
+            The LED field dims over 30 seconds as the gondola lifts. A rising animation, synced to the balloon's
+            ascent rate, builds as the ground drops away. Guests watch the ring shrink below them as Abu Dhabi
+            opens up — first the lagoon, then the museum cluster, then the full coastline.
+          </p>
+          <p class="step-body">
+            The ascent rate is held at ~46 metres per minute — slow enough for guests to take in each new line of
+            sight, fast enough to keep momentum into the peak hold.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>04</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 5 · GUEST EXPERIENCE · STEPS 3–4 ────────────────────── -->
+  <section class="page page--cream">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>The Night Experience · 05</span>
+    </header>
+
+    <span class="eyebrow">Night Ride · ~41 minutes</span>
+    <h2 class="display-l" style="margin-top: 6pt;">Peak hold to anticipation build.</h2>
+    <div class="divider"></div>
+
+    <div class="steps-stack">
+      <div class="step-block">
+        <div class="step-img">
+          <img src="HTML_assets/Vertical%20Altitude%20Experience/state_03_peak_300m_Overlay.png" alt="Peak at 300m — overlay view of Saadiyat from altitude" />
+        </div>
+        <div>
+          <div class="step-num">03</div>
+          <div class="step-title">Peak — 300m</div>
+          <div class="step-meta">5 min · Gentle Ambience</div>
+          <p class="step-body">
+            At 300 metres, three world-class museums are visible directly below, framed by the Gulf coastline and
+            the Abu Dhabi skyline. The gondola holds for five minutes. The LED ring glows as a small, perfect
+            disc far beneath — the calm before the show.
+          </p>
+          <p class="step-body">
+            This is the single moment in the cycle when the canvas is rendered at its smallest visual footprint
+            and the city at its largest. The contrast is the point: Saadiyat reads as one composition, with the
+            ring as its centre mark.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-img">
+          <img src="HTML_assets/Vertical%20Altitude%20Experience/state_04_descent_Overlay.png" alt="Descent — overlay view of LED canvas growing in resolution below" />
+        </div>
+        <div>
+          <div class="step-num">04</div>
+          <div class="step-title">Descent — The Show Builds Below</div>
+          <div class="step-meta">~7 min · Anticipation Build</div>
+          <p class="step-body">
+            The balloon descends 275 metres at ~40 metres per minute. As altitude falls, the LED canvas grows in
+            resolution below the gondola — each stem and tulip head becoming distinct. The colour palette of
+            tonight's theme begins to fill the field of view.
+          </p>
+          <p class="step-body">
+            The descent is paced to match the build cue of the show below. Anticipation rises with every metre;
+            by the time the gondola arrests at 25m, the canvas is at full resolution and the show is one
+            downbeat away.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>05</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 6 · GUEST EXPERIENCE · STEPS 5–6 ────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>The Night Experience · 06</span>
+    </header>
+
+    <span class="eyebrow">Night Ride · ~41 minutes</span>
+    <h2 class="display-l" style="margin-top: 6pt;">Full canvas to ambient exit.</h2>
+    <div class="divider"></div>
+
+    <div class="steps-stack">
+      <div class="step-block">
+        <div class="step-img">
+          <img src="HTML_assets/Vertical%20Altitude%20Experience/state_05_main_show_25m_Overlay.png" alt="Main show at 25m — overlay view of full canvas resolution" />
+        </div>
+        <div>
+          <div class="step-num">05</div>
+          <div class="step-title">Main Show — 25m, Full Canvas</div>
+          <div class="step-meta">~10 min · Full Power</div>
+          <p class="step-body">
+            Held at 25 metres — the optimal viewing height for the full 60-metre ring. All 55,575 LED nodes at
+            full output. The ten-minute themed show runs at full canvas resolution, the ring filling the field of
+            view below the gondola railing.
+          </p>
+          <p class="step-body">
+            This is the show the night ticket is sold on. The composition is choreographed end-to-end: opening,
+            three act-blocks tied to the partner museum's story, a held finale moment, and a transition cue that
+            signals the descent of the balloon to ground level.
+          </p>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-img">
+          <img src="HTML_assets/Vertical%20Altitude%20Experience/state_06_exit_Overlay.png" alt="Finale and exit — overlay view of guests exiting through living LED field" />
+        </div>
+        <div>
+          <div class="step-num">06</div>
+          <div class="step-title">Finale &amp; Exit</div>
+          <div class="step-meta">~40 sec · Ambient Exit</div>
+          <p class="step-body">
+            The show completes as the gondola reaches the ground. The LED field holds a soft ambient loop as
+            guests exit through the living sculpture. The next group boards in under eight minutes.
+          </p>
+          <p class="step-body">
+            Every cycle is self-contained, repeatable, and complete — a single guest, a single party, or a private
+            gondola booking, all leave with the same finished arc. There are no half-shows, no missed peaks, no
+            weather-dependent edits.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Cycle Economics</div>
+      <div class="callout-body">
+        At ~41 minutes per cycle and a sub-8-minute turnover, the gondola supports four full night cycles per
+        evening on the main show pacing — three themed shows plus one All-Access slot, with the ring's ambient
+        mode running between them for walk-up day-to-night visitors.
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>06</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 7 · THREE THEMES ────────────────────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>Three Themes · One Night Pass · 07</span>
+    </header>
+
+    <span class="eyebrow">Three Shows · One Night Pass</span>
+    <h2 class="display-l" style="margin-top: 6pt;">Every show is a different world.</h2>
+    <div class="divider"></div>
+
+    <p class="lede">
+      Each Saadiyat museum has its own dedicated LED show. A guest who sees all three on an All-Access Pass has
+      experienced the full cultural story of the island, rendered on a 60-metre aerial canvas.
+    </p>
+
+    <div class="theme-card">
+      <div class="figure">
+        <img src="HTML_assets/DroneShot_comp.Theme_A.png" alt="Theme A drone composite — balloon and Saadiyat museums with the gold Louvre show on the LED ring" />
+      </div>
+      <div>
+        <div class="theme-tag">Theme A · Louvre Abu Dhabi</div>
+        <h3>The Universal Collection</h3>
+        <p class="body-sm">
+          Ancient civilisations, trade routes, global art history — rendered as warm gold Islamic geometric
+          patterns, archaic relief motifs, and light that moves with the weight of history. The show pairs
+          directly to the Louvre's permanent collection arc.
+        </p>
+        <div class="theme-meta">
+          <div><div class="lbl">Palette</div><div class="val">Warm Gold · Ivory · Deep Sapphire</div></div>
+          <div><div class="lbl">Partner</div><div class="val">Louvre Abu Dhabi</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-card">
+      <div class="figure">
+        <img src="HTML_assets/DroneShot_comp.Theme_B.png" alt="Theme B drone composite — balloon and Saadiyat museums with the amber Zayed NM show on the LED ring" />
+      </div>
+      <div>
+        <div class="theme-tag">Theme B · Zayed National Museum</div>
+        <h3>The Nation's Story</h3>
+        <p class="body-sm">
+          Falcon silhouettes, dhow boats, pearl divers, desert caravans — the founding story of the UAE, painted
+          on the night sky in amber and burnt orange. The Zayed NM partnership extends the museum's narrative
+          into the aerial layer above Saadiyat.
+        </p>
+        <div class="theme-meta">
+          <div><div class="lbl">Palette</div><div class="val">Amber · Warm Sand · Burnt Orange</div></div>
+          <div><div class="lbl">Partner</div><div class="val">Zayed National Museum</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-card">
+      <div class="figure">
+        <img src="HTML_assets/DroneShot_comp.Theme_C.png" alt="Theme C drone composite — balloon and Saadiyat museums with the cobalt and magenta Guggenheim show on the LED ring" />
+      </div>
+      <div>
+        <div class="theme-tag">Theme C · Guggenheim Abu Dhabi</div>
+        <h3>The Future Canvas</h3>
+        <p class="body-sm">
+          Vivid colour fields, generative geometry, cobalt and magenta — the show that asks what art can be when
+          the canvas is 60 metres wide and visible from a kilometre in every direction. The natural aerial
+          extension of the Guggenheim's contemporary programme.
+        </p>
+        <div class="theme-meta">
+          <div><div class="lbl">Palette</div><div class="val">Electric Cobalt · Magenta · Vivid Abstract</div></div>
+          <div><div class="lbl">Partner</div><div class="val">Guggenheim Abu Dhabi</div></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>07</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 8 · TICKETING ───────────────────────────────────────── -->
+  <section class="page page--cream">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>Ticketing · 08</span>
+    </header>
+
+    <span class="eyebrow">Pricing Architecture</span>
+    <h2 class="display-l" style="margin-top: 6pt;">Day rides fund the night canvas.</h2>
+    <div class="divider"></div>
+
+    <p class="lede">
+      A four-tier ticketing structure: an entry-priced daytime ride, three themed night-show tickets, an
+      All-Access Pass that captures all three themes in one evening, and a private gondola for groups and
+      corporate hire.
+    </p>
+
+    <div class="tickets">
+      <div class="ticket">
+        <div class="label">Day Flight</div>
+        <div class="price">AED 195</div>
+        <div class="sub">Adult · panoramic ride</div>
+      </div>
+      <div class="ticket">
+        <div class="label">Night Show</div>
+        <div class="price">AED 295</div>
+        <div class="sub">Adult · single theme</div>
+      </div>
+      <div class="ticket">
+        <div class="label">All-Access Pass</div>
+        <div class="price">AED 695</div>
+        <div class="sub">All 3 themes · one night</div>
+      </div>
+      <div class="ticket">
+        <div class="label">Private Gondola</div>
+        <div class="price">AED 20,000</div>
+        <div class="sub">30-person exclusive</div>
+      </div>
+    </div>
+
+    <div class="cols-2" style="margin-top: 10mm;">
+      <div>
+        <div class="col-num">Day Rides</div>
+        <div class="col-title">Entry-priced panoramic flight</div>
+        <p class="col-body">
+          The day flight is the volume product — accessible pricing, broad appeal, and the primary funnel that
+          introduces visitors to the LED ring as a ground sculpture. Day flights underwrite the operational base
+          load, with the night programme delivering the margin.
+        </p>
+      </div>
+      <div>
+        <div class="col-num">Night Shows</div>
+        <div class="col-title">Themed single-show ticket</div>
+        <p class="col-body">
+          Each night ticket is sold against one of the three themed shows. Pricing sits between a museum
+          admission and a high-end Abu Dhabi attraction — positioned as a cultural evening, not a thrill ride.
+        </p>
+      </div>
+    </div>
+
+    <div class="cols-2" style="margin-top: 6mm;">
+      <div>
+        <div class="col-num">All-Access Pass</div>
+        <div class="col-title">2.4× single-theme price, three shows</div>
+        <p class="col-body">
+          The All-Access Pass at AED 695 captures all three themed shows in one evening. The price point is
+          deliberately set at 2.4× the single-theme ticket to create a clear upsell at the point of purchase,
+          while still rewarding the guest for committing the full evening.
+        </p>
+      </div>
+      <div>
+        <div class="col-num">Private Gondola</div>
+        <div class="col-title">Corporate, VIP and event hire</div>
+        <p class="col-body">
+          AED 20,000 buys the full 30-person gondola for one cycle — corporate entertainment, private dinners,
+          proposal flights, brand activations. Margin is high, and the inventory is naturally limited, which
+          gives the operator a clean premium-pricing lever during peak season.
+        </p>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>08</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 9 · THE CANVAS / LED TECH ───────────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>The Canvas · 09</span>
+    </header>
+
+    <div class="page-stack">
+      <div class="intro-block">
+        <span class="eyebrow">LED Canvas · Technology</span>
+        <h2 class="display-l">The canvas behind the show.</h2>
+        <div class="divider"></div>
+        <p class="lede">
+          A 60-metre ring built from 6,175 identical 600mm tiles, each carrying nine addressable RGBW stems.
+          Designed from the first sketch to be serviced from above — no specialist crew, no crane, no downtime.
+        </p>
+      </div>
+
+      <div class="figure" style="max-height: 85mm; overflow: hidden;">
+        <img src="HTML_assets/TheCanvasBehindTheShow.png"
+             alt="Four-panel composite — LED ring close-up, aerial of balloon and Saadiyat museums, and ring rendering themed content"
+             style="width: 100%; height: 85mm; object-fit: cover; object-position: center;" />
+      </div>
+
+      <div class="stat-row-4" style="margin-top: 0;">
+        <div><div class="stat-num-sm">60 m</div><div class="stat-lbl">Ring Diameter</div></div>
+        <div><div class="stat-num-sm">6,175</div><div class="stat-lbl">Grid Modules</div></div>
+        <div><div class="stat-num-sm">55,575</div><div class="stat-lbl">LED Stem Nodes</div></div>
+        <div><div class="stat-num-sm">~28 kW</div><div class="stat-lbl">Peak Power</div></div>
+      </div>
+
+      <div class="cols-2" style="margin-top: 0;">
+        <div>
+          <div class="col-num">Modular Tile</div>
+          <div class="col-title">600 × 600 mm · nine stems</div>
+          <p class="col-body">
+            Each tile is a single-person lift, no crane required. Nine LED stems sit on a 200 mm sub-pitch within
+            the tile, giving the canvas an effective node spacing dense enough to render recognisable content from
+            25 metres overhead.
+          </p>
+        </div>
+        <div>
+          <div class="col-num">Service Access</div>
+          <div class="col-title">Top-side, two-minute swap</div>
+          <p class="col-body">
+            The tulip diffuser head — the only frequent consumable — is hand-pull replaceable in under two minutes
+            with no tools. The IP67 driver sits in a sealed cavity, accessed by suction grip and swapped in five
+            minutes. The ring stays operational while individual tiles are serviced.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin: 0;">
+        <div class="callout-label">UAE-rated</div>
+        <div class="callout-body">
+          Heat-rated above 55°C, sand-sealed gaskets, IP67 driver cavities, salt-spray-tested stainless feet.
+          Built specifically for Saadiyat coastal conditions — no winter shutdown, no climate-driven downtime.
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>09</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 10 · THE INVESTMENT ─────────────────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>The Investment · 10</span>
+    </header>
+
+    <span class="eyebrow">Initial Investment · CAPEX</span>
+    <h2 class="display-l" style="margin-top: 6pt;">Two tiers. One aerial show.</h2>
+    <div class="divider"></div>
+
+    <p class="lede">
+      Both tiers deliver identical show quality — same density, same nodes, same content pipeline. The choice
+      is in the tile material alone: GFRC concrete for longest service life and lowest material cost, or
+      precision-machined aluminum for a refinishable, lighter shell.
+    </p>
+
+    <div class="tier-pair">
+      <div class="tier-card is-featured">
+        <div class="tier-flag">★ Recommended</div>
+        <h3>GFRC Concrete Tile</h3>
+        <div class="tier-price">AED 25.3M</div>
+        <div class="tier-unit">Total CAPEX</div>
+        <ul class="tier-list">
+          <li>50 mm GFRC with AR glass-fibre premix</li>
+          <li>4× 316SS heavy-duty adjustable corner feet</li>
+          <li>~34 kg per tile · single-person lift, no crane</li>
+          <li>Locally batch-cast on site · UAE materials</li>
+          <li>30–50+ year structural life</li>
+        </ul>
+        <div class="capex-breakdown">
+          <div class="capex-row"><span>LED field — GFRC tile + 316SS feet</span><span class="val">AED 14.5M</span></div>
+          <div class="capex-row"><span>Balloon · gondola + envelope + winch</span><span class="val">AED 8.0M</span></div>
+          <div class="capex-row"><span>Content launch · 3 hero shows + software</span><span class="val">AED 2.8M</span></div>
+          <div class="capex-row total"><span>Total CAPEX</span><span class="val">AED 25.3M</span></div>
+        </div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-flag" style="visibility: hidden;">·</div>
+        <h3>Aluminum Plate Tile</h3>
+        <div class="tier-price">AED 25.9M</div>
+        <div class="tier-unit">Total CAPEX</div>
+        <ul class="tier-list">
+          <li>8 mm 6061-T6 hard-anodised aluminum plate</li>
+          <li>4× 316SS heavy-duty adjustable corner feet</li>
+          <li>~14 kg per tile · one-hand lift, no crane</li>
+          <li>Precision-machined · refinishable surface</li>
+          <li>20–30 year structural life</li>
+        </ul>
+        <div class="capex-breakdown">
+          <div class="capex-row"><span>LED field — Aluminum tile + 316SS feet</span><span class="val">AED 15.1M</span></div>
+          <div class="capex-row"><span>Balloon · gondola + envelope + winch</span><span class="val">AED 8.0M</span></div>
+          <div class="capex-row"><span>Content launch · 3 hero shows + software</span><span class="val">AED 2.8M</span></div>
+          <div class="capex-row total"><span>Total CAPEX</span><span class="val">AED 25.9M</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="body" style="margin-top: 8mm;">
+      The AED 0.6M delta between tiers is a material-only difference. Both share the same balloon, content
+      pipeline, control system, and operator model. The recommendation is the GFRC tier on the strength of its
+      longer service life and locally-sourced supply chain — both of which compound favourably across the
+      ten-year horizon.
+    </p>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>10</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 11 · THE RETURNS · SCENARIOS ────────────────────────── -->
+  <section class="page page--cream">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>Financial Model · 11</span>
+    </header>
+
+    <span class="eyebrow">Financial Model · Returns</span>
+    <h2 class="display-l" style="margin-top: 6pt;">Built to return fast.</h2>
+    <div class="divider"></div>
+
+    <p class="lede">
+      Three demand scenarios — Conservative, Base Case, and Strong — all built off the same CAPEX line and the
+      same operating cost stack. The Base Case is the underwriting case, anchored on the Dubai Balloon
+      benchmark load factor.
+    </p>
+
+    <div class="scenario">
+      <div class="scenario-head">
+        <h3>Conservative</h3>
+        <span class="flag">Underwriting Floor</span>
+      </div>
+      <div class="desc">
+        A cautious 40% average load — well below the Dubai Balloon benchmark — with sponsorship and museum
+        cross-sell flat and no premium VIP uplift. Even here, the attraction covers operating cost and recovers
+        CAPEX within six years.
+      </div>
+      <div class="kpi-row">
+        <div><div class="stat-num-sm">13.9M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
+        <div><div class="stat-num-sm">4.1M</div><div class="stat-lbl">EBITDA · AED</div></div>
+        <div><div class="stat-num-sm">29%</div><div class="stat-lbl">EBITDA Margin</div></div>
+        <div><div class="stat-num-sm">~6 yr</div><div class="stat-lbl">Simple Payback</div></div>
+      </div>
+    </div>
+
+    <div class="scenario is-base">
+      <div class="scenario-head">
+        <h3>Base Case</h3>
+        <span class="flag">★ Underwriting Case</span>
+      </div>
+      <div class="desc">
+        A 70% average load matched to the proven Dubai Balloon benchmark, with the full night revenue stack
+        live: themed shows, All-Access Pass, four seasonal sponsor refreshes, and the museum partnership. This
+        is what the financial plan is built on.
+      </div>
+      <div class="kpi-row">
+        <div><div class="stat-num-sm">24.7M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
+        <div><div class="stat-num-sm">14.9M</div><div class="stat-lbl">EBITDA · AED</div></div>
+        <div><div class="stat-num-sm">60%</div><div class="stat-lbl">EBITDA Margin</div></div>
+        <div><div class="stat-num-sm">~1.6 yr</div><div class="stat-lbl">Simple Payback</div></div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-head">
+        <h3>Strong</h3>
+        <span class="flag">Upside Case</span>
+      </div>
+      <div class="desc">
+        An 85%+ average load supported by anchor sponsor renewals, premium All-Access uptake, full VIP gondola
+        booking through peak season, and content syndication across partner venues. CAPEX returns inside the
+        first year.
+      </div>
+      <div class="kpi-row">
+        <div><div class="stat-num-sm">39.7M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
+        <div><div class="stat-num-sm">29.9M</div><div class="stat-lbl">EBITDA · AED</div></div>
+        <div><div class="stat-num-sm">75%</div><div class="stat-lbl">EBITDA Margin</div></div>
+        <div><div class="stat-num-sm">&lt;1 yr</div><div class="stat-lbl">Simple Payback</div></div>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>11</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 12 · THE RETURNS · COMPARISON + 10YR ───────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>Financial Model · Revenue Build · 12</span>
+    </header>
+
+    <div class="page-stack">
+      <div class="intro-block">
+        <span class="eyebrow">Revenue Build · By Stream</span>
+        <h2 class="display-l">Where the revenue comes from.</h2>
+        <div class="divider"></div>
+        <p class="lede">
+          Six revenue streams across day, night, food &amp; retail, sponsorship, museum partnership, and private
+          gondola hire. The Base Case assumes only the contracted-and-likely lines; the Strong Case prices in
+          sponsor renewals and content syndication.
+        </p>
+      </div>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Revenue Stream</th>
+            <th>Conservative</th>
+            <th>Base Case</th>
+            <th>Strong</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Day ticket revenue</td>          <td>AED 3.6M</td><td>AED 6.4M</td> <td>AED 9.7M</td></tr>
+          <tr><td>Night ticket revenue</td>        <td>AED 7.6M</td><td>AED 13.0M</td><td>AED 18.5M</td></tr>
+          <tr><td>F&amp;B &amp; retail</td>        <td>AED 0.5M</td><td>AED 1.0M</td> <td>AED 2.0M</td></tr>
+          <tr><td>Sponsorship — content + branding</td><td>AED 1.5M</td><td>AED 2.5M</td><td>AED 5.0M</td></tr>
+          <tr><td>Museum partnership &amp; cross-sell</td><td>AED 0.2M</td><td>AED 0.8M</td><td>AED 2.0M</td></tr>
+          <tr><td>Private gondola &amp; VIP events</td><td>AED 0.5M</td><td>AED 1.0M</td><td>AED 2.5M</td></tr>
+          <tr class="total"><td>Total Annual Revenue</td><td>AED 13.9M</td><td>AED 24.7M</td><td>AED 39.7M</td></tr>
+        </tbody>
+      </table>
+
+      <div>
+        <h3 class="display-m">10-year outlook · Base Case</h3>
+        <div class="divider"></div>
+        <div class="tenyr-strip" style="margin-top: 0; border-top: 0; padding-top: 0;">
+          <div><div class="stat-num">~58%</div><div class="stat-lbl">10-yr IRR</div></div>
+          <div><div class="stat-num">AED 85M</div><div class="stat-lbl">10-yr NPV @ 8%</div></div>
+          <div><div class="stat-num">5.5×</div><div class="stat-lbl">10-yr MOIC</div></div>
+        </div>
+      </div>
+
+      <p class="body">
+        The base case assumes flat ticket pricing in real terms across the ten-year window. Inflation-indexed
+        ticket increases (typically applied at the second seasonal refresh) are not modelled — they sit as
+        additional upside on top of the IRR shown.
+      </p>
+
+      <div class="callout" style="margin: 0;">
+        <div class="callout-label">Sensitivity at a glance</div>
+        <div class="callout-body">
+          A <strong>10-point swing in load factor</strong> (from 70% to 60%) moves Annual Revenue by ~AED 3.5M and
+          EBITDA by ~AED 2.5M, holding payback inside three years. The model is most sensitive to night-ticket
+          attach rate and to the All-Access conversion ratio.
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>12</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 13 · MUSEUM PARTNERSHIPS ────────────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>Museum Partnerships · 13</span>
+    </header>
+
+    <span class="eyebrow">Museum Partnerships · Saadiyat Ecosystem</span>
+    <h2 class="display-l" style="margin-top: 6pt;">Force multiplier<br>for the whole island.</h2>
+    <div class="divider"></div>
+
+    <p class="lede">
+      Canvas From The Sky is the aerial connector that gives Saadiyat a reason to stay from 9am through
+      midnight. Every balloon ride becomes a museum referral. Every museum visit becomes a reason to come
+      back after dark.
+    </p>
+
+    <div class="cols-3" style="margin-top: 8mm;">
+      <div class="partner-card">
+        <div class="theme-tag">Theme A</div>
+        <h3>Louvre Abu Dhabi</h3>
+        <p>
+          Theme A is built around the Louvre's permanent collection. Balloon ticket holders receive 15% off
+          Louvre admission; Louvre visitors receive 15% off any Canvas ticket. Co-branded passes available at
+          both points of sale.
+        </p>
+        <div class="pass-price">Canvas + Louvre pass · AED 450</div>
+      </div>
+      <div class="partner-card">
+        <div class="theme-tag">Theme B</div>
+        <h3>Zayed National Museum</h3>
+        <p>
+          Theme B carries the Zayed NM's founding story into the night sky. The combined pass targets UAE
+          nationals and cultural-tourism travellers who come for the founding story of the Emirates.
+        </p>
+        <div class="pass-price">Canvas + Zayed NM pass · AED 440</div>
+      </div>
+      <div class="partner-card">
+        <div class="theme-tag">Theme C</div>
+        <h3>Guggenheim Abu Dhabi</h3>
+        <p>
+          Theme C is the Guggenheim's natural aerial extension — bold, abstract, electric — connecting the
+          balloon experience to the international contemporary art market and to the Guggenheim's rotating
+          programme.
+        </p>
+        <div class="pass-price">Canvas + Guggenheim pass · AED 445</div>
+      </div>
+    </div>
+
+    <div class="discount-callout">
+      <div>
+        <div class="label">Mutual Cross-Discount</div>
+        <h3>Balloon ticket holders get 15% off museum entry — and vice versa.</h3>
+      </div>
+      <div class="discount-num">15%</div>
+    </div>
+
+    <p class="body" style="margin-top: 8mm;">
+      The cross-discount is the structural mechanism that converts museum traffic to night-show traffic and
+      back. It removes the price-sensitivity barrier for the cultural-tourism segment, and it gives each
+      partner museum a low-friction way to extend a visitor's day into the evening — without absorbing any
+      operational cost themselves.
+    </p>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>13</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 14 · LONGEVITY ──────────────────────────────────────── -->
+  <section class="page page--cream">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>Longevity &amp; Service Life · 14</span>
+    </header>
+
+    <span class="eyebrow">LED Module · Life Expectancy</span>
+    <h2 class="display-l" style="margin-top: 6pt;">The shell outlives the plan.</h2>
+    <div class="divider"></div>
+
+    <p class="lede">
+      The investor is buying a structural shell that will outlive this business plan by decades. The most-exposed
+      consumable — the tulip diffuser head — costs AED 66 and takes two minutes to replace with no tools.
+    </p>
+
+    <table class="lifespan-table">
+      <thead>
+        <tr>
+          <th style="width: 24%;">Component</th>
+          <th style="width: 22%;">UAE Service Life</th>
+          <th style="width: 38%;">Service Method</th>
+          <th style="width: 16%;">Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tulip diffuser head</strong></td>
+          <td>2–3 years · UV yellowing</td>
+          <td>Hand-pull from stem, snap new one. No tools. ~2 min.</td>
+          <td><span class="replace-tag consumable">Consumable</span></td>
+        </tr>
+        <tr>
+          <td><strong>Stem assembly</strong></td>
+          <td>5–8 years · sand abrasion</td>
+          <td>Unscrew from tile socket. No tile movement.</td>
+          <td><span class="replace-tag consumable">Consumable</span></td>
+        </tr>
+        <tr>
+          <td><strong>Driver electronics (per cell)</strong></td>
+          <td>7–10 years · thermal cycling</td>
+          <td>Lift tile with suction grips, swap driver, re-seat. ~5 min.</td>
+          <td><span class="replace-tag consumable">Periodic</span></td>
+        </tr>
+        <tr>
+          <td><strong>GFRC concrete tile (Low Tier)</strong></td>
+          <td>30–50+ years structural</td>
+          <td>No replacement cycle expected</td>
+          <td><span class="replace-tag structural">Structural</span></td>
+        </tr>
+        <tr>
+          <td><strong>Aluminum plate tile (High Tier)</strong></td>
+          <td>20–30 years structural</td>
+          <td>No replacement cycle expected</td>
+          <td><span class="replace-tag structural">Structural</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="display-m" style="margin-top: 10mm;">10-year service schedule</h3>
+    <div class="divider"></div>
+
+    <div class="lifespan-grid">
+      <div class="step">
+        <div class="year">Y1–2</div>
+        <div class="title">Commissioning tulip refresh + early driver swap</div>
+        <div class="cost">AED 200,000</div>
+      </div>
+      <div class="step">
+        <div class="year">Y3</div>
+        <div class="title">First full tulip refresh · ~4,450 heads</div>
+        <div class="cost">AED 295,000</div>
+      </div>
+      <div class="step">
+        <div class="year">Y5</div>
+        <div class="title">Balloon envelope + helium replacement</div>
+        <div class="cost">AED 2,500,000</div>
+      </div>
+      <div class="step">
+        <div class="year">Y5–6</div>
+        <div class="title">Second tulip refresh + stem inspection</div>
+        <div class="cost">AED 395,000</div>
+      </div>
+      <div class="step">
+        <div class="year">Y7–8</div>
+        <div class="title">Driver electronics mid-life overhaul</div>
+        <div class="cost">AED 400,000</div>
+      </div>
+      <div class="step">
+        <div class="year">Y10</div>
+        <div class="title">Third tulip refresh + second balloon</div>
+        <div class="cost">AED 295,000 + 2.5M</div>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>14</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 15 · OPERATOR ───────────────────────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>Operator · 15</span>
+    </header>
+
+    <span class="eyebrow">Hero Experiences Group · Operator</span>
+    <h2 class="display-l" style="margin-top: 6pt;">The GCC's leading premium<br>aerial operator.</h2>
+    <div class="divider"></div>
+
+    <p class="lede">
+      The only company in the region with proven expertise across both helium tethered and hot-air balloon
+      operations — and the team that designed, launched, and operates the UAE's first permanent helium balloon
+      attraction. GCAA certified, with a flawless safety record.
+    </p>
+
+    <div class="operator-creds">
+      <div><div class="val">250,000+</div><div class="lbl">Safe Passenger Flights</div></div>
+      <div><div class="val">UAE's First</div><div class="lbl">Permanent Helium Attraction</div></div>
+      <div><div class="val">GCAA</div><div class="lbl">Certified Aviation Operator</div></div>
+      <div><div class="val">10+ Years</div><div class="lbl">GCC Aviation Expertise</div></div>
+    </div>
+
+    <div class="operator-grid">
+      <div class="operator-col">
+        <h3>Full Turnkey Capabilities</h3>
+        <ul class="tier-list">
+          <li>End-to-end operations, logistics, and staffing</li>
+          <li>GCAA certification and ongoing regulatory compliance</li>
+          <li>Crew training, safety protocols, and live emergency drills</li>
+          <li>Ticketing systems and dynamic pricing strategy</li>
+          <li>Helium supply chain and balloon envelope maintenance</li>
+          <li>Content scheduling and seasonal show refreshes</li>
+        </ul>
+      </div>
+      <div class="operator-col">
+        <h3>Competitive Strengths</h3>
+        <ul class="tier-list">
+          <li>Established government and authority relationships</li>
+          <li>Proven tourism asset deployment across the GCC</li>
+          <li>Operational readiness for immediate launch</li>
+          <li>Award-winning brands with global visibility</li>
+          <li>Only GCC operator with tethered &amp; hot-air balloon expertise</li>
+          <li>In-region helium supply contracts already negotiated</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="pull-quote">
+      "The only partner capable of delivering Canvas From The Sky safely, efficiently, and commercially
+      successfully from day one."
+    </p>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>15</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 16 · THE ASK ────────────────────────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>The Ask · 16</span>
+    </header>
+
+    <div class="page-stack">
+      <div class="intro-block">
+        <span class="eyebrow">Hero Experiences Group · Abu Dhabi</span>
+        <h2 class="display-l">The sky above<br>Saadiyat is ready.</h2>
+        <div class="divider"></div>
+        <p class="lede">
+          A fully designed, engineered, and operationally credible aerial canvas — awaiting land allocation and
+          co-investment to activate. The design is locked, the operator is in place, the partner conversations
+          are advancing.
+        </p>
+      </div>
+
+      <div class="stat-row-4" style="margin-top: 0;">
+        <div><div class="stat-num-sm">AED 25.3M</div><div class="stat-lbl">CAPEX · Recommended</div></div>
+        <div><div class="stat-num-sm">AED 24.7M</div><div class="stat-lbl">Year-1 Revenue · Base</div></div>
+        <div><div class="stat-num-sm">~58%</div><div class="stat-lbl">10-yr IRR</div></div>
+        <div><div class="stat-num-sm">~1.6 yr</div><div class="stat-lbl">Payback · Base</div></div>
+      </div>
+
+      <div>
+        <h3 class="display-m">What we are seeking</h3>
+        <div class="divider"></div>
+
+        <div class="cols-2" style="margin-top: 6mm;">
+          <div>
+            <div class="col-num">01 · Land</div>
+            <div class="col-title">Saadiyat site allocation</div>
+            <p class="col-body">
+              A defined Saadiyat parcel sized to accommodate the 60-metre LED ring, walkway, balloon platform,
+              guest queue, and back-of-house service yard.
+            </p>
+          </div>
+          <div>
+            <div class="col-num">02 · Co-investment</div>
+            <div class="col-title">AED 25.3M CAPEX partnership</div>
+            <p class="col-body">
+              Co-investment to fund the recommended GFRC tier — LED field, balloon, content launch — alongside
+              Hero Experiences Group's operating commitment.
+            </p>
+          </div>
+        </div>
+
+        <div class="cols-2" style="margin-top: 6mm;">
+          <div>
+            <div class="col-num">03 · Museum MoUs</div>
+            <div class="col-title">Three-partner endorsement</div>
+            <p class="col-body">
+              Formal memoranda of understanding with the three Saadiyat museums to anchor the themed-show
+              partnership and activate the cross-discount mechanism at point of sale.
+            </p>
+          </div>
+          <div>
+            <div class="col-num">04 · Timing</div>
+            <div class="col-title">Launch window</div>
+            <p class="col-body">
+              Hardware and content lead-time runs ~14 months from land confirmation. A confirmed allocation in
+              2026 places the soft launch inside the 2027 winter tourism season.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Closing brand line — gold accent block on white -->
+      <div class="callout" style="margin: 0;">
+        <div class="callout-label">Closing Note</div>
+        <div class="callout-body">
+          Canvas From The Sky is not a concept on a slide. It is a complete attraction model — hardware locked,
+          operator in place, themes scoped, financials underwritten. The next move is land and capital.
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group </span>
+      <span>16</span>
+    </footer>
+  </section>
+
+  <script>
+    // Auto-trigger the browser's Print/Save-as-PDF dialog when this brochure
+    // is opened from the deck's "Download PDF" button (which appends ?print=1).
+    // Opening pitch-pdf.html directly (no query) lets the user review the
+    // layout on screen before printing.
+    (function () {
+      if (new URLSearchParams(window.location.search).get('print') === '1') {
+        window.addEventListener('load', function () {
+          setTimeout(function () { window.print(); }, 600);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
