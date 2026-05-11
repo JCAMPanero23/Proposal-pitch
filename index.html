@@ -219,15 +219,158 @@
     .tier-list li { font-size: 15px; color: var(--text-body); line-height: 1.5; padding-left: 20px; position: relative; }
     .tier-list li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
 
-    /* ---- Coalition slide three-column credibility (Slide 8) ---- */
-    .coalition-col {
+    /* ---- Slide 8 · Museum Partnerships ---- */
+    .partner-card {
       border-top: 2px solid var(--gold);
       padding-top: 20px;
+      display: flex; flex-direction: column;
     }
-    .coalition-col h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--text); margin-bottom: 12px; font-weight: 600; }
-    .coalition-col p  { font-size: 16px; line-height: 1.6; color: var(--text-body); margin-bottom: 14px; }
-    .coalition-col .stat { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--gold); line-height: 1; margin-bottom: 4px; font-weight: 700; }
-    .coalition-col .stat-cap { font-size: 12px; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; }
+    .partner-card .theme-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 600; margin-bottom: 10px;
+    }
+    .partner-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; color: var(--text);
+      margin-bottom: 12px; font-weight: 600;
+    }
+    .partner-card p {
+      font-size: 15px; line-height: 1.6;
+      color: var(--text-body); margin-bottom: 18px;
+      flex: 1;
+    }
+    .partner-card .pass-price {
+      font-size: 13px; color: var(--gold);
+      letter-spacing: 0.04em; font-weight: 600;
+      padding-top: 14px; border-top: 1px solid var(--border);
+    }
+    .discount-callout {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px; margin-top: 36px;
+      padding: 28px 44px;
+      border: 1px solid var(--gold-soft);
+      background: rgba(166, 124, 58, 0.06);
+      border-radius: 6px;
+    }
+    .discount-callout .label {
+      font-size: 12px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      font-weight: 600; margin-bottom: 10px;
+    }
+    .discount-callout h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px; color: var(--text);
+      font-weight: 600; line-height: 1.3;
+      max-width: 640px;
+    }
+    .discount-callout .discount-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 88px; color: var(--gold);
+      line-height: 1; font-weight: 700;
+    }
+
+    /* ---- Slide 9 · Operator ---- */
+    .operator-creds {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border); border-radius: 6px;
+      overflow: hidden;
+      margin-top: 32px;
+      background: var(--bg-2);
+    }
+    .operator-creds > div {
+      padding: 24px 22px;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .operator-creds > div:last-child { border-right: none; }
+    .operator-creds .val {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; color: var(--gold);
+      font-weight: 700; line-height: 1.1;
+    }
+    .operator-creds .lbl {
+      font-size: 11px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-muted);
+      font-weight: 500; margin-top: 10px;
+    }
+    .operator-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; margin-top: 32px;
+    }
+    .operator-col h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; color: var(--text);
+      font-weight: 600;
+      padding-bottom: 12px; margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pull-quote {
+      margin-top: 28px;
+      padding: 22px 40px;
+      border: 1px solid var(--gold-soft);
+      background: rgba(166, 124, 58, 0.06);
+      border-radius: 6px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 20px; line-height: 1.5;
+      color: var(--text); text-align: center;
+    }
+
+    /* ---- Slide 10 · Longevity ---- */
+    .lifespan-table {
+      width: 100%; border-collapse: collapse;
+      margin-top: 28px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .lifespan-table thead th {
+      text-align: left; padding: 10px 14px;
+      font-size: 11px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-muted);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+    .lifespan-table tbody td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--text-body);
+      vertical-align: middle;
+    }
+    .lifespan-table tbody tr:last-child td { border-bottom: none; }
+    .lifespan-table tbody strong { color: var(--text); font-weight: 600; }
+    .replace-tag {
+      display: inline-block;
+      font-size: 10px; padding: 3px 9px;
+      border-radius: 2px; letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 600;
+    }
+    .replace-tag.consumable { background: rgba(166, 124, 58, 0.14); color: var(--gold); }
+    .replace-tag.structural { background: rgba(20, 120, 60, 0.14); color: #1a7a3a; }
+    .lifespan-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: 20px; margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+    .lifespan-grid .step {
+      border-left: 2px solid var(--gold);
+      padding-left: 16px;
+    }
+    .lifespan-grid .step .year {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; color: var(--gold);
+      font-weight: 700; margin-bottom: 6px;
+    }
+    .lifespan-grid .step .title {
+      font-size: 13px; color: var(--text);
+      font-weight: 600; line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .lifespan-grid .step .cost {
+      font-size: 11px; color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
 
     /* ---- Hero background image (Slide 1) ---- */
     .slide.has-bg-image { padding: 0; }
@@ -446,16 +589,6 @@
       margin-bottom: 18px;
       display: block;
       background: var(--ink);
-    }
-
-    /* ---- Coalition banner image (Slide 8) ---- */
-    .coalition-banner {
-      width: 100%;
-      aspect-ratio: 16 / 5;
-      object-fit: cover;
-      border-radius: 6px;
-      margin: 8px 0 24px;
-      display: block;
     }
 
     /* ─── Slide 3 — Night Experience interactive ────────────────────────── */
@@ -1141,7 +1274,7 @@
 
           <div class="tab-panel is-active" data-tab="a">
             <div class="theme-row">
-              <img src="HTML_assets/theme-a-drone.png" alt="Theme A drone view — gold Louvre content on the LED ring" />
+              <img src="HTML_assets/DroneShot_comp.Theme_A.png" alt="Theme A drone composite — balloon, Saadiyat museums, and the LED ring rendering the gold Louvre show" />
               <div>
                 <div class="col-num">Theme A · Louvre Abu Dhabi</div>
                 <h3 class="col-title">The Universal Collection</h3>
@@ -1156,7 +1289,7 @@
 
           <div class="tab-panel" data-tab="b">
             <div class="theme-row">
-              <img src="HTML_assets/theme-b-drone.png" alt="Theme B drone view — amber heritage content on the LED ring" />
+              <img src="HTML_assets/DroneShot_comp.Theme_B.png" alt="Theme B drone composite — balloon, Saadiyat museums, and the LED ring rendering the amber Zayed National Museum show" />
               <div>
                 <div class="col-num">Theme B · Zayed National Museum</div>
                 <h3 class="col-title">The Nation's Story</h3>
@@ -1171,7 +1304,7 @@
 
           <div class="tab-panel" data-tab="c">
             <div class="theme-row">
-              <img src="HTML_assets/theme-c-drone.png" alt="Theme C drone view — electric blue and magenta on the LED ring" />
+              <img src="HTML_assets/DroneShot_comp.Theme_C.png" alt="Theme C drone composite — balloon, Saadiyat museums, and the LED ring rendering the cobalt and magenta Guggenheim show" />
               <div>
                 <div class="col-num">Theme C · Guggenheim Abu Dhabi</div>
                 <h3 class="col-title">The Future Canvas</h3>
@@ -1199,7 +1332,7 @@
         <h2 class="display-l" style="margin-top: 14px;">The canvas behind the show.</h2>
 
         <div class="canvas-split">
-          <img src="HTML_assets/led-aerial-canvas.png" alt="Top-down aerial — full LED ring displaying mapped content" />
+          <img src="HTML_assets/TheCanvasBehindTheShow.png" alt="Four-panel composite — LED ring close-up, aerial of balloon and Saadiyat museums, and ring rendering themed content" />
           <div>
             <p class="lede" style="margin-top: 0;">A 60-meter ring built from 6,175 identical 600mm tiles, each carrying nine addressable RGBW stems. Designed from the first sketch to be serviced from above — no specialist crew, no crane, no downtime.</p>
             <div class="stat-row-4" style="grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 36px;">
@@ -1353,39 +1486,166 @@
         </div>
       </section>
 
-      <!-- ── 8 · THE COALITION ────────────────────────────────────────────── -->
+      <!-- ── 8 · MUSEUM PARTNERSHIPS ──────────────────────────────────────── -->
       <section class="slide slide--paper" data-slide="8">
-        <div class="stack-md">
-          <span class="eyebrow">Partnerships · Operator · Longevity</span>
-          <h2 class="display-l">Built to last.<br>Backed by experts.</h2>
-          <div class="cols-3" style="margin-top: 56px;">
-            <div class="coalition-col">
-              <h3>Museum Coalition</h3>
-              <p>15% mutual cross-discount with Louvre Abu Dhabi, Zayed National Museum, and Guggenheim Abu Dhabi.</p>
-              <p>Combined balloon + museum passes from AED 440. The aerial connector that gives Saadiyat a reason to stay from 9am through midnight.</p>
-              <div class="stat" style="margin-top: 24px;">15%</div>
-              <div class="stat-cap">mutual cross-discount</div>
-            </div>
-            <div class="coalition-col">
-              <h3>Hero Experiences Group</h3>
-              <p>The GCC's only operator with proven expertise across both helium tethered and hot-air balloon operations.</p>
-              <p>Designed, launched, and operates the UAE's first permanent helium balloon attraction. GCAA-certified. Award-winning brand.</p>
-              <div class="stat" style="margin-top: 24px;">250,000+</div>
-              <div class="stat-cap">safe passenger flights</div>
-            </div>
-            <div class="coalition-col">
-              <h3>Structural Longevity</h3>
-              <p>The investor is buying a structural shell that will outlive this business plan by decades. No technology obsolescence on the structural layer.</p>
-              <p>The most-exposed consumable — the tulip diffuser head — costs AED 66 and takes two minutes to replace with no tools.</p>
-              <div class="stat" style="margin-top: 24px;">30–50<span style="font-size: 24px;"> yr</span></div>
-              <div class="stat-cap">GFRC structural life</div>
-            </div>
+        <span class="eyebrow">Museum Partnerships · Saadiyat Ecosystem</span>
+        <h2 class="display-l" style="margin-top: 14px;">Force multiplier<br>for the whole island.</h2>
+        <p class="lede" style="margin-top: 14px; max-width: 1200px;">Canvas From The Sky is the aerial connector that gives Saadiyat a reason to stay from 9am through midnight. Every balloon ride becomes a museum referral. Every museum visit becomes a reason to come back after dark.</p>
+
+        <div class="cols-3" style="margin-top: 36px;">
+          <div class="partner-card">
+            <div class="theme-tag">Theme A</div>
+            <h3>Louvre Abu Dhabi</h3>
+            <p>Theme A is built around the Louvre's permanent collection. Balloon ticket holders receive 15% off Louvre admission; Louvre visitors receive 15% off any Canvas ticket.</p>
+            <div class="pass-price">Canvas + Louvre pass · AED 450</div>
+          </div>
+          <div class="partner-card">
+            <div class="theme-tag">Theme B</div>
+            <h3>Zayed National Museum</h3>
+            <p>Theme B carries the Zayed NM's founding story into the night sky. The combined pass targets UAE nationals and cultural-tourism travellers who come for the founding story of the Emirates.</p>
+            <div class="pass-price">Canvas + Zayed NM pass · AED 440</div>
+          </div>
+          <div class="partner-card">
+            <div class="theme-tag">Theme C</div>
+            <h3>Guggenheim Abu Dhabi</h3>
+            <p>Theme C is the Guggenheim's natural aerial extension — bold, abstract, electric — connecting the balloon experience to the international contemporary art market.</p>
+            <div class="pass-price">Canvas + Guggenheim pass · AED 445</div>
+          </div>
+        </div>
+
+        <div class="discount-callout">
+          <div>
+            <div class="label">Mutual Cross-Discount</div>
+            <h3>Balloon ticket holders get 15% off museum entry — and vice versa.</h3>
+          </div>
+          <div class="discount-num">15%</div>
+        </div>
+      </section>
+
+      <!-- ── 9 · LONGEVITY ────────────────────────────────────────────────── -->
+      <section class="slide slide--cream" data-slide="9">
+        <span class="eyebrow">LED Module · Life Expectancy</span>
+        <h2 class="display-l" style="margin-top: 14px;">The structural shell outlives the business plan.</h2>
+        <p class="lede" style="margin-top: 14px; max-width: 1400px;">The investor is buying a structural shell that will outlive this business plan by decades. The most-exposed consumable — the tulip diffuser head — costs AED 66 and takes two minutes to replace with no tools.</p>
+
+        <table class="lifespan-table">
+          <thead>
+            <tr>
+              <th style="width: 24%;">Component</th>
+              <th style="width: 22%;">UAE Service Life</th>
+              <th style="width: 38%;">Service Method</th>
+              <th style="width: 16%;">Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Tulip diffuser head</strong></td>
+              <td>2–3 years · UV yellowing</td>
+              <td>Hand-pull from stem, snap new one. No tools. ~2 min.</td>
+              <td><span class="replace-tag consumable">Consumable</span></td>
+            </tr>
+            <tr>
+              <td><strong>Stem assembly</strong></td>
+              <td>5–8 years · sand abrasion</td>
+              <td>Unscrew from tile socket. No tile movement.</td>
+              <td><span class="replace-tag consumable">Consumable</span></td>
+            </tr>
+            <tr>
+              <td><strong>Driver electronics (per cell)</strong></td>
+              <td>7–10 years · thermal cycling</td>
+              <td>Lift tile with suction grips, swap driver, re-seat. ~5 min.</td>
+              <td><span class="replace-tag consumable">Periodic</span></td>
+            </tr>
+            <tr>
+              <td><strong>GFRC concrete tile (Low Tier)</strong></td>
+              <td>30–50+ years structural</td>
+              <td>No replacement cycle expected</td>
+              <td><span class="replace-tag structural">Structural</span></td>
+            </tr>
+            <tr>
+              <td><strong>Aluminum plate tile (High Tier)</strong></td>
+              <td>20–30 years structural</td>
+              <td>No replacement cycle expected</td>
+              <td><span class="replace-tag structural">Structural</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="lifespan-grid">
+          <div class="step">
+            <div class="year">Y1–2</div>
+            <div class="title">Commissioning tulip refresh + early driver swap</div>
+            <div class="cost">AED 200,000</div>
+          </div>
+          <div class="step">
+            <div class="year">Y3</div>
+            <div class="title">First full tulip refresh · ~4,450 heads</div>
+            <div class="cost">AED 295,000</div>
+          </div>
+          <div class="step">
+            <div class="year">Y5</div>
+            <div class="title">Balloon envelope + helium replacement</div>
+            <div class="cost">AED 2,500,000</div>
+          </div>
+          <div class="step">
+            <div class="year">Y5–6</div>
+            <div class="title">Second tulip refresh + stem inspection</div>
+            <div class="cost">AED 395,000</div>
+          </div>
+          <div class="step">
+            <div class="year">Y7–8</div>
+            <div class="title">Driver electronics mid-life overhaul</div>
+            <div class="cost">AED 400,000</div>
+          </div>
+          <div class="step">
+            <div class="year">Y10</div>
+            <div class="title">Third tulip refresh + second balloon</div>
+            <div class="cost">AED 295,000 + 2.5M</div>
           </div>
         </div>
       </section>
 
-      <!-- ── 9 · THE ASK ──────────────────────────────────────────────────── -->
-      <section class="slide slide--ink" data-slide="9">
+      <!-- ── 10 · OPERATOR ────────────────────────────────────────────────── -->
+      <section class="slide slide--paper" data-slide="10">
+        <span class="eyebrow">Hero Experiences Group · Operator</span>
+        <h2 class="display-l" style="margin-top: 14px;">The GCC's leading premium aerial operator.</h2>
+        <p class="lede" style="margin-top: 14px; max-width: 1400px;">The only company in the region with proven expertise across both helium tethered and hot-air balloon operations — and the team that designed, launched, and operates the UAE's first permanent helium balloon attraction. GCAA certified, with a flawless safety record.</p>
+
+        <div class="operator-creds">
+          <div><div class="val">250,000+</div><div class="lbl">Safe Passenger Flights</div></div>
+          <div><div class="val">UAE's First</div><div class="lbl">Permanent Helium Attraction</div></div>
+          <div><div class="val">GCAA</div><div class="lbl">Certified Aviation Operator</div></div>
+          <div><div class="val">10+ Years</div><div class="lbl">GCC Aviation Expertise</div></div>
+        </div>
+
+        <div class="operator-grid">
+          <div class="operator-col">
+            <h3>Full Turnkey Capabilities</h3>
+            <ul class="tier-list">
+              <li>End-to-end operations, logistics, and staffing</li>
+              <li>GCAA certification and ongoing regulatory compliance</li>
+              <li>Crew training, safety protocols, and live emergency drills</li>
+              <li>Ticketing systems and dynamic pricing strategy</li>
+              <li>Helium supply chain and balloon envelope maintenance</li>
+            </ul>
+          </div>
+          <div class="operator-col">
+            <h3>Competitive Strengths</h3>
+            <ul class="tier-list">
+              <li>Established government and authority relationships</li>
+              <li>Proven tourism asset deployment across the GCC</li>
+              <li>Operational readiness for immediate launch</li>
+              <li>Award-winning brands with global visibility</li>
+              <li>Only GCC operator with tethered &amp; hot-air balloon expertise</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="pull-quote">"The only partner capable of delivering Canvas From The Sky safely, efficiently, and commercially successfully from day one."</p>
+      </section>
+
+      <!-- ── 11 · THE ASK ─────────────────────────────────────────────────── -->
+      <section class="slide slide--ink" data-slide="11">
         <div class="stack-lg">
           <span class="eyebrow">Hero Experiences Group · Abu Dhabi</span>
           <h2 class="display-xl">The sky above<br>Saadiyat is ready.</h2>
@@ -1412,7 +1672,7 @@
   <nav class="top-nav" id="topNav" aria-label="Slide navigation">
     <!-- State 1 — static -->
     <div class="top-nav__static">
-      <span id="counterStatic">01 / 09</span>
+      <span id="counterStatic">01 / 11</span>
     </div>
 
     <!-- State 2 — full nav (overlay) -->
@@ -1425,7 +1685,7 @@
           <path d="M3 8V3h5M21 8V3h-5M3 16v5h5M21 16v5h-5"/>
         </svg>
       </button>
-      <span class="counter" id="counter">01 / 09</span>
+      <span class="counter" id="counter">01 / 11</span>
     </div>
   </nav>
 
