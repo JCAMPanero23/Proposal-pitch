@@ -736,6 +736,60 @@ The content pipeline should be built around the exact field geometry:
 
 ---
 
+## Software Strategy — Off-the-Shelf Engine, Proprietary IP on Top
+
+The question of whether to build a custom in-house show-control platform vs. license an off-the-shelf one has been settled. **For v1 launch, the off-the-shelf engine wins; the proprietary IP is the layer built on top of it.**
+
+This is the same pattern used by Disney, teamLab, and Moment Factory — none of them write a media server from scratch.
+
+### What we license (off-the-shelf)
+
+The playback engine and pixel routing. Industry-standard tooling, battle-tested across theme parks, Vegas residencies, and architectural facades — exactly Canvas From The Sky's use case.
+
+| Layer | Tool (recommended) | Annual cost |
+|---|---|---:|
+| Show server / playback engine | TouchDesigner Pro | ~AED 8k/yr |
+| Pixel mapping / projection authoring | MadMapper Pro | ~AED 2k/yr |
+| Live show playback / sequencing | Resolume Arena | ~AED 3k/yr |
+| Pixel controllers (firmware) | Advatek PixLite (firmware included) | included |
+| Optional secondary scheduler | Pharos / Madrix | ~AED 5–15k/yr |
+
+Total licensing exposure: **~AED 15–30k/yr.** Effectively a rounding error inside the AED 9.8M annual OpEx, and it folds into the existing "Content operations (net)" line.
+
+### Why not in-house for v1
+
+- **Build cost:** equivalent media server is realistically 6–18 months for 2–4 specialised engineers (real-time graphics, Art-Net / sACN networking, color science, show-control state machines, an artist-friendly authoring UI). Estimated dev cost AED 1.5–4M+. Never pays back vs. licenses.
+- **Opening-night risk:** if a glitch happens, it should be Derivative Inc.'s bug, not ours.
+- **Hiring:** TouchDesigner artists are findable globally; bespoke-platform engineers in Abu Dhabi are not.
+- **Investor read:** "industry-standard tools" is reassuring; "we built our own media server" raises execution risk.
+
+### What we build in-house (proprietary IP)
+
+This is the layer that's defensible, sponsor-billable, and licensable to a second site or a Riyadh / Doha franchise later. All three items are already covered inside the existing AED 2.8M Content Launch CAPEX line:
+
+1. **Pixel-mapping pipeline tailored to the 60m ring + 9-LED 200mm grid** (one-time, ~AED 200–550k)
+   Survey-driven top-down pixel map, TouchDesigner project that targets the locked 9-LED geometry, drone / balloon-height calibration. Reused for every future show. This is the load-bearing software work and it only happens once.
+
+2. **Generative content engine** (palettes + motion rules + parameter shifts, ~AED 150–300k)
+   Lets one authored system run an entire season of ambient with parameter shifts that read as fresh content. The economic point is that this turns ambient content from a per-minute cost into near-zero marginal cost after authoring — directly supporting the 60–90 min ambient library inside the launch package.
+
+3. **Show scheduler + sponsor-swap UI** (~AED 80–150k, thin web app)
+   Operator-facing UI to swap in sponsor-branded shows, manage seasonal refresh timing, and tie show events to ticketing windows and the museum cross-sell programme. Not a media server — a thin scheduling layer that calls into the show engine.
+
+Approximate proprietary-software allocation inside the AED 2.8M Content Launch line: **AED 0.4–1.0M.** The remainder is hero shows, ambient, sound, and on-site calibration.
+
+### Re-evaluation triggers
+
+The off-the-shelf-only stance should be revisited if any of these happen:
+
+- A second site is committed (Riyadh, Doha, or a CFTS franchise) — at that point the proprietary authoring layer should be hardened into a productised platform.
+- A licensing offer arrives from another attraction operator.
+- A show feature is required that the off-the-shelf engine genuinely cannot deliver (so far none identified).
+
+Until one of those triggers fires, the licensed engine + proprietary IP-on-top model is the explicit position.
+
+---
+
 ## Rough Cost Estimate - LED Field Hardware
 
 These are early investor-level ranges, not supplier quotes. They are based on current online comparable products plus a custom-hardware uplift for desertized blocks, stems, tulip heads, sealing, controllers, structural framing, installation, and commissioning.

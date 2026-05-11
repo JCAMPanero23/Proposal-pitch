@@ -10,7 +10,29 @@
       "PowerShell(python --version 2>&1)",
       "PowerShell(python -c \"import PyPDF2; print\\('PyPDF2 available'\\)\" 2>&1)",
       "PowerShell(python -c \"import pdfplumber; print\\('pdfplumber available'\\)\" 2>&1)",
-      "PowerShell(python -c \"import fitz; print\\('PyMuPDF available'\\)\" 2>&1)"
+      "PowerShell(python -c \"import fitz; print\\('PyMuPDF available'\\)\" 2>&1)",
+      "Bash(start \"\" \"d:/Projects/SGU/Canvas in the Sky/index.html\")",
+      "Bash(git merge *)",
+      "Bash(where ffmpeg *)",
+      "Bash(where magick *)",
+      "Bash(where python *)",
+      "Bash(where py *)",
+      "Bash(py --version)",
+      "Bash(python -c \"from PIL import Image; print\\('Pillow OK', Image.__version__\\)\")",
+      "PowerShell(python --version)",
+      "PowerShell(py --version)",
+      "PowerShell(node --version)",
+      "Bash(npm install *)",
+      "Bash(node -e \"const s=require\\('./tools/node_modules/sharp'\\); console.log\\('sharp', s.versions\\);\")",
+      "Bash(node -e \"const s=require\\('sharp'\\); console.log\\('sharp version:', s.versions.sharp\\); console.log\\('libwebp:', s.versions.webp\\);\")",
+      "Bash(node convert-overlays.js)",
+      "Bash(node convert-states.js)",
+      "Bash(node composite-frames.js)",
+      "Bash(git log *)"
+    ],
+    "additionalDirectories": [
+      "D:\\Projects\\SGU\\Canvas in the Sky",
+      "D:\\Projects\\SGU\\Canvas in the Sky\\HTML_assets\\Vertical Altitude Experience\\v2"
     ]
   }
 }
