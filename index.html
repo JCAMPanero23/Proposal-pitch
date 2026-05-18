@@ -810,7 +810,7 @@
     /* ---- Top-right combined nav widget ----
        Two states share the same anchor (top:28px right:28px):
          · Static (default): a small white pill with just the page counter.
-         · Full   (cursor near): a wider dark pill with arrows + dots + ⛶ +
+         · Full   (cursor near): a wider light pill with arrows + dots + ⛶ +
            page counter — fades in and overlays the static pill.            */
     .top-nav {
       position: fixed;
@@ -841,16 +841,17 @@
       position: absolute;
       top: 0; right: 0;
       display: flex; align-items: center; gap: 12px;
-      background: rgba(10, 10, 15, 0.78);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(201, 169, 110, 0.22);
+      border: 1px solid rgba(201, 169, 110, 0.38);
       border-radius: 999px;
       padding: 8px 14px;
       opacity: 0;
       transform: translateX(8px);
       transition: opacity 220ms ease, transform 220ms ease;
       pointer-events: none;
+      box-shadow: 0 10px 30px rgba(10, 10, 15, 0.12);
     }
     .top-nav.is-near .top-nav__full {
       opacity: 1;
@@ -859,8 +860,8 @@
     }
     .top-nav .arrow {
       background: transparent;
-      border: 1px solid rgba(201, 169, 110, 0.35);
-      color: var(--gold-light);
+      border: 1px solid rgba(201, 169, 110, 0.48);
+      color: var(--gold);
       width: 32px; height: 32px;
       font-family: inherit; font-size: 14px;
       cursor: pointer;
@@ -869,25 +870,25 @@
       display: flex; align-items: center; justify-content: center;
     }
     .top-nav .arrow:hover {
-      background: rgba(201, 169, 110, 0.18);
-      border-color: var(--gold-light);
+      background: rgba(201, 169, 110, 0.12);
+      border-color: var(--gold);
     }
     .top-nav .dots { display: flex; gap: 7px; padding: 0 4px; }
     .top-nav .dot {
       width: 7px; height: 7px; border-radius: 50%;
-      background: rgba(201, 169, 110, 0.32);
+      background: rgba(10, 10, 15, 0.22);
       border: 0; padding: 0; cursor: pointer;
       transition: all 240ms ease;
     }
     .top-nav .dot.is-active {
-      background: var(--gold-light);
+      background: var(--gold);
       width: 24px; border-radius: 4px;
     }
     .top-nav__full .counter {
       font-family: 'DM Sans', sans-serif;
       font-size: 12px; font-weight: 500;
       letter-spacing: 0.18em;
-      color: var(--gold-light);
+      color: var(--gold);
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
       padding: 0 4px;
@@ -1095,7 +1096,7 @@
               <div><div class="stat-num-sm">55,575</div><div class="stat-lbl">LED Stems</div></div>
               <div><div class="stat-num-sm">60m</div><div class="stat-lbl">Ring Diameter</div></div>
               <div><div class="stat-num-sm">300m</div><div class="stat-lbl">Altitude</div></div>
-              <div><div class="stat-num-sm">24.7M</div><div class="stat-lbl">Annual Rev · AED</div></div>
+              <div><div class="stat-num-sm">19.6M</div><div class="stat-lbl">Annual Rev · AED</div></div>
             </div>
           </div>
         </div>
@@ -1334,7 +1335,7 @@
         <div class="canvas-split">
           <img src="HTML_assets/TheCanvasBehindTheShow.png" alt="Four-panel composite — LED ring close-up, aerial of balloon and Saadiyat museums, and ring rendering themed content" />
           <div>
-            <p class="lede" style="margin-top: 0;">A 60-meter ring built from 6,175 identical 600mm tiles, each carrying nine addressable RGBW stems. Designed from the first sketch to be serviced from above — no specialist crew, no crane, no downtime.</p>
+            <p class="lede" style="margin-top: 0;">A 60-meter ring built from 6,175 identical 600mm aluminum plate tiles, each carrying nine addressable RGBW stems. Designed from the first sketch to be serviced from above — no specialist crew, no crane, no downtime.</p>
             <div class="stat-row-4" style="grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 36px;">
               <div><div class="stat-num-sm">60m</div><div class="stat-lbl">Ring Diameter</div></div>
               <div><div class="stat-num-sm">6,175</div><div class="stat-lbl">Grid Modules</div></div>
@@ -1342,7 +1343,7 @@
               <div><div class="stat-num-sm">~28 kW</div><div class="stat-lbl">Peak Power</div></div>
             </div>
             <p class="body" style="margin-top: 32px;">
-              Each 600×600mm tile carries nine LED stems, height-adjustable 400–600mm. IP67 driver in a sealed cavity, accessible by suction grips in five minutes. Tulip diffuser heads — the only consumable — hand-pull replaceable in two minutes, no tools. Heat-rated, sand-sealed, built for the UAE climate.
+              Each 600×600mm hard-anodised aluminum plate tile carries nine LED stems, height-adjustable 400–600mm. IP67 driver in a sealed cavity, accessible by suction grips in five minutes. Tulip diffuser heads — the only consumable — hand-pull replaceable in two minutes, no tools. Heat-rated, sand-sealed, built for the UAE climate.
             </p>
           </div>
         </div>
@@ -1351,62 +1352,27 @@
       <!-- ── 6 · THE INVESTMENT ───────────────────────────────────────────── -->
       <section class="slide slide--paper" data-slide="6">
         <span class="eyebrow">Initial Investment · CAPEX</span>
-        <h2 class="display-l" style="margin-top: 14px;">Two tiers. One aerial show.</h2>
-        <p class="lede" style="margin-top: 14px;">Both tiers deliver identical show quality — same density, same nodes, same content pipeline. The choice is in the tile material alone.</p>
+        <h2 class="display-l" style="margin-top: 14px;">One specification. One investment.</h2>
+        <p class="lede" style="margin-top: 14px;">The investment carries a single aluminum plate tile specification: lighter to handle, precision-machined, refinishable, and built around the locked 9-LED content pipeline.</p>
 
-        <div class="tab-group" data-tabs style="margin-top: 24px;">
-          <div class="tabs" role="tablist">
-            <button class="tab-btn is-active" data-tab="low" role="tab" type="button"><span class="star">★</span>Low Tier · GFRC</button>
-            <button class="tab-btn" data-tab="high" role="tab" type="button">High Tier · Aluminum</button>
-          </div>
-
-          <div class="tab-panel is-active" data-tab="low">
-            <div class="tier-row">
-              <img src="HTML_assets/investment-tier-low.png" alt="GFRC concrete tile with adjustable feet and 9 LED stems" />
-              <div>
-                <div class="tier-flag">★ Recommended</div>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--text); font-weight: 600; margin-bottom: 12px;">GFRC Concrete Tile</h3>
-                <div class="tier-price">AED 25.3M</div>
-                <div class="tier-unit">Total CAPEX</div>
-                <ul class="tier-list">
-                  <li>50mm GFRC with AR glass-fiber premix</li>
-                  <li>4× 316SS heavy-duty adjustable corner feet</li>
-                  <li>~34 kg per tile · single-person lift, no crane</li>
-                  <li>Locally batch-cast on site · UAE materials</li>
-                  <li>30–50+ year structural life</li>
-                </ul>
-                <div class="capex-breakdown">
-                  <div class="capex-row"><span class="label">LED field — GFRC tile + 316SS feet</span><span class="val">AED 14.5M</span></div>
-                  <div class="capex-row"><span class="label">Balloon · gondola + envelope + winch</span><span class="val">AED 8.0M</span></div>
-                  <div class="capex-row"><span class="label">Content launch · 3 hero shows + software</span><span class="val">AED 2.8M</span></div>
-                  <div class="capex-row total"><span class="label">Total CAPEX</span><span class="val">AED 25.3M</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-panel" data-tab="high">
-            <div class="tier-row">
-              <img src="HTML_assets/investment-tier-high.png" alt="8mm aluminum plate tile with adjustable feet and 9 LED stems" />
-              <div>
-                <div class="tier-flag" style="visibility: hidden;">·</div>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--text); font-weight: 600; margin-bottom: 12px;">Aluminum Plate Tile</h3>
-                <div class="tier-price">AED 25.9M</div>
-                <div class="tier-unit">Total CAPEX</div>
-                <ul class="tier-list">
-                  <li>8mm 6061-T6 hard-anodised aluminum plate</li>
-                  <li>4× 316SS heavy-duty adjustable corner feet</li>
-                  <li>~14 kg per tile · one-hand lift, no crane</li>
-                  <li>Precision-machined · refinishable</li>
-                  <li>20–30 year structural life</li>
-                </ul>
-                <div class="capex-breakdown">
-                  <div class="capex-row"><span class="label">LED field — Aluminum tile + 316SS feet</span><span class="val">AED 15.1M</span></div>
-                  <div class="capex-row"><span class="label">Balloon · gondola + envelope + winch</span><span class="val">AED 8.0M</span></div>
-                  <div class="capex-row"><span class="label">Content launch · 3 hero shows + software</span><span class="val">AED 2.8M</span></div>
-                  <div class="capex-row total"><span class="label">Total CAPEX</span><span class="val">AED 25.9M</span></div>
-                </div>
-              </div>
+        <div class="tier-row" style="margin-top: 36px;">
+          <img src="HTML_assets/investment-tier-high.png" alt="8mm aluminum plate tile with adjustable feet and 9 LED stems" />
+          <div>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--text); font-weight: 600; margin-bottom: 12px;">Aluminum Plate Tile</h3>
+            <div class="tier-price">AED 25.9M</div>
+            <div class="tier-unit">Total CAPEX</div>
+            <ul class="tier-list">
+              <li>8mm 6061-T6 hard-anodised aluminum plate</li>
+              <li>4× 316SS heavy-duty adjustable corner feet</li>
+              <li>~14 kg per tile · one-hand lift, no crane</li>
+              <li>Precision-machined · refinishable</li>
+              <li>20–30 year structural life</li>
+            </ul>
+            <div class="capex-breakdown">
+              <div class="capex-row"><span class="label">LED field — Aluminum tile + 316SS feet</span><span class="val">AED 15.1M</span></div>
+              <div class="capex-row"><span class="label">Balloon · gondola + envelope + winch</span><span class="val">AED 8.0M</span></div>
+              <div class="capex-row"><span class="label">Content launch · 3 hero shows + software</span><span class="val">AED 2.8M</span></div>
+              <div class="capex-row total"><span class="label">Total CAPEX</span><span class="val">AED 25.9M</span></div>
             </div>
           </div>
         </div>
@@ -1415,7 +1381,7 @@
       <!-- ── 7 · THE RETURNS ──────────────────────────────────────────────── -->
       <section class="slide slide--cream" data-slide="7">
         <span class="eyebrow">Financial Model · Returns</span>
-        <h2 class="display-l" style="margin-top: 14px;">Built to return fast.</h2>
+        <h2 class="display-l" style="margin-top: 14px;">Underwritten with discipline.</h2>
 
         <div class="tab-group" data-tabs style="margin-top: 24px;">
           <div class="tabs" role="tablist">
@@ -1426,32 +1392,32 @@
           </div>
 
           <div class="tab-panel" data-tab="conservative">
-            <p class="scenario-desc">The underwriting floor. A cautious 40% average load — well below the Dubai Balloon benchmark — with sponsorship and museum cross-sell flat and no premium VIP uplift. Even here, the attraction covers operating cost and recovers CAPEX within six years.</p>
+            <p class="scenario-desc">The underwriting floor. A cautious 32% ramp-up load using the existing ticket logic, with modest sponsorship and limited museum cross-sell. This is a resilience case, not the target operating year.</p>
             <div class="stat-row-4">
-              <div><div class="stat-num-sm">13.9M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
-              <div><div class="stat-num-sm">4.1M</div><div class="stat-lbl">EBITDA · AED</div></div>
-              <div><div class="stat-num-sm">29%</div><div class="stat-lbl">EBITDA Margin</div></div>
-              <div><div class="stat-num-sm">~6 yr</div><div class="stat-lbl">Simple Payback</div></div>
+              <div><div class="stat-num-sm">10.3M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
+              <div><div class="stat-num-sm">0.8M</div><div class="stat-lbl">EBITDA · AED</div></div>
+              <div><div class="stat-num-sm">7%</div><div class="stat-lbl">EBITDA Margin</div></div>
+              <div><div class="stat-num-sm">~34 yr</div><div class="stat-lbl">Simple Payback</div></div>
             </div>
           </div>
 
           <div class="tab-panel is-active" data-tab="base">
-            <p class="scenario-desc">The underwriting case. A 70% average load matched to the proven Dubai Balloon benchmark, with the full night revenue stack live: themed shows, All-Access Pass, four seasonal sponsor refreshes, and the museum partnership. This is what the financial plan is built on.</p>
+            <p class="scenario-desc">The underwriting case. A 58% steady operating load, below the previous 70% Dubai Balloon benchmark, with the night revenue stack live and practical sponsor/museum participation.</p>
             <div class="stat-row-4">
-              <div><div class="stat-num-sm">24.7M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
-              <div><div class="stat-num-sm">14.9M</div><div class="stat-lbl">EBITDA · AED</div></div>
-              <div><div class="stat-num-sm">60%</div><div class="stat-lbl">EBITDA Margin</div></div>
-              <div><div class="stat-num-sm">~1.6 yr</div><div class="stat-lbl">Simple Payback</div></div>
+              <div><div class="stat-num-sm">19.6M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
+              <div><div class="stat-num-sm">9.8M</div><div class="stat-lbl">EBITDA · AED</div></div>
+              <div><div class="stat-num-sm">50%</div><div class="stat-lbl">EBITDA Margin</div></div>
+              <div><div class="stat-num-sm">~2.6 yr</div><div class="stat-lbl">Simple Payback</div></div>
             </div>
           </div>
 
           <div class="tab-panel" data-tab="strong">
-            <p class="scenario-desc">The upside case. An 85%+ average load supported by anchor sponsor renewals, premium All-Access uptake, full VIP gondola booking through peak season, and content syndication across partner venues. CAPEX returns inside the first year.</p>
+            <p class="scenario-desc">The upside case. A 73% load with stronger night-show demand, sponsor renewals, better All-Access uptake, and selective VIP bookings, still below the previous full-upside forecast.</p>
             <div class="stat-row-4">
-              <div><div class="stat-num-sm">39.7M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
-              <div><div class="stat-num-sm">29.9M</div><div class="stat-lbl">EBITDA · AED</div></div>
-              <div><div class="stat-num-sm">75%</div><div class="stat-lbl">EBITDA Margin</div></div>
-              <div><div class="stat-num-sm">&lt;1 yr</div><div class="stat-lbl">Simple Payback</div></div>
+              <div><div class="stat-num-sm">25.1M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
+              <div><div class="stat-num-sm">15.0M</div><div class="stat-lbl">EBITDA · AED</div></div>
+              <div><div class="stat-num-sm">60%</div><div class="stat-lbl">EBITDA Margin</div></div>
+              <div><div class="stat-num-sm">~1.7 yr</div><div class="stat-lbl">Simple Payback</div></div>
             </div>
           </div>
 
@@ -1466,13 +1432,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Day ticket revenue</td>          <td>AED 3.6M</td><td>AED 6.4M</td> <td>AED 9.7M</td></tr>
-                <tr><td>Night ticket revenue</td>        <td>AED 7.6M</td><td>AED 13.0M</td><td>AED 18.5M</td></tr>
-                <tr><td>F&amp;B &amp; retail</td>        <td>AED 0.5M</td><td>AED 1.0M</td> <td>AED 2.0M</td></tr>
-                <tr><td>Sponsorship — content + branding</td><td>AED 1.5M</td><td>AED 2.5M</td><td>AED 5.0M</td></tr>
-                <tr><td>Museum partnership &amp; cross-sell</td><td>AED 0.2M</td><td>AED 0.8M</td><td>AED 2.0M</td></tr>
-                <tr><td>Private gondola &amp; VIP events</td><td>AED 0.5M</td><td>AED 1.0M</td><td>AED 2.5M</td></tr>
-                <tr class="total"><td>Total Annual Revenue</td><td>AED 13.9M</td><td>AED 24.7M</td><td>AED 39.7M</td></tr>
+                <tr><td>Day ticket revenue</td>          <td>AED 2.9M</td><td>AED 5.3M</td> <td>AED 6.7M</td></tr>
+                <tr><td>Night ticket revenue</td>        <td>AED 5.9M</td><td>AED 10.8M</td><td>AED 13.6M</td></tr>
+                <tr><td>F&amp;B &amp; retail</td>        <td>AED 0.3M</td><td>AED 0.7M</td> <td>AED 1.1M</td></tr>
+                <tr><td>Sponsorship — content + branding</td><td>AED 0.7M</td><td>AED 1.6M</td><td>AED 2.2M</td></tr>
+                <tr><td>Museum partnership &amp; cross-sell</td><td>AED 0.1M</td><td>AED 0.4M</td><td>AED 0.5M</td></tr>
+                <tr><td>Private gondola &amp; VIP events</td><td>AED 0.4M</td><td>AED 0.8M</td><td>AED 1.0M</td></tr>
+                <tr class="total"><td>Total Annual Revenue</td><td>AED 10.3M</td><td>AED 19.6M</td><td>AED 25.1M</td></tr>
               </tbody>
             </table>
           </div>
@@ -1480,9 +1446,9 @@
 
         <!-- Always-visible 10-year strip -->
         <div class="stat-row" style="margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border);">
-          <div><div class="stat-num">~58%</div><div class="stat-lbl">10-yr IRR · Base Case</div></div>
-          <div><div class="stat-num">AED 85M</div><div class="stat-lbl">10-yr NPV @ 8%</div></div>
-          <div><div class="stat-num">5.5×</div><div class="stat-lbl">10-yr MOIC</div></div>
+          <div><div class="stat-num">~27%</div><div class="stat-lbl">10-yr IRR · Base Case</div></div>
+          <div><div class="stat-num">AED 34M</div><div class="stat-lbl">10-yr NPV @ 8%</div></div>
+          <div><div class="stat-num">3.6×</div><div class="stat-lbl">10-yr MOIC</div></div>
         </div>
       </section>
 
@@ -1526,7 +1492,7 @@
       <section class="slide slide--cream" data-slide="9">
         <span class="eyebrow">LED Module · Life Expectancy</span>
         <h2 class="display-l" style="margin-top: 14px;">The structural shell outlives the business plan.</h2>
-        <p class="lede" style="margin-top: 14px; max-width: 1400px;">The investor is buying a structural shell that will outlive this business plan by decades. The most-exposed consumable — the tulip diffuser head — costs AED 66 and takes two minutes to replace with no tools.</p>
+        <p class="lede" style="margin-top: 14px; max-width: 1400px;">The investor is buying a precision aluminum structural shell designed for long service life. The most-exposed consumable — the tulip diffuser head — costs AED 66 and takes two minutes to replace with no tools.</p>
 
         <table class="lifespan-table">
           <thead>
@@ -1557,15 +1523,9 @@
               <td><span class="replace-tag consumable">Periodic</span></td>
             </tr>
             <tr>
-              <td><strong>GFRC concrete tile (Low Tier)</strong></td>
-              <td>30–50+ years structural</td>
-              <td>No replacement cycle expected</td>
-              <td><span class="replace-tag structural">Structural</span></td>
-            </tr>
-            <tr>
-              <td><strong>Aluminum plate tile (High Tier)</strong></td>
+              <td><strong>Aluminum plate tile</strong></td>
               <td>20–30 years structural</td>
-              <td>No replacement cycle expected</td>
+              <td>Lift out from above for refinishing or isolated replacement</td>
               <td><span class="replace-tag structural">Structural</span></td>
             </tr>
           </tbody>

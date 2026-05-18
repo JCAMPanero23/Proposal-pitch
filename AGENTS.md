@@ -5,7 +5,7 @@ A pitch package for **Canvas From The Sky**, an Abu Dhabi tethered-balloon attra
 ## What's in here
 
 - **[index.html](index.html)** — single-file investor pitch deck (Playfair Display + DM Sans, gold `#C9A96E` on dark `#0A0A0F`). All HTML/CSS/inline JS in one file. This is the file most edits target.
-- **[led-field-lights-design.md](led-field-lights-design.md)** — current LED hardware spec (v7, 600mm grid, 60m ring, locked 9-LED density, two investor tiers, researched 2026 prices, CEO decision matrix at top). **Source of truth** for hardware decisions; if a memory or pitch claim disagrees, this doc wins.
+- **[led-field-lights-design.md](led-field-lights-design.md)** — current LED hardware spec (v7, 600mm grid, 60m ring, 5 framing options, 2 density variants, researched 2026 prices, CEO decision matrix at top). **Source of truth** for hardware decisions; if a memory or pitch claim disagrees, this doc wins.
 - **[Alibaba Led reference.txt](Alibaba%20Led%20reference.txt)** — supplier reference links for LED components.
 - **slide-1.png … slide-6.png, slide-1_abudhabi.png** — pitch deck slide renders.
 - **concept-board.jpg, Modular light LED.jpeg** — early mood/concept references.
@@ -25,14 +25,15 @@ A pitch package for **Canvas From The Sky**, an Abu Dhabi tethered-balloon attra
   - Ring: **60m outer diameter**, **24m inner clear circle** (12m radius), 18m active depth
   - Working unit count: **6,175 grid units** (gross 6,320 less 145 displaced by the 3m walkway)
   - Density is **LOCKED at 9-LED (3×3, 200mm pitch) → 55,575 LED nodes** (locked 28 April 2026; do not reintroduce 16-LED). Peak power ~28 kW.
-  - Investor tiers are now **two tile-on-feet options** with identical LED electronics and 316SS adjustable feet:
-    - **Low Tier:** 50mm GFRC tile with AR glass fiber reinforcement, cast-in adjustable feet, recommended flagship option
-    - **High Tier:** 8mm 6061-T6 aluminum plate tile on 4× 316SS adjustable feet, lighter machined premium option
-  - Historical framing options C/D/E1/E2 remain in the design doc for reference, but the current investor model is the High/Low tile tier structure above
-  - The earlier bulky-pad E options (CIP pad, multi-cell precast/site-cast LWAC panels) were **dropped** April 27 2026 per CEO sketch
+  - Framing is **under CEO review** — four options:
+    - C: aluminum sealed block on raised frame (original)
+    - D: open-frame grid flush on prepared ground (no top cover)
+    - E1: **steel plate tile** (600 × 600 × ~60mm) flat on ground, lifting holes, driver inside — modular tile form factor
+    - E2: **LWAC concrete tile** (600 × 600 × **60mm**, ~37 kg = single-person lift) batch-cast on site, flat on ground — modular tile form factor
+  - The earlier bulky-pad E options (CIP pad, multi-cell precast/site-cast LWAC panels) were **dropped** April 27 2026 per CEO sketch — replaced with the modular-tile E1/E2 above
   - Stem heights: **400–600mm in 50mm steps** (locked April 27 2026; was 200–400mm) plus tulip head on top
-  - Recommended flagship pairing: **Low Tier (50mm GFRC + 316SS adjustable feet + 9-LED) at AED ~14.5M mid** (USD ~3.95M, ~AED 2,348/module)
-  - Premium tier: **High Tier (8mm aluminum plate + 316SS adjustable feet + 9-LED) at AED ~15.1M mid** (USD ~4.11M, ~AED 2,445/module)
+  - Recommended flagship pairing: **E2 + 9-LED at AED ~13.4M mid** (USD ~3.65M, ~AED 2,170/module)
+  - Recommended pilot pairing: **D + 9-LED at AED ~13.8M mid** (USD ~3.8M)
   - **3m-wide** LED-mesh-under-glass walkway, ~52 sqm, from outer edge to balloon platform
 - **Content cost tiers** (28 April 2026 addition for 5-show-per-night slate + continuous ambient): launch AED 1.5–4.7M one-time; seasonal refresh AED 350–900k × 4/yr; per event AED 180–580k each. Steady-state ~AED 5.3M gross/yr, ~AED 2.6M net after sponsor billing.
 - **Pitch tone:** the deck is a "first-time read" — never expose that copy is a revision. No "updated", "v2", "previously we said" language anywhere a reader sees.
@@ -47,7 +48,7 @@ A pitch package for **Canvas From The Sky**, an Abu Dhabi tethered-balloon attra
 
 ## Memory & related context
 
-The auto-memory system at `~/.claude/projects/d--Projects-SGU-Canvas-in-the-Sky/memory/` holds a condensed snapshot of locked LED hardware decisions. The full design doc here in the repo is authoritative; update memory when the design doc changes materially.
+The auto-memory system at `~/.Codex/projects/d--Projects-SGU-Canvas-in-the-Sky/memory/` holds a condensed snapshot of locked LED hardware decisions. The full design doc here in the repo is authoritative; update memory when the design doc changes materially.
 
 ## Out of scope
 

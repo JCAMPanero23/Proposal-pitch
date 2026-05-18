@@ -28,7 +28,10 @@
       "Bash(node convert-overlays.js)",
       "Bash(node convert-states.js)",
       "Bash(node composite-frames.js)",
-      "Bash(git log *)"
+      "Bash(git log *)",
+      "PowerShell(Start-Process \"d:\\\\Projects\\\\SGU\\\\Canvas in the Sky\\\\pitch-pdf.html\")",
+      "Bash(pdftotext --version)",
+      "Bash(pdftotext -layout \"d:/Projects/SGU/Canvas in the Sky/Canvas From The Sky — Investor Brochure.pdf\" -)"
     ],
     "additionalDirectories": [
       "D:\\Projects\\SGU\\Canvas in the Sky",
