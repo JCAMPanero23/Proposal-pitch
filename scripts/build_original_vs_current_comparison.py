@@ -236,7 +236,8 @@ callout(doc,
     'Page 11 of the original proposal defines a 5% VAT / 12% Partner-or-'
     'Authority / 83% Operator structure that leaves the investor with the '
     'residual 17% of the post-VAT, post-Partner pool — roughly 14.2% of '
-    'gross revenue. Applied to the current Base Case, this changes the '
+    'gross revenue. Applied to the current Base Case (now AED 25.5 M '
+    'after the 16-min day cycle and LED-field dwell), this changes the '
     'investor return profile substantially (see §10).')
 
 # ── 2. AT A GLANCE ───────────────────────────────────────────────────
@@ -262,14 +263,15 @@ add_table(doc,
         ['Tether max length',             '300 m',                              '300 m (capable); 150 m marketed', 'Marketed altitude lowered'],
         ['__SECTION__Operating model'],
         ['Peak operating altitude',       '300 m',                              '150 m',                          'Reduced — true new peak'],
-        ['Commercial pax / flight',       '12 (page 9 model)',                  '25 (v2 memo) / 30 (blueprint)',  'Increased loading'],
-        ['Day cycle',                     '10 min (5 flights/hr)',              '30 min (2 flights/hr)',          'Honest at 300 m; was unrealistic'],
-        ['Day flights/day',               '50 (10 hrs × 5/hr)',                 '6 (3-hr window)',                'Window compressed for night product'],
+        ['Commercial pax / flight',       '12 (page 9 model)',                  '25 (v2 memo) / 30 (blueprint)',  '+21% effective per-flight occupancy vs Dubai actuals'],
+        ['Day cycle',                     '10 min (5 flights/hr) — physically impossible at 300 m', '16 min (3.75 flights/hr at 150 m)', 'Compressed at lower altitude'],
+        ['Day flights/day',               '50 claimed / 20 honest (10 hrs × 2/hr)', '11 (3-hr window × 3.75/hr)',     'Window compressed for night product'],
         ['Night cycle',                   'N/A',                                '20 min batches (3/hr × 5.5 hrs)', 'New cadence'],
+        ['Night LED-field dwell',         'N/A',                                'Up to 10 min optional',          'New UX layer'],
         ['Operating days',                '365',                                '250 (v2) / 300 (blueprint)',     'More conservative'],
         ['Weather cancellation',          '15%',                                '~32% (v2) / 15% (blueprint)',    'More conservative'],
         ['Load factor (base)',            '70%',                                '58% (v2) / 70% (blueprint)',     'More conservative'],
-        ['Effective day guests/yr',       '~128,520',                            '~21,750 (v2) / 37,800 (blueprint)', 'Lower (day-window cut)'],
+        ['Effective day guests/yr',       '~128,520 (claimed)',                  '~39,900 (v2 at 16-min cycle)',  'Lower (day-window cut)'],
         ['Effective night guests/yr',     'N/A',                                 '~58,000 (v2) / 36,000 (blueprint)', 'New stream'],
         ['__SECTION__Tickets'],
         ['Day Adult',                     'AED 195',                             'AED 195',                        'Unchanged'],
@@ -282,10 +284,11 @@ add_table(doc,
         ['Day blended ARPU',              'AED 192',                             'AED 170',                          '–AED 22 (more children)'],
         ['Night blended ARPU',            'N/A',                                 'AED 361',                          'New'],
         ['__SECTION__Financial outputs (Year 1, Base)'],
-        ['Annual revenue',                'AED 24.7 M',                          'AED 22.2 M (v2) / 24.7 M (blueprint)', 'Similar headline'],
+        ['Annual revenue',                'AED 24.7 M',                          'AED 25.5 M (v2)',                 '+ AED 0.8 M vs original'],
         ['Revenue streams',               '1 (day tickets only)',                '6 (day, night, F&B, sponsor, museum, VIP)', 'Diversified'],
-        ['Annual OpEx',                   'AED 7.2 M',                           'AED 9.8 M',                        '+AED 2.6 M (LED layer)'],
-        ['EBITDA',                        'Not stated (implied ~AED 17.5 M)',    'AED 12.4 M (v2) / 14.9 M (blueprint)', 'Lower at project level'],
+        ['Annual OpEx',                   'AED 7.2 M',                           'AED 9.9 M',                        '+AED 2.7 M (LED layer)'],
+        ['EBITDA',                        'Not stated (implied ~AED 17.5 M)',    'AED 15.6 M (v2 project level)',    'Project-level only'],
+        ['EBITDA margin',                 'N/A',                                 '61 %',                             '—'],
         ['CAPEX',                         'AED 15 M (relocation + civils)',      'AED 25.9 M (balloon + LED + content)', '+AED 10.9 M'],
         ['__SECTION__Revenue-share waterfall'],
         ['VAT',                           '5% of gross',                          'Not modelled',                     'GAP'],
@@ -294,9 +297,10 @@ add_table(doc,
         ['Investor retained share',       '~14.2% of gross (residual 17%)',       'Not modelled (project-level only)', 'GAP'],
         ['10-yr investor retained',       'AED 35.4 M',                            'See §10 — restated',               'Needs restatement'],
         ['__SECTION__Returns (project-level, no waterfall)'],
-        ['Simple payback',                'Implied ~6 yrs at investor level',     '~2.1 yrs (v2 project level)',       'Restated higher'],
-        ['10-year NPV @ 8%',              'Not stated',                            'AED 51.4 M (v2) / 85 M (blueprint)', 'Project-level only'],
-        ['10-year MOIC',                  'Not stated',                            '~4.7× (v2) / 5.5× (blueprint)',     'Project-level only'],
+        ['Simple payback',                'Implied ~4 yrs at investor level',     '~1.7 yrs (v2 project level)',       'Higher at project level'],
+        ['10-year IRR',                   'Not stated',                            '~45 % (v2 project level)',          'Project-level only'],
+        ['10-year NPV @ 8%',              'Not stated',                            'AED 73.4 M (v2 project level)',     'Project-level only'],
+        ['10-year MOIC',                  'Not stated',                            '~6.0× (v2 project level)',          'Project-level only'],
     ],
     col_widths=[4.5, 4.5, 4.5, 3.0])
 
@@ -354,17 +358,21 @@ callout(doc,
     'AED 24.7 M revenue therefore rests on a cycle assumption that is '
     'overstated by 2.5×.')
 
-h3(doc, 'Current cycle math (v2 memo)')
+h3(doc, 'Current cycle math (v2 memo, updated)')
 add_para(doc,
-    'The current pitch uses two cycle definitions, one per product:')
-bullet(doc, 'Day: 30 min cycle × 6 rides over 9am–12pm = 6 day flights')
-bullet(doc, 'Night: 20 min batch cycle × 16 batches over sundown–midnight (feasible because peak altitude is 150 m, not 300 m)')
+    'The current pitch uses two cycle definitions, one per product, both '
+    'enabled by the 150 m peak shortening vertical motion to ~6.75 min '
+    'round-trip (vs. ~13.5 min at the original\'s 300 m):')
+bullet(doc, 'Day: 16 min cycle × 11 rides in the 9am–12pm window (3 hrs). Peak panoramic hold retained at 5 min.')
+bullet(doc, 'Night: 20 min batch cycle × 16 batches over sundown–midnight. Photo dwell on platform + up to 10 min optional dwell inside the LED ring after disembark.')
 
 add_para(doc,
-    'The 20-minute night batch is only feasible because the marketed peak '
-    'altitude was reduced from 300 m to 150 m. At 150 m, vertical motion '
-    'is 6.75 minutes round-trip — enough headroom for a 7.5-minute main '
-    'show at 25 m show altitude plus boarding turnover.')
+    'Both cycles are physically realistic at 150 m. The 300 m baseline '
+    'would have required ~30 min day cycle and ~41 min night cycle for '
+    'the same experience phases — which is why moving the marketed peak '
+    'altitude from 300 m to 150 m is the load-bearing operating decision '
+    'of the entire revision. It is what unlocks both the day-side '
+    'capacity gain and the night-side product itself.')
 
 h3(doc, 'Gondola loading — the silent shift')
 add_para(doc,
@@ -385,15 +393,27 @@ add_table(doc,
     col_widths=[5.5, 2.5, 3.0, 5.0])
 
 add_para(doc,
-    'The likely rationale for the original\'s 12-guest assumption is '
-    'real-world Dubai Balloon operating averages — Hero has 250,000+ '
-    'safe flights of historical data. A 30-pax envelope averaging '
-    '12 pax/flight is a ~40% effective load baked into the loading line. '
-    'The current pitch raises this on the thesis that the LED canvas + '
-    'night product + museum ecosystem will drive demand uplift. '
-    'A defensible framing for investors is: same gondola, same safety '
-    'envelope; loading uplift is a demand-side claim attributable to the '
-    'LED canvas, not a hardware change.',
+    'The original\'s 12-guest assumption is consistent with real-world '
+    'Dubai Balloon operating averages — Hero has 250,000+ safe flights '
+    'of historical data. A 30-pax envelope averaging ~12 pax/flight is '
+    'baked into that loading line.',
+    size=10, color=MUTED, italic=True)
+add_para(doc, '')
+h3(doc, 'Locked positioning')
+add_para(doc,
+    'The current pitch raises this to 25 pax × 58% load = 14.5 effective '
+    'pax/flight — only +21% over the Dubai actuals of ~12 pax/flight. '
+    'That +21% effective-loading uplift is positioned as a demand-side '
+    'claim attributable to the LED canvas + premium night product + '
+    'museum cross-discount + Saadiyat\'s 10% YoY visitor growth. Same '
+    'gondola, same certification, same safety envelope — the loading '
+    'uplift is NOT a hardware re-rating.')
+add_para(doc,
+    'Recommended deck phrasing: "Same certified gondola, same safety '
+    'envelope. The +21% effective loading vs. Dubai actuals is the '
+    'demand uplift attributable to the LED canvas night product and '
+    'Saadiyat\'s cultural-district ramp." This framing is now adopted '
+    'in v2 memo §4B.',
     italic=True, color=MUTED, size=10)
 
 # ── 5. DAYTIME REVENUE — APPLES-TO-APPLES ────────────────────────────
@@ -406,35 +426,67 @@ h3(doc, 'Scenario A — accept original\'s 10-min cycle (50 flights/day)')
 add_table(doc,
     header=['Model', 'Flights/day', 'Pax/flight', 'Effective load', 'ARPU', 'Op days', 'Annual revenue'],
     rows=[
-        ['Original (page 9)',   '50',  '12',  '0.85 × 0.70',  'AED 192',  '365',  'AED 25.1 M'],
-        ['Current, same cadence', '50', '25', '0.58',         'AED 170',  '250',  'AED 30.8 M'],
+        ['Original (page 9, as claimed)', '50', '12', '0.85 × 0.70', 'AED 192', '365', 'AED 25.1 M'],
+        ['Current, same cadence',         '50', '25', '0.58',        'AED 170', '250', 'AED 30.8 M'],
     ],
     col_widths=[4.0, 2.0, 2.0, 2.5, 2.0, 1.5, 2.5])
+add_para(doc,
+    'Note: the original\'s 10-min cycle is physically impossible at 300 m '
+    '— see §4 callout. Carried here only to mirror the original\'s '
+    'stated math.',
+    size=10, color=MUTED, italic=True)
 
 h3(doc, 'Scenario B — realistic 30-min cycle at 300 m (20 flights/day)')
 add_table(doc,
     header=['Model', 'Flights/day', 'Pax/flight', 'Effective load', 'ARPU', 'Op days', 'Annual revenue'],
     rows=[
-        ['Original config (honest cycle)',     '20',  '12',  '0.85 × 0.70',  'AED 192',  '365',  'AED 10.0 M'],
-        ['Current config, full 10-hr day',     '20',  '25',  '0.58',         'AED 170',  '250',  'AED 12.3 M'],
-        ['Current config, actual (3-hr day)',  '6',   '25',  '0.58',         'AED 170',  '250',  'AED 3.7 M'],
+        ['Original config (honest 300 m cycle)', '20',  '12',  '0.85 × 0.70',  'AED 192',  '365',  'AED 10.0 M'],
     ],
     col_widths=[5.0, 2.0, 2.0, 2.5, 2.0, 1.5, 2.5])
 
+h3(doc, 'Scenario C — current 16-min day cycle at 150 m ★ adopted')
+add_table(doc,
+    header=['Model', 'Flights/day', 'Pax/flight', 'Effective load', 'ARPU', 'Op days', 'Annual revenue'],
+    rows=[
+        ['Current config, full 10-hr day',     '37',  '25',  '0.58',  'AED 170',  '250',  'AED 22.8 M'],
+        ['Current config, actual (3-hr day)',  '11',  '25',  '0.58',  'AED 170',  '250',  'AED 6.8 M'],
+    ],
+    col_widths=[5.0, 2.0, 2.0, 2.5, 2.0, 1.5, 2.5])
+add_para(doc,
+    'The 16-min day cycle is what the model actually uses (v2 memo §4C). '
+    'A 5-min peak panoramic hold is preserved — the day product trades '
+    'on the photo moment, not on cycle compression for its own sake.',
+    size=10, color=MUTED, italic=True)
+
+h3(doc, 'Per-hour productivity comparison')
+add_table(doc,
+    header=['Source', 'Flights/hour', 'Revenue/flight', 'Revenue/operating hour'],
+    rows=[
+        ['Original (page 9 claimed)',         '5.0',  'AED 1,371', 'AED 6,855'],
+        ['Original (honest cycle at 300 m)',  '2.0',  'AED 1,371', 'AED 2,742'],
+        ['Current v2 (16-min cycle at 150 m)', '3.75', 'AED 2,465', 'AED 9,244'],
+    ],
+    col_widths=[6.0, 2.5, 3.0, 4.0])
+
 h3(doc, 'Read')
 bullet(doc,
-    'Per realistic flight, the current pitch produces ~+23% revenue '
-    'vs. the original at equal operating hours, driven by the larger '
-    'commercial loading (25 vs 12). ARPU is slightly lower (AED 170 vs '
-    '192) because the current day mix has 35% children vs. the original\'s '
-    '20%.')
+    'Per realistic operating hour, the current pitch produces ~3.4× the '
+    'revenue of the original (honest cycle). This decomposes as: cycle '
+    'compression (+88% throughput from 16 min vs 30 min), loading uplift '
+    '(+108% from 25 × 0.58 vs 12 × 0.595), partially offset by ARPU '
+    'haircut (–11%) and load-factor change (–3%).')
 bullet(doc,
-    'The current pitch runs only 3 daytime hours instead of 10, which is '
-    'why daytime revenue is AED 3.7 M and not AED 12.3 M. The afternoon '
-    'window is intentionally kept dark to protect the premium night '
-    'product. This is a deliberate trade-off, not a hardware constraint — '
-    'and represents ~AED 8.6 M of unbooked daytime upside if the trade '
-    'were reversed.')
+    'At equal 10-hour operating windows, our daytime alone (AED 22.8 M) '
+    'is almost equal to the original\'s entire annual revenue claim '
+    '(AED 24.7 M). The original\'s headline rested on an impossible '
+    '10-min cycle; ours rests on a physically realistic 16-min cycle at '
+    'the lower altitude.')
+bullet(doc,
+    'The current pitch deliberately runs only 3 daytime hours, producing '
+    'AED 6.8 M instead of the AED 22.8 M available at 10 hours. The '
+    'afternoon (12pm–sundown) is kept dark to protect the premium night '
+    'product. This is a deliberate trade — and represents ~AED 16 M of '
+    'unbooked daytime upside if the trade were reversed.')
 
 # ── 6. CAPEX ─────────────────────────────────────────────────────────
 h1(doc, '6. CAPEX comparison')
@@ -482,16 +534,19 @@ add_table(doc,
         ['Insurance / regulatory / admin',           '(in AED 7.2 M)',        'AED 0.5 M',  'Broken out'],
         ['LED power',                                '—',                     'AED 0.025 M', 'New layer'],
         ['Contingency (5%)',                         '—',                     'AED 0.25 M', 'Best-practice add'],
-        ['Total annual OpEx',                        'AED 7.2 M',             'AED 9.8 M',  '+AED 2.6 M for the LED layer'],
+        ['Total annual OpEx',                        'AED 7.2 M',             'AED 9.9 M',  '+AED 2.7 M for the LED layer + day crew'],
     ],
     col_widths=[5.5, 3.0, 3.0, 5.0])
 
 add_para(doc,
-    'The +AED 2.6 M delta is the price of running the night LED product. '
-    'In exchange the current pitch adds AED 15 M+ in night-ticket and '
-    'sponsorship revenue. The LED layer is OpEx-positive by a wide margin '
-    'at the project level — the question is whether that holds at the '
-    'investor level after the revenue-share waterfall is applied (§10).',
+    'The +AED 2.7 M delta is the price of running the night LED product '
+    'plus the extra crew hours for the 16-min day cycle (more day rides '
+    '= more crew rotation). In exchange the current pitch adds AED 15 M+ '
+    'in night-ticket revenue and an extra ~AED 3 M of day-ticket revenue '
+    'vs. the original. The LED + day layer is OpEx-positive by a wide '
+    'margin at the project level — the question is whether that holds at '
+    'the investor level after the revenue-share waterfall is applied '
+    '(§10).',
     italic=True, color=MUTED, size=10)
 
 # ── 8. REVENUE BUILD ─────────────────────────────────────────────────
@@ -510,26 +565,26 @@ add_table(doc,
     ],
     col_widths=[5.0, 7.0, 4.0])
 
-h3(doc, 'Current (v2 memo) — six streams')
+h3(doc, 'Current (v2 memo, 16-min day cycle + LED-field dwell) — six streams')
 add_table(doc,
     header=['Stream', 'Conservative', 'Base Case', 'Strong'],
     rows=[
-        ['Day ticket revenue',     'AED 2.0 M',  'AED 3.7 M',   'AED 4.7 M'],
-        ['Night ticket revenue',   'AED 8.3 M',  'AED 15.0 M',  'AED 18.8 M'],
-        ['F&B / retail',           'AED 0.3 M',  'AED 0.7 M',   'AED 1.1 M'],
-        ['Sponsorship',            'AED 0.7 M',  'AED 1.6 M',   'AED 2.2 M'],
-        ['Museum partnership',     'AED 0.1 M',  'AED 0.4 M',   'AED 0.5 M'],
-        ['Private gondola / VIP',  'AED 0.4 M',  'AED 0.8 M',   'AED 1.0 M'],
-        ['Total annual revenue',   'AED 11.8 M', 'AED 22.2 M',  'AED 28.3 M'],
+        ['Day ticket revenue (16-min cycle)', 'AED 3.7 M',  'AED 6.8 M',   'AED 8.5 M'],
+        ['Night ticket revenue',              'AED 8.3 M',  'AED 15.0 M',  'AED 18.8 M'],
+        ['F&B / retail (with LED dwell)',     'AED 0.4 M',  'AED 0.9 M',   'AED 1.4 M'],
+        ['Sponsorship',                       'AED 0.7 M',  'AED 1.6 M',   'AED 2.2 M'],
+        ['Museum partnership',                'AED 0.1 M',  'AED 0.4 M',   'AED 0.5 M'],
+        ['Private gondola / VIP',             'AED 0.4 M',  'AED 0.8 M',   'AED 1.0 M'],
+        ['Total annual revenue',              'AED 13.6 M', 'AED 25.5 M',  'AED 32.4 M'],
     ],
     col_widths=[5.0, 3.5, 3.5, 4.0])
 
 add_para(doc,
-    'The current pitch headline (AED 22.2 M v2 / AED 24.7 M blueprint) '
-    'is similar to the original (AED 24.7 M), but the composition is '
-    'completely different: the original was 100% sightseeing tickets, '
-    'while the current model is ~17% day tickets / ~68% night tickets / '
-    '~15% ancillaries.',
+    'The current Base Case (AED 25.5 M) now slightly exceeds the '
+    'original\'s headline (AED 24.7 M) at the project level. The '
+    'composition is completely different: the original was 100% '
+    'sightseeing tickets at an impossible cycle; the current model is '
+    '~27% day tickets / ~59% night tickets / ~14% ancillaries.',
     italic=True, color=MUTED, size=10)
 
 # ── 9. THE REVENUE-SHARE WATERFALL (PAGE 11) ─────────────────────────
@@ -561,19 +616,19 @@ bullet(doc, '10 years × AED 3.51 M (flat) = AED 35.1 M ≈ AED 35.4 M ✓')
 
 h3(doc, 'What the splits look like in cash')
 add_table(doc,
-    header=['Party', 'Year 1 cash (orig. AED 24.7 M)', 'Year 1 cash (current Base AED 22.2 M)'],
+    header=['Party', 'Year 1 cash (orig. AED 24.7 M)', 'Year 1 cash (current Base AED 25.5 M)'],
     rows=[
-        ['Government (VAT)',          'AED 1.24 M',  'AED 1.11 M'],
-        ['Partner / Authority',       'AED 2.81 M',  'AED 2.53 M'],
-        ['Operator (Hero)',           'AED 17.14 M', 'AED 15.41 M'],
-        ['Investor',                  'AED 3.51 M',  'AED 3.16 M'],
-        ['Gross',                     'AED 24.70 M', 'AED 22.20 M'],
+        ['Government (VAT)',          'AED 1.24 M',  'AED 1.28 M'],
+        ['Partner / Authority',       'AED 2.81 M',  'AED 2.90 M'],
+        ['Operator (Hero)',           'AED 17.14 M', 'AED 17.70 M'],
+        ['Investor',                  'AED 3.51 M',  'AED 3.62 M'],
+        ['Gross',                     'AED 24.70 M', 'AED 25.50 M'],
     ],
     col_widths=[5.0, 5.5, 5.5])
 
 add_para(doc,
-    'The Operator keeps AED 15–17 M annually before paying any OpEx out '
-    'of its 69.4% share. The Investor receives AED 3.16–3.51 M annually '
+    'The Operator keeps AED 17 – 18 M annually before paying any OpEx out '
+    'of its 69.4% share. The Investor receives AED 3.5 – 3.6 M annually '
     'and is also the party that funded CAPEX. These are not symmetric '
     'positions.',
     italic=True, color=MUTED, size=10)
@@ -582,7 +637,7 @@ add_para(doc,
 h1(doc, '10. Applying the waterfall to the current pitch')
 
 add_para(doc,
-    'Below is the current Base Case (v2 memo, AED 22.2 M annual revenue, '
+    'Below is the current Base Case (v2 memo, AED 25.5 M annual revenue, '
     'AED 25.9 M CAPEX) restated with the original\'s waterfall applied. '
     'For completeness the original\'s own returns are restated the same '
     'way against its CAPEX of AED 15 M.')
@@ -590,26 +645,29 @@ add_para(doc,
 add_table(doc,
     header=['Metric', 'Original (orig. CAPEX 15 M)', 'Current (CAPEX 25.9 M)', 'Delta'],
     rows=[
-        ['Year 1 gross revenue',                          'AED 24.7 M',  'AED 22.2 M',  '–AED 2.5 M'],
-        ['Year 1 investor cash (14.21% of gross)',        'AED 3.51 M',  'AED 3.16 M',  '–AED 0.35 M'],
-        ['Simple payback (flat, no growth)',              '~4.3 yrs',    '~8.2 yrs',    '+3.9 yrs'],
-        ['Simple payback (5% YoY growth)',                '~3.8 yrs',    '~6.9 yrs',    '+3.1 yrs'],
-        ['10-yr investor cash (flat)',                    'AED 35.1 M',  'AED 31.6 M',  '–AED 3.5 M'],
-        ['10-yr investor cash (5% YoY)',                  'AED 44.2 M',  'AED 39.7 M',  '–AED 4.5 M'],
-        ['10-yr MOIC at investor level (5% YoY)',         '~2.9×',       '~1.5×',       '–1.4×'],
-        ['vs. Current PROJECT-level MOIC (no waterfall)',  '—',          '~4.7×',       'Gap from waterfall'],
+        ['Year 1 gross revenue',                          'AED 24.7 M',  'AED 25.5 M',  '+AED 0.8 M'],
+        ['Year 1 investor cash (14.21% of gross)',        'AED 3.51 M',  'AED 3.62 M',  '+AED 0.11 M'],
+        ['Simple payback (flat, no growth)',              '~4.3 yrs',    '~7.2 yrs',    '+2.9 yrs'],
+        ['Simple payback (5% YoY growth)',                '~3.8 yrs',    '~6.1 yrs',    '+2.3 yrs'],
+        ['10-yr investor cash (flat)',                    'AED 35.1 M',  'AED 36.2 M',  '+AED 1.1 M'],
+        ['10-yr investor cash (5% YoY)',                  'AED 44.2 M',  'AED 45.6 M',  '+AED 1.4 M'],
+        ['10-yr MOIC at investor level (5% YoY)',         '~2.9×',       '~1.76×',      '–1.14×'],
+        ['vs. Current PROJECT-level MOIC (no waterfall)',  '—',          '~6.0×',       'Gap from waterfall'],
     ],
     col_widths=[6.5, 4.5, 4.5, 2.5])
 
 callout(doc,
     'Headline finding.',
     'If the original waterfall (12% Partner / 83% Operator / 5% VAT) is '
-    'preserved in the current deal, the investor sees AED ~3.16 M of cash '
-    'per year against a AED 25.9 M CAPEX. That is roughly an 8-year flat '
-    'payback and a ~1.5× 10-year MOIC at the investor level — versus the '
-    '~2.1 year payback and ~4.7× MOIC the current deck shows at the '
+    'preserved in the current deal, the investor sees AED ~3.62 M of cash '
+    'per year against a AED 25.9 M CAPEX. That is roughly a 7-year flat '
+    'payback and a ~1.76× 10-year MOIC at the investor level — versus the '
+    '~1.7-year payback and ~6.0× MOIC the current deck shows at the '
     'project level. The two numbers describe different pots of money. '
-    'The deck should be explicit about which one it is quoting.')
+    'The deck should be explicit about which one it is quoting. The '
+    '16-min day cycle improves the investor-level returns only modestly '
+    '(+AED 0.1 M/yr) because the waterfall captures most of the gross '
+    'revenue uplift before it reaches the investor.')
 
 h3(doc, 'Implications')
 bullet(doc,
@@ -634,21 +692,37 @@ bullet(doc,
 # ── 11. WHAT TO DO NEXT ──────────────────────────────────────────────
 h1(doc, '11. Open questions for the CEO')
 
+h3(doc, 'Open — still need a CEO decision')
 add_table(doc,
     header=['#', 'Question', 'Why it matters'],
     rows=[
         ['1', 'Is the 12% Partner / 83% Operator / 5% VAT waterfall still binding for Canvas From The Sky, or is the partnership structure being renegotiated for the larger CAPEX scope?',
               'Determines whether the deck should quote project-level or investor-level returns.'],
         ['2', 'What is the actual basis for the AED 8 M balloon line (new procurement quote vs. relocation cost vs. placeholder)?',
-              'Affects CAPEX credibility under investor diligence.'],
-        ['3', 'Is the current 3-hour daytime window a hard constraint or a soft choice? Could we extend day operations to recover ~AED 8.6 M of unbooked revenue?',
-              'Largest unforced upside in the current model.'],
-        ['4', 'Should we explicitly position the 25-pax commercial cap as +20% loading uplift attributable to LED canvas demand (vs. the 12-pax Dubai actuals)?',
-              'Reframes a quiet discrepancy as a demand-side claim investors can validate.'],
-        ['5', 'Do we retain the original\'s 365-day operating year, or stay with v2\'s 250-day conservative envelope?',
-              'Worth ~AED 5 M annual revenue at full waterfall.'],
+              'Affects CAPEX credibility under investor diligence. CEO to confirm in notes; possibly check with Hero / superior.'],
+        ['3', 'Day window extension — push from 3 hrs to 6 / 10 hrs?',
+              'Currently parked. Worth ~AED 16 M annual revenue at full 10-hour day. Trade-off is the night-product positioning.'],
+        ['4', 'Do we retain the v2 250-day operating year, or push back toward 300 / 365?',
+              'Each +50 days is worth ~AED 5 M annual revenue at project level (less after waterfall).'],
     ],
     col_widths=[1.0, 7.5, 7.0])
+
+h3(doc, 'Decided this session — now reflected in the docs')
+add_table(doc,
+    header=['#', 'Decision', 'Reflected in'],
+    rows=[
+        ['A', 'Day cycle compressed from 30 min to 16 min at 150 m, with 5-min peak panoramic hold preserved.',
+              'v2 memo §4 + §4C + §6 + §8 + §9 + §10; comparison §2 + §4 + §5'],
+        ['B', 'Day window held at 3 hours (9am – 12pm) to protect the night product. Extension parked as upside lever.',
+              'v2 memo §4C; comparison §5'],
+        ['C', 'Night batch cadence locked at 20 min with the existing photo dwell phase. The user-proposed overlap concept turned out to already be in the v2 design.',
+              'v2 memo §5 (no change needed beyond annotation)'],
+        ['D', '10-min optional LED-field dwell added on the night exit beat. No gondola throughput impact; F&B uplifted by ~30%.',
+              'v2 memo §5 (new row) + §8 (F&B); comparison §2 + §8'],
+        ['E', '25-pax commercial cap repositioned as a +21% effective-loading uplift from LED canvas demand, not a hardware re-rating.',
+              'v2 memo §4B (new section); comparison §4'],
+    ],
+    col_widths=[1.0, 8.5, 6.0])
 
 # ── APPENDIX A — ORIGINAL PROPOSAL FULL TEXT EXTRACTS ────────────────
 h1(doc, 'Appendix A — Original proposal: full content extract')

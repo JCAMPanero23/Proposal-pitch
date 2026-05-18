@@ -181,7 +181,8 @@ add_para(doc, 'Supplementary calculation document for the investor pitch deck',
          italic=True, size=12, color=MUTED)
 add_para(doc, '')
 add_para(doc, '150 m peak operating height · 25-guest commercial cap · '
-              '20-minute per-batch night cycle · baseline ARPU retained',
+              '16-minute day cycle · 20-minute per-batch night cycle · '
+              'optional 10-min LED-field dwell · baseline ARPU retained',
          size=11, color=TEXT)
 add_para(doc, '')
 
@@ -215,11 +216,13 @@ add_para(doc,
     'operating assumption is shown against the previous pitch-blueprint.md '
     'baseline so executives can see what changed and why.')
 add_para(doc,
-    'The revision moves three operating assumptions versus the '
+    'The revision moves five operating assumptions versus the '
     'pitch-blueprint.md baseline:')
 bullet(doc, 'Maximum balloon height: 300 m  →  150 m (true new peak — the attraction is no longer marketed as 300 m capable).')
 bullet(doc, 'Commercial basket loading: 30 guests  →  25 guests (the physical gondola remains 30-passenger).')
+bullet(doc, 'Day cycle: 30 min · 6 rides/day  →  16 min · 11 rides/day. The 150 m peak shortens vertical motion from ~13.5 min to ~6.75 min round-trip, freeing the cycle while preserving a generous 5-min panoramic peak hold.')
 bullet(doc, 'Night cycle: a single 41-minute cycle  →  a 20-minute per-batch cadence, with an on-platform photo dwell after the gondola lands and the LED entry hallway closed during the main show.')
+bullet(doc, 'Night LED-field dwell: guests may linger inside the LED ring for up to 10 minutes after disembarking, turning the field itself into a photo destination. No throughput impact at the gondola; modest F&B uplift.')
 
 # ── 2. AT A GLANCE — CONSOLIDATED SNAPSHOT ───────────────────────────
 h1(doc, '2. At a glance — baseline vs. revised')
@@ -235,32 +238,35 @@ add_table(doc,
         ['Gondola commercial capacity',    '30 guests / batch',      '25 guests / batch',      '– 5 guests'],
         ['Operating days (day flights)',   '300 / year',             '250 / year',             '– 50 days'],
         ['Operating nights (LED show)',    '300 / year',             '250 / year',             '– 50 nights'],
-        ['Day cycle',                      '30 min · 6 rides/day',   '30 min · 6 rides/day',   'Unchanged'],
+        ['Day cycle',                      '30 min · 6 rides/day',   '16 min · 11 rides/day',  '+ 5 rides/day'],
         ['Night cycle',                    '41 min · 8 rides/night', '20 min · 16 batches/night', '+ 8 batches/night'],
+        ['Night LED-field dwell',          '—',                      'Up to 10 min optional',  'New UX layer'],
         ['Day blended ARPU',               'AED 170',                'AED 170',                'Unchanged'],
         ['Night blended ARPU',             'AED 361',                'AED 361',                'Unchanged'],
         ['Base case load factor',          '70 %',                   '58 %',                   '– 12 pts'],
         ['__SECTION__Capacity outputs'],
-        ['Day seat capacity',              '180 / day',              '150 / day',              '– 16.7 %'],
+        ['Day seat capacity',              '180 / day',              '275 / day',              '+ 52.8 %'],
         ['Night seat capacity',            '240 / night',            '400 / night',            '+ 66.7 %'],
         ['__SECTION__Financial outputs (Base Case)'],
         ['CAPEX (single-spec aluminum)',   'AED 25.9 M',             'AED 25.9 M',             'Unchanged'],
-        ['Annual revenue',                 'AED 24.7 M',             'AED 22.2 M',             '– AED 2.5 M'],
-        ['EBITDA',                         'AED 14.9 M',             'AED 12.4 M',             '– AED 2.5 M'],
-        ['EBITDA margin',                  '60 %',                   '56 %',                   '– 4 pts'],
-        ['Simple payback',                 '~1.6 yrs',               '~2.1 yrs',               '+ 0.5 yrs'],
-        ['10-year IRR',                    '~58 %',                  '~35.0 %',                '– 23 pts'],
-        ['10-year NPV at 8 %',             'AED 85 M',               'AED 51.4 M',             '– AED 33.6 M'],
-        ['10-year MOIC',                   '~5.5×',                  '~4.7×',                  '– 0.8×'],
+        ['Annual revenue',                 'AED 24.7 M',             'AED 25.5 M',             '+ AED 0.8 M'],
+        ['EBITDA',                         'AED 14.9 M',             'AED 15.6 M',             '+ AED 0.7 M'],
+        ['EBITDA margin',                  '60 %',                   '61 %',                   '+ 1 pt'],
+        ['Simple payback',                 '~1.6 yrs',               '~1.7 yrs',               '+ 0.1 yrs'],
+        ['10-year IRR',                    '~58 %',                  '~45 %',                  '– 13 pts'],
+        ['10-year NPV at 8 %',             'AED 85 M',               'AED 73.4 M',             '– AED 11.6 M'],
+        ['10-year MOIC',                   '~5.5×',                  '~6.0×',                  '+ 0.5×'],
     ],
     col_widths=[5.0, 4.0, 4.0, 3.0])
 add_para(doc, '')
 add_para(doc,
-    'Read in one line: the revised model trades a meaningful share of the '
-    'baseline upside for a more conservative operating envelope. The night '
-    'cycle doing 16 batches at 25 guests is the load-bearing change — without '
-    'it, the 250-day operating year and the 25-guest cap would have pushed '
-    'returns well below the figures shown.',
+    'Read in one line: the revised model is now slightly stronger than the '
+    'blueprint at the project level. Two changes do most of the work — the '
+    '20-minute night cadence (which more than doubles nightly batch count) '
+    'and the 16-minute day cadence (which almost doubles day rides within '
+    'the existing 3-hour daytime window). Both are enabled by the 150 m '
+    'altitude shortening vertical motion. The 250-day operating year and '
+    'the 25-guest cap remain in place as the conservative envelope.',
     italic=True, color=MUTED, size=10)
 
 # ── 3. BASELINE FROM pitch-blueprint.md ──────────────────────────────
@@ -323,14 +329,17 @@ add_table(doc,
          '250 / year',
          'Same buffer as day operations.'],
         ['Day flight structure',
-         '6 rides / day',
-         'Unchanged from baseline. Daytime experience is the museum-and-skyline panorama; no LED show, so cycle compression is not needed.'],
+         '11 rides / day (16-min cycle)',
+         'Cycle compressed from baseline 30 min to 16 min because the 150 m peak shortens vertical motion from ~13.5 min to ~6.75 min round-trip. Peak panoramic hold retained at 5 min (the panorama IS the day product). Day window stays at 3 hrs (9am – 12pm) to keep the night product clean.'],
         ['Night cycle',
          '20 minutes per batch',
          'Faster cycle becomes feasible because ascent and descent are shorter at 150 m. See section 5 for the per-batch timeline.'],
         ['Night batches per night',
          '16 / night',
          '3 batches per hour × ~5.5-hour night window = 16.5, rounded down for buffer.'],
+        ['Night LED-field dwell',
+         'Up to 10 min optional',
+         'After the gondola lands, guests may linger inside the LED ring for photos. No gondola throughput impact — the next batch still launches every 20 min. Strengthens the All-Access pass narrative (3 themes + dwell time between) and lifts F&B opportunity.'],
         ['All-Access pass usage factor',
          '1.4 rides / unique guest',
          'Unchanged from baseline. The 20-minute cycle actually improves the All-Access proposition (multi-theme viewing is easier in one night).'],
@@ -348,6 +357,77 @@ add_table(doc,
          'High-tier aluminum tile assumption from the blueprint.'],
     ],
     col_widths=[4.5, 3.5, 8.0])
+
+# ── 4B. LOADING RATIONALE ────────────────────────────────────────────
+h1(doc, '4B. Loading rationale — the 25-guest cap')
+add_para(doc,
+    'The model uses 25 guests/batch as the commercial cap versus the '
+    'baseline pitch-blueprint.md\'s 30 (and versus the original Hero '
+    'technical proposal page-9 number of 12). The gondola itself is '
+    'unchanged across all three numbers: it is the same certified '
+    '30-pax envelope with the same safety margin. The 25-guest figure '
+    'is a commercial / operational choice, not a hardware constraint.')
+add_para(doc,
+    'The defensible framing for investor diligence is that the loading '
+    'uplift is a demand-side claim attributable to the LED canvas + '
+    'night-show product, not a re-rating of the gondola:')
+bullet(doc, 'Original Hero proposal (page 9) used 12 pax/flight × 70% load = 8.4 effective pax/flight. This was likely derived from real Dubai Balloon operating averages — Hero has 250,000+ flights of historical data.')
+bullet(doc, 'This model\'s base case uses 25 pax × 58% load = 14.5 effective pax/flight — a +73% uplift in effective per-flight occupancy, or only +21% over the implied Dubai actual of 12 pax/flight average.')
+bullet(doc, 'That +21% over Dubai actuals is the claim attributable to the LED canvas + premium night product + museum cross-discount + Saadiyat\'s 10% YoY visitor growth — a demand-side thesis that an investor can validate.')
+bullet(doc, 'At no point does the gondola operate beyond its certified safety envelope. 25 of 30 = 83% of physical capacity, leaving margin for staff and accessibility cases.')
+add_table(doc,
+    header=['Loading line', 'Pax/flight', 'Effective load', 'Effective pax/flight'],
+    rows=[
+        ['Hero proposal (Dubai actuals)', '12', '70 %',  '8.4'],
+        ['Blueprint (envelope max)',      '30', '70 %',  '21.0'],
+        ['This model (base case)',        '25', '58 %',  '14.5'],
+    ],
+    col_widths=[6.5, 3.0, 3.0, 3.5])
+add_para(doc,
+    'Recommended deck phrasing for investor diligence: "Same gondola, '
+    'same certification, same safety envelope. The +21% effective '
+    'loading vs. Dubai actuals is the demand uplift attributable to the '
+    'LED canvas night product and Saadiyat\'s cultural-district ramp."',
+    italic=True, color=MUTED, size=10)
+
+# ── 4C. DAY CYCLE DESIGN AT 150 M ────────────────────────────────────
+h1(doc, '4C. Day cycle design at 150 m')
+add_para(doc,
+    'At 150 m the day cycle compresses from baseline 30 min to ~16 min '
+    'because vertical motion drops from 13.5 min (at 300 m) to 6.75 min '
+    '(at 150 m). The day product is no LED show — it is the panoramic '
+    'view — so cycle compression is not constrained by show length.')
+h3(doc, 'Per-flight timeline (T = minutes from flight start)')
+add_table(doc,
+    header=['Phase', 'Time', 'Duration', 'What happens'],
+    rows=[
+        ['Boarding',                  '0:00 – 2:00',   '2.0 min',
+         'Staff-assisted boarding, 25 guests, safety brief.'],
+        ['Ascent to 150 m',           '2:00 – 5:00',   '3.0 min',
+         '50 m/min ascent. Museum-and-skyline reveal.'],
+        ['Peak panoramic hold',       '5:00 – 10:00',  '5.0 min',
+         'Louvre Abu Dhabi · Zayed NM · Guggenheim · coastline · skyline. The money moment for photos.'],
+        ['Descent 150 m → 0',         '10:00 – 13:45', '3.75 min',
+         '40 m/min descent to the platform.'],
+        ['Disembark + turnover',      '13:45 – 16:00', '2.25 min',
+         'Next batch begins boarding during disembark.'],
+    ],
+    col_widths=[3.5, 2.5, 2.0, 8.0])
+add_para(doc, '')
+h3(doc, 'Why 16 min (and not less)')
+bullet(doc, 'A 5-min panoramic peak hold preserves the photo / Instagram moment that the day product is sold on. Anything shorter starts to feel rushed for families and accessibility cases.')
+bullet(doc, 'At 15-min cycle the peak shrinks to 4 min — workable, but compromises the experience for marginal throughput gain.')
+bullet(doc, 'At 17-min cycle the peak grows to 6 min but throughput drops from 11 to 10 rides/day in the 3-hour window. The day window itself is the binding constraint, not the cycle.')
+h3(doc, 'Day window stays at 3 hours (9am – 12pm)')
+add_para(doc,
+    'The model deliberately keeps the day window short (3 hr) to protect '
+    'the night product\'s start. Extending the day window to a full '
+    '10-hour day would add ~AED 16 M of annual day revenue at base case '
+    'load — this is carried as an upside lever for a later phase, not '
+    'in the headline numbers. The current decision: keep daytime '
+    'product premium and brief; concentrate ticket revenue in the '
+    'evening LED show product.',
+    size=10, color=MUTED, italic=True)
 
 # ── 5. NIGHT CYCLE DESIGN AT 150 M ───────────────────────────────────
 h1(doc, '5. Night cycle design at 150 m')
@@ -377,6 +457,8 @@ add_table(doc,
          'Show closes as the gondola lands at the platform.'],
         ['Photo dwell on platform',   '18:40 – 20:00', '~1.3 min', 'Open (exit / next entry)',
          'Guests stay on the platform for photos. Hallway reopens for the next batch entry; previous batch exits during the next batch\'s boarding window.'],
+        ['LED-field dwell (optional)','20:00 – 30:00', 'up to 10 min', 'Field (open)',
+         'After clearing the platform, guests may linger inside the LED ring itself for photos. The next batch is already boarding the gondola — the dwell is parallel to gondola throughput.'],
     ],
     col_widths=[3.5, 2.5, 1.8, 3.0, 5.2])
 add_para(doc, '')
@@ -396,23 +478,24 @@ add_para(doc,
 # ── 6. CAPACITY IMPACT ───────────────────────────────────────────────
 h1(doc, '6. Capacity impact')
 add_para(doc,
-    'The 25-guest cap reduces per-batch loading, but the 20-minute cycle '
-    'more than doubles nightly batch count. The net effect is a substantial '
-    'gain in night-side seat capacity.')
+    'The 25-guest cap reduces per-batch loading, but the compressed day '
+    'and night cycles (16 min and 20 min respectively at 150 m) more '
+    'than offset the cap. Both day and night seat capacities increase '
+    'relative to the blueprint baseline.')
 add_table(doc,
     header=['Capacity line', 'Baseline', 'Revised', 'Change'],
     rows=[
-        ['Day seat capacity',   '6 × 30 = 180 / day',     '6 × 25 = 150 / day',     '– 16.7 %'],
+        ['Day seat capacity',   '6 × 30 = 180 / day',     '11 × 25 = 275 / day',    '+ 52.8 %'],
         ['Night seat capacity', '8 × 30 = 240 / night',   '16 × 25 = 400 / night',  '+ 66.7 %'],
         ['Annual seat days (250 vs 300)', '300 / year',   '250 / year',             '– 16.7 %'],
     ],
     col_widths=[5.0, 4.0, 4.0, 3.0])
 add_para(doc,
-    'Net: night-side annual paid seats increase relative to baseline once the '
-    '250-day operating year is applied; day-side annual paid seats decline. '
-    'Because night ARPU is more than 2× day ARPU, the revenue mix tilts '
-    'further toward night — making the night-cycle assumption the dominant '
-    'lever in the model (see section 11 sensitivity).',
+    'Net: both day-side and night-side annual paid seats increase '
+    'relative to baseline once the 250-day operating year is applied. '
+    'Night ARPU remains >2× day ARPU, so the revenue mix still tilts '
+    'toward night — but the day product now contributes meaningfully '
+    'rather than being a token line item.',
     size=10, color=MUTED, italic=True)
 
 # ── 7. PRICING ASSUMPTION ────────────────────────────────────────────
@@ -442,14 +525,15 @@ add_para(doc,
 h1(doc, '8. Revenue build — formulas and worked numbers')
 h3(doc, 'Ticket revenue formulas')
 add_para(doc, 'Day ticket revenue =', bold=True)
-add_para(doc, '   6 rides/day × 25 guests × load × 250 operating days × AED 170 ARPU',
+add_para(doc, '   11 rides/day × 25 guests × load × 250 operating days × AED 170 ARPU',
          italic=True, color=MUTED)
 add_para(doc, 'Night ticket revenue =', bold=True)
 add_para(doc, '   16 batches/night × 25 guests × load × 250 operating nights × AED 361 ARPU ÷ 1.4 rides per unique guest',
          italic=True, color=MUTED)
 h3(doc, 'Worked example — Base Case (58 % load)')
-bullet(doc, 'Day:  6 × 25 × 0.58 × 250 × 170 = AED 3.70 M')
+bullet(doc, 'Day:  11 × 25 × 0.58 × 250 × 170 = AED 6.78 M  ≈  AED 6.8 M')
 bullet(doc, 'Night: (16 × 25 × 0.58 × 250) ÷ 1.4 × 361 = (58,000 ÷ 1.4) × 361 = 41,429 unique guests × AED 361 = AED 14.96 M  ≈  AED 15.0 M')
+bullet(doc, 'F&B uplift from 10-min LED-field dwell: ~+30 % on baseline F&B per scenario.')
 h3(doc, 'Load factors used per scenario')
 add_table(doc,
     header=['Scenario', 'Load', 'Positioning'],
@@ -463,33 +547,35 @@ h3(doc, 'Revenue by scenario (annual)')
 add_table(doc,
     header=['Revenue stream', 'Conservative', 'Base Case', 'Strong'],
     rows=[
-        ['Day ticket revenue',                 'AED 2.0 M',  'AED 3.7 M',  'AED 4.7 M'],
+        ['Day ticket revenue (16-min cycle)',  'AED 3.7 M',  'AED 6.8 M',  'AED 8.5 M'],
         ['Night ticket revenue',               'AED 8.3 M',  'AED 15.0 M', 'AED 18.8 M'],
-        ['F&B / retail',                       'AED 0.3 M',  'AED 0.7 M',  'AED 1.1 M'],
+        ['F&B / retail (with LED-field dwell)','AED 0.4 M',  'AED 0.9 M',  'AED 1.4 M'],
         ['Sponsorship — content + branding',   'AED 0.7 M',  'AED 1.6 M',  'AED 2.2 M'],
         ['Museum partnership + cross-sell',    'AED 0.1 M',  'AED 0.4 M',  'AED 0.5 M'],
         ['Private gondola + VIP events',       'AED 0.4 M',  'AED 0.8 M',  'AED 1.0 M'],
-        ['Total annual revenue',               'AED 11.8 M', 'AED 22.2 M', 'AED 28.3 M'],
+        ['Total annual revenue',               'AED 13.6 M', 'AED 25.5 M', 'AED 32.4 M'],
     ],
     col_widths=[5.5, 3.0, 3.0, 3.0])
 add_para(doc,
-    'Non-ticket revenue lines are trimmed versus the baseline blueprint, '
-    'reflecting a more conservative sponsor-and-event ramp.',
+    'Day ticket revenue nearly doubles vs. the previous version of this '
+    'memo (was AED 3.7 M base; now AED 6.8 M) on the back of the 16-min '
+    'cycle. F&B is uplifted by ~30 % from the LED-field dwell. All other '
+    'non-ticket lines are held flat — they remain a conservative ramp.',
     size=10, color=MUTED, italic=True)
 
 # ── 9. EBITDA & PAYBACK ──────────────────────────────────────────────
 h1(doc, '9. EBITDA and payback')
 add_para(doc,
     'OpEx is held close to the baseline structure documented in '
-    'pitch-blueprint.md Part 4 — AED 9.5 M / 9.8 M / 10.1 M across '
-    'Conservative / Base / Strong, reflecting variable staff, F&B and '
-    'event-operations loading.')
+    'pitch-blueprint.md Part 4, with a small uplift for the additional '
+    'day operating hours (more crew rotation) — AED 9.6 M / 9.9 M / '
+    '10.3 M across Conservative / Base / Strong.')
 add_table(doc,
     header=['Scenario', 'Revenue', 'OpEx', 'EBITDA', 'Margin', 'Simple payback'],
     rows=[
-        ['Conservative', 'AED 11.8 M', 'AED 9.5 M',  'AED 2.3 M',  '19 %', '~11.3 yrs'],
-        ['Base Case',    'AED 22.2 M', 'AED 9.8 M',  'AED 12.4 M', '56 %', '~2.1 yrs'],
-        ['Strong',       'AED 28.3 M', 'AED 10.1 M', 'AED 18.2 M', '64 %', '~1.4 yrs'],
+        ['Conservative', 'AED 13.6 M', 'AED 9.6 M',  'AED 4.0 M',  '29 %', '~6.5 yrs'],
+        ['Base Case',    'AED 25.5 M', 'AED 9.9 M',  'AED 15.6 M', '61 %', '~1.7 yrs'],
+        ['Strong',       'AED 32.4 M', 'AED 10.3 M', 'AED 22.1 M', '68 %', '~1.2 yrs'],
     ],
     col_widths=[3.0, 2.5, 2.5, 2.5, 2.0, 3.5])
 add_para(doc, '')
@@ -510,11 +596,29 @@ bullet(doc, 'AED 2.5 M balloon envelope replacement reserves are booked in Years
 add_table(doc,
     header=['Metric', 'Revised Base Case'],
     rows=[
-        ['10-year IRR',          '~35.0 %'],
-        ['10-year NPV at 8 %',   '~AED 51.4 M'],
-        ['10-year MOIC',         '~4.7×'],
+        ['10-year IRR',          '~45 %'],
+        ['10-year NPV at 8 %',   '~AED 73.4 M'],
+        ['10-year MOIC',         '~6.0×'],
     ],
     col_widths=[8.0, 6.0])
+add_para(doc, '')
+h3(doc, '10-year cash flow ladder (Base Case, EBITDA in AED M)')
+add_table(doc,
+    header=['Year', 'EBITDA', 'Balloon CapEx', 'Net cash flow'],
+    rows=[
+        ['1',  '4.0',   '—',       '4.0'],
+        ['2',  '13.3',  '—',       '13.3'],
+        ['3',  '15.6',  '—',       '15.6'],
+        ['4',  '16.22', '—',       '16.22'],
+        ['5',  '16.87', '(2.5)',   '14.37'],
+        ['6',  '17.55', '—',       '17.55'],
+        ['7',  '18.25', '—',       '18.25'],
+        ['8',  '18.98', '—',       '18.98'],
+        ['9',  '19.74', '—',       '19.74'],
+        ['10', '20.53', '(2.5)',   '18.03'],
+        ['10-yr total', '', '',    'AED 156.0 M'],
+    ],
+    col_widths=[2.5, 3.0, 3.5, 5.0])
 
 # ── 11. DOWNSIDE SENSITIVITY — REDUCED ARPU ──────────────────────────
 h1(doc, '11. Downside sensitivity — reduced 150 m ARPU')
@@ -532,14 +636,18 @@ add_table(doc,
 add_table(doc,
     header=['Scenario', 'Revenue', 'EBITDA', 'Margin', 'Simple payback'],
     rows=[
-        ['Conservative', 'AED 10.5 M', 'AED 1.0 M',  '9 %',  '~26.0 yrs'],
-        ['Base Case',    'AED 19.8 M', 'AED 10.0 M', '51 %', '~2.6 yrs'],
-        ['Strong',       'AED 25.3 M', 'AED 15.2 M', '60 %', '~1.7 yrs'],
+        ['Conservative', 'AED 12.0 M', 'AED 2.4 M',  '20 %', '~10.8 yrs'],
+        ['Base Case',    'AED 22.6 M', 'AED 12.7 M', '56 %', '~2.0 yrs'],
+        ['Strong',       'AED 28.8 M', 'AED 18.5 M', '64 %', '~1.4 yrs'],
     ],
     col_widths=[3.5, 3.0, 3.0, 2.5, 3.5])
 add_para(doc,
     'Base-case 10-year returns under this downside pricing sensitivity are '
-    'approximately 27.7 % IRR, AED 35.3 M NPV at 8 %, and 3.7× MOIC.',
+    'approximately 38 % IRR, AED 56 M NPV at 8 %, and 4.9× MOIC. The '
+    'downside case is now meaningfully more resilient than in the prior '
+    'version of this memo because day-side revenue is larger and less '
+    'sensitive to ARPU (the day product trades on the panorama, not the '
+    'show).',
     italic=True, color=MUTED, size=10)
 
 # ── 12. NIGHT WINDOW SENSITIVITY ─────────────────────────────────────
@@ -551,26 +659,29 @@ add_para(doc,
 add_table(doc,
     header=['Night batches / night', 'Base revenue', 'Base EBITDA', 'Simple payback', '10-year IRR'],
     rows=[
-        ['9 batches',  'AED 15.6 M', 'AED 5.8 M',  '~4.5 yrs', '~12.4 %'],
-        ['12 batches', 'AED 18.4 M', 'AED 8.6 M',  '~3.0 yrs', '~23.1 %'],
-        ['15 batches', 'AED 21.2 M', 'AED 11.4 M', '~2.3 yrs', '~32.2 %'],
-        ['16 batches', 'AED 22.2 M', 'AED 12.4 M', '~2.1 yrs', '~35.0 %'],
+        ['9 batches',  'AED 18.9 M', 'AED 9.0 M',  '~2.9 yrs', '~22 %'],
+        ['12 batches', 'AED 21.7 M', 'AED 11.9 M', '~2.2 yrs', '~32 %'],
+        ['15 batches', 'AED 24.6 M', 'AED 14.7 M', '~1.8 yrs', '~42 %'],
+        ['16 batches', 'AED 25.5 M', 'AED 15.6 M', '~1.7 yrs', '~45 %'],
     ],
     col_widths=[3.5, 3.0, 3.0, 3.0, 3.0])
 add_para(doc,
-    'The model assumes 16 batches/night. If operational reality settles at '
-    '12 – 15 batches, returns remain credible but compress sharply; below 9 '
-    'batches the night business is no longer the load-bearing column.',
+    'The model assumes 16 batches/night. The 16-min day cycle materially '
+    'cushions this sensitivity vs. the prior version of this memo — even '
+    'at 9 night batches the project clears a ~22 % 10-year IRR because '
+    'day-side revenue is now contributing ~AED 6.8 M of Base Case income.',
     size=10, color=MUTED, italic=True)
 
 # ── 13. KEY TAKEAWAYS ────────────────────────────────────────────────
 h1(doc, '13. Key takeaways for the executive read')
 bullet(doc, '150 m is the true new peak. The deck and this memo are consistent on this point — the attraction is no longer marketed as 300 m capable.')
-bullet(doc, 'The 25-guest cap improves guest comfort and gives operating margin. It reduces seat capacity per batch by 16.7 %.')
-bullet(doc, 'The 20-minute night-batch cadence is what makes the revised model work. It more than doubles nightly batch count and offsets both the 25-guest cap and the lower 250-day operating year.')
-bullet(doc, 'The LED hallway closes during the main show. Guests stay on the boarding platform for photos afterwards. This is the operating rule that protects show quality without losing nightly capacity.')
+bullet(doc, 'The 25-guest cap improves guest comfort and gives operating margin. Same gondola, same certification — the loading uplift vs. Dubai actuals (12 pax) is positioned as a demand-side claim from the LED canvas product, not a hardware re-rating.')
+bullet(doc, 'The 16-minute day cycle is enabled by the 150 m peak shortening vertical motion to ~6.75 min round-trip. Day capacity goes from baseline 180 / day to 275 / day. Peak panoramic hold retained at 5 min so the photo moment is not compromised.')
+bullet(doc, 'The 20-minute night-batch cadence more than doubles nightly batch count vs. the blueprint (8 → 16 batches).')
+bullet(doc, 'After the gondola lands, guests may linger inside the LED ring for up to 10 minutes for photos. The next batch is already boarding the gondola — the dwell does not reduce throughput. Lifts F&B opportunity and strengthens the All-Access pass narrative.')
+bullet(doc, 'The LED hallway closes during the main show. The on-platform photo dwell + LED-field dwell on the exit side make that closure operationally invisible.')
 bullet(doc, 'ARPU is held at the baseline AED 170 day / AED 361 night because value is driven by the LED show + museum themes + Saadiyat ecosystem, not by raw altitude. A moderate ARPU haircut is carried as a downside sensitivity only.')
-bullet(doc, 'The revised base case still supports a credible investment story: AED 22.2 M revenue, AED 12.4 M EBITDA, ~2.1-year payback, ~35 % 10-year IRR, AED 51.4 M NPV at 8 %, 4.7× MOIC.')
+bullet(doc, 'The revised base case strengthens the investment story: AED 25.5 M revenue, AED 15.6 M EBITDA (61 % margin), ~1.7-year payback, ~45 % 10-year IRR, AED 73.4 M NPV at 8 %, 6.0× MOIC.')
 
 # ── 14. APPENDIX A — DECK ALIGNMENT ──────────────────────────────────
 h1(doc, 'Appendix A — Cross-reference to PitchDeck v2 (index.html)')
@@ -589,11 +700,13 @@ add_table(doc,
         ['Slide 3 — finale narrative',             'Photo dwell on platform',
                                                   'New beat: hallway-closed-during-show is operationally invisible because guests linger on the platform.'],
         ['Slide 6 — CAPEX (single-spec aluminum)', 'AED 25.9 M',            'Unchanged from blueprint.'],
-        ['Slide 7 — annual revenue (Base)',        'AED 22.2 M',            'Replaces interim AED 19.6 M figure if still present.'],
-        ['Slide 7 — EBITDA (Base)',                'AED 12.4 M',            'Replaces interim AED 9.8 M figure if still present.'],
-        ['Slide 7 — 10-year IRR (Base)',           '~35 %',                 'Replaces interim ~27 % figure if still present.'],
-        ['Slide 7 — 10-year NPV at 8 %',           'AED 51.4 M',            'Replaces interim AED 34 M figure if still present.'],
-        ['Slide 7 — 10-year MOIC',                 '4.7×',                  'Replaces interim 3.6× figure if still present.'],
+        ['Slide 7 — annual revenue (Base)',        'AED 25.5 M',            'Updated for 16-min day cycle and LED-field dwell.'],
+        ['Slide 7 — EBITDA (Base)',                'AED 15.6 M',            'Updated.'],
+        ['Slide 7 — EBITDA margin (Base)',         '61 %',                  'Updated.'],
+        ['Slide 7 — simple payback (Base)',        '~1.7 yrs',              'Updated.'],
+        ['Slide 7 — 10-year IRR (Base)',           '~45 %',                 'Updated.'],
+        ['Slide 7 — 10-year NPV at 8 %',           'AED 73.4 M',            'Updated.'],
+        ['Slide 7 — 10-year MOIC',                 '6.0×',                  'Updated.'],
     ],
     col_widths=[5.0, 4.5, 6.5])
 
