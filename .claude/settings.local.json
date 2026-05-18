@@ -31,11 +31,28 @@
       "Bash(git log *)",
       "PowerShell(Start-Process \"d:\\\\Projects\\\\SGU\\\\Canvas in the Sky\\\\pitch-pdf.html\")",
       "Bash(pdftotext --version)",
-      "Bash(pdftotext -layout \"d:/Projects/SGU/Canvas in the Sky/Canvas From The Sky — Investor Brochure.pdf\" -)"
+      "Bash(pdftotext -layout \"d:/Projects/SGU/Canvas in the Sky/Canvas From The Sky — Investor Brochure.pdf\" -)",
+      "Bash(git ls-tree *)",
+      "PowerShell($temp = \"C:\\\\Users\\\\Jcamp_Laptop\\\\AppData\\\\Local\\\\Temp\\\\v3_extract\"; if \\(Test-Path $temp\\) { Remove-Item -Recurse -Force $temp }; New-Item -ItemType Directory -Path $temp | Out-Null; Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::ExtractToDirectory\\(\"d:\\\\Proposal-pitch\\\\financial-model-revision-150m-v3.docx\", $temp\\); Get-ChildItem $temp -Recurse | Select-Object FullName)",
+      "Read(//c/Users/Jcamp_Laptop/AppData/Local/Temp/v3_extract/**)",
+      "Read(//c/Users/Jcamp_Laptop/AppData/Local/Temp/**)",
+      "Bash(git show *)",
+      "Bash(dir \"d:\\\\Proposal-pitch\\\\financial-model-revision-150m-v3.docx\")",
+      "PowerShell(python -m pip show docx2pdf 2>&1)",
+      "PowerShell(python -m pip show python-docx 2>&1)",
+      "PowerShell(python -m pip show reportlab 2>&1)",
+      "Bash(pandoc --version)",
+      "PowerShell(python -c \"import docx; print\\(docx.__version__\\)\" 2>&1)",
+      "PowerShell(pip install python-docx --quiet 2>&1)",
+      "PowerShell(python -c \"import docx; print\\('python-docx ' + docx.__version__\\)\")",
+      "PowerShell(python d:\\\\Proposal-pitch\\\\scripts\\\\build_v3_docx.py)",
+      "PowerShell($txt = Get-Content \"C:\\\\Users\\\\Jcamp_Laptop\\\\AppData\\\\Local\\\\Temp\\\\v3_new.txt\"; \\($txt | Select-String -Pattern \"^Approval|CEO approval|approval question\"\\) | Select-Object LineNumber, Line)",
+      "Bash(git add *)"
     ],
     "additionalDirectories": [
       "D:\\Projects\\SGU\\Canvas in the Sky",
-      "D:\\Projects\\SGU\\Canvas in the Sky\\HTML_assets\\Vertical Altitude Experience\\v2"
+      "D:\\Projects\\SGU\\Canvas in the Sky\\HTML_assets\\Vertical Altitude Experience\\v2",
+      "C:\\Users\\Jcamp_Laptop\\AppData\\Local\\Temp"
     ]
   }
 }
