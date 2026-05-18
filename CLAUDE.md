@@ -4,18 +4,25 @@ A pitch package for **Canvas From The Sky**, an Abu Dhabi tethered-balloon attra
 
 ## What's in here
 
-- **[index.html](index.html)** — single-file investor pitch deck (Playfair Display + DM Sans, gold `#C9A96E` on dark `#0A0A0F`). All HTML/CSS/inline JS in one file. This is the file most edits target.
+### Live investor deliverables
+- **[index.html](index.html)** — the live single-file pitch deck (Playfair Display + DM Sans, gold `#C9A96E` on dark `#0A0A0F`). All HTML/CSS/inline JS in one file. Most edits target this file.
+- **[pitch-pdf.html](pitch-pdf.html)** — A4 investor brochure, paginated for PDF export.
+- **[financial-model-revision-150m-v3.docx](financial-model-revision-150m-v3.docx)** + **[.pdf](financial-model-revision-150m-v3.pdf)** — supplementary calculation memo executives read alongside the deck. Documents every operating-assumption change vs. the blueprint and shows the math behind each headline number.
+
+### Active source-of-truth
 - **[led-field-lights-design.md](led-field-lights-design.md)** — current LED hardware spec (v7, 600mm grid, 60m ring, locked 9-LED density, two investor tiers, researched 2026 prices, CEO decision matrix at top). **Source of truth** for hardware decisions; if a memory or pitch claim disagrees, this doc wins.
-- **[Alibaba Led reference.txt](Alibaba%20Led%20reference.txt)** — supplier reference links for LED components.
-- **slide-1.png … slide-6.png, slide-1_abudhabi.png** — pitch deck slide renders.
-- **concept-board.jpg, Modular light LED.jpeg** — early mood/concept references.
-- **led-block-info-image.png, led-block-info-image-v2.png** — diagram of the 600mm block / stem / tulip stack used inside the design doc.
-- **LED sketch.png** — hand sketch of the 600mm block with transparent stems and swappable LED heads.
-- **content image1.png, content image2.png, sample test_with randomness.png, tester.png** — content / aerial-canvas concept renders (e.g. Van Gogh "Starry Night" mapped to the ring).
-- **Render sample/Guest basket view at 50m.png** — 3D render from the gondola at 50m altitude showing mapped content on the ring.
-- **LED test*.blend / .blend1** — Blender working files for the LED ring 3D mock-ups.
-- **Canvas from the sky.pur** — PureRef mood board (binary, 8 MB).
-- **assets/hdrs/, assets/materials/** — Blender HDRIs and materials for the renders.
+- **[pitch-blueprint.md](pitch-blueprint.md)** — the financial baseline the v3 memo's "Baseline (blueprint)" column references. Holds the original 300m / 30-guest / 41-min / AED 24.7M model.
+
+### Tooling
+- **[scripts/build_v3_docx.py](scripts/build_v3_docx.py)** — generator for the v3 docx. **Re-running overwrites manual Word layout polish** — edit the script, regenerate, then re-apply layout in Word and re-export the PDF.
+
+### Asset folders
+- **HTML_assets/** — pitch deck imagery (theme composites, vertical altitude experience states/overlays, drone shots).
+- **assets/hdrs/, assets/materials/** — Blender HDRIs and materials for the 3D renders.
+- **tools/** — image processing scripts and Node tooling.
+
+### Archive
+- **archive/** — superseded reference material (technical proposal PDF, original concept sketch, previous pitch text, PureRef mood board, Alibaba LED supplier links). Preserved for context; not part of the live pitch.
 
 ## Project conventions
 

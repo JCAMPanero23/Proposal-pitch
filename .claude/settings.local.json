@@ -47,7 +47,10 @@
       "PowerShell(python -c \"import docx; print\\('python-docx ' + docx.__version__\\)\")",
       "PowerShell(python d:\\\\Proposal-pitch\\\\scripts\\\\build_v3_docx.py)",
       "PowerShell($txt = Get-Content \"C:\\\\Users\\\\Jcamp_Laptop\\\\AppData\\\\Local\\\\Temp\\\\v3_new.txt\"; \\($txt | Select-String -Pattern \"^Approval|CEO approval|approval question\"\\) | Select-Object LineNumber, Line)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(grep -iE '\\\\.\\(md|html|txt|docx|pdf|pur\\)$')"
     ],
     "additionalDirectories": [
       "D:\\Projects\\SGU\\Canvas in the Sky",
