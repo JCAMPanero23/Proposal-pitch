@@ -7,14 +7,14 @@ A pitch package for **Canvas From The Sky**, an Abu Dhabi tethered-balloon attra
 ### Live investor deliverables
 - **[index.html](index.html)** — the live single-file pitch deck (Playfair Display + DM Sans, gold `#C9A96E` on dark `#0A0A0F`). All HTML/CSS/inline JS in one file. Most edits target this file.
 - **[pitch-pdf.html](pitch-pdf.html)** — A4 investor brochure, paginated for PDF export.
-- **[financial-model-revision-150m-v3.docx](financial-model-revision-150m-v3.docx)** + **[.pdf](financial-model-revision-150m-v3.pdf)** — supplementary calculation memo executives read alongside the deck. Documents every operating-assumption change vs. the blueprint and shows the math behind each headline number.
+- **[financial-model-revision-150m-v2.docx](financial-model-revision-150m-v2.docx)** + **[.pdf](financial-model-revision-150m-v2.pdf)** — supplementary calculation memo executives read alongside the deck. Documents every operating-assumption change vs. the blueprint and shows the math behind each headline number. (The `-v2` suffix matches PitchDeck v2 — it is a filename version, not a financial-model revision number.)
 
 ### Active source-of-truth
 - **[led-field-lights-design.md](led-field-lights-design.md)** — current LED hardware spec (v7, 600mm grid, 60m ring, locked 9-LED density, two investor tiers, researched 2026 prices, CEO decision matrix at top). **Source of truth** for hardware decisions; if a memory or pitch claim disagrees, this doc wins.
-- **[pitch-blueprint.md](pitch-blueprint.md)** — the financial baseline the v3 memo's "Baseline (blueprint)" column references. Holds the original 300m / 30-guest / 41-min / AED 24.7M model.
+- **[pitch-blueprint.md](pitch-blueprint.md)** — the financial baseline the v2 memo's "Baseline (blueprint)" column references. Holds the original 300m / 30-guest / 41-min / AED 24.7M model.
 
 ### Tooling
-- **[scripts/build_v3_docx.py](scripts/build_v3_docx.py)** — generator for the v3 docx. **Re-running overwrites manual Word layout polish** — edit the script, regenerate, then re-apply layout in Word and re-export the PDF.
+- **[scripts/build_v2_docx.py](scripts/build_v2_docx.py)** — generator for the v2 docx. **Re-running overwrites manual Word layout polish** — edit the script, regenerate, then re-apply layout in Word and re-export the PDF.
 
 ### Asset folders
 - **HTML_assets/** — pitch deck imagery (theme composites, vertical altitude experience states/overlays, drone shots).

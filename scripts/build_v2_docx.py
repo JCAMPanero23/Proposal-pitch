@@ -1,13 +1,16 @@
 """
-Generate financial-model-revision-150m-v3.docx — supplementary calculation
+Generate financial-model-revision-150m-v2.docx — supplementary calculation
 memo for the Canvas From The Sky investor pitch deck (PitchDeck_v2 index.html).
+
+The `-v2` suffix matches the PitchDeck v2 deck — it is a filename version,
+not a financial-model revision number.
 
 This document is read alongside the deck by company higher-ups. It documents
 every assumption change vs. pitch-blueprint.md and shows the arithmetic
 behind each headline number. No CEO approval questions — the model is the
 output, not the input.
 
-⚠️  WARNING — re-running this script OVERWRITES financial-model-revision-150m-v3.docx
+⚠️  WARNING — re-running this script OVERWRITES financial-model-revision-150m-v2.docx
     with a fresh auto-generated layout. The committed docx contains MANUAL
     layout polish done in Word after this script last ran. If you need to
     update the content, edit the source data in this file, run the script,
@@ -601,6 +604,6 @@ add_para(doc,
     italic=True, color=MUTED, size=10, align=WD_ALIGN_PARAGRAPH.CENTER)
 
 # Save
-out = r'd:\Proposal-pitch\financial-model-revision-150m-v3.docx'
+out = r'd:\Proposal-pitch\financial-model-revision-150m-v2.docx'
 doc.save(out)
 print('Wrote ' + out)
