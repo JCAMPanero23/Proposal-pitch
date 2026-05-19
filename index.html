@@ -660,18 +660,23 @@
       overflow: hidden;
     }
     .exp-state-img,
-    .exp-trans-frame,
+    .exp-trans-video,
     .exp-state-overlay {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: contain;
     }
     .exp-state-img { transition: opacity 300ms ease; }
-    .exp-trans-frame {
+    /* Transition <video> — hidden until a step change triggers playback.
+       Opacity (not display:none) keeps the element rendered/decoded on
+       iOS Safari before .play() is called; display-toggling defers the
+       decoder and visibly stutters on first play.                       */
+    .exp-trans-video {
       opacity: 0; pointer-events: none;
-      transition: opacity 250ms ease-out;
+      transition: opacity 200ms ease-out;
+      background: #1F1F26;
     }
-    .exp-trans-frame.is-active { opacity: 1; transition: none; }
+    .exp-trans-video.is-active { opacity: 1; transition: none; }
     .exp-state-overlay {
       opacity: 0; pointer-events: none; z-index: 1;
       transition: opacity 1s ease-in-out;
@@ -1212,7 +1217,13 @@
             <img class="exp-state-img"   id="expStateImg"
                  src="HTML_assets/Vertical%20Altitude%20Experience/v2/states/state_01_arrival.webp"
                  alt="Arrival — LED field lit in tonight's theme" />
-            <img class="exp-trans-frame" id="expTransFrame" src="" alt="" />
+            <!-- Transition <video>: one element, src swapped per segment.
+                 muted + playsinline = iOS-friendly inline autoplay.
+                 preload="auto" so the first clip's bytes arrive ahead of
+                 the first auto-advance.                                  -->
+            <video class="exp-trans-video" id="expTransVideo"
+                   muted playsinline preload="auto"
+                   disablepictureinpicture aria-hidden="true"></video>
             <img class="exp-state-overlay" id="expStateOverlay" src="" alt="" />
 
             <!-- Altitude indicator — wider strip with step names + 14px labels -->
@@ -1865,9 +1876,17 @@
      Slide 3 — Night Experience interactive player
      -----------------------------------------------------------------------
      - Click step buttons or drag the altitude balloon to advance/return.
-     - Plays a 16-frame transition sequence between adjacent states; falls
-       back to a 300ms crossfade for non-sequential jumps.
+     - Each forward step plays a short MP4 clip (5 segments, ~3.5s each)
+       between adjacent states; non-sequential jumps crossfade in 300ms.
      - Auto-cycles through the 6 states; user interaction stops auto-play.
+
+     iOS Safari notes:
+       · <video muted playsinline> + .play() works without user gesture.
+       · A pending .play() Promise can reject if the tab is throttled;
+         we catch it and fall straight through to the still-state crossfade.
+       · The drag listener uses window-level pointermove/up + a touchstart
+         fallback so the gesture survives even when pointer events behave
+         oddly on older iOS builds.
   ═══════════════════════════════════════════════════════════════════════ */
   (() => {
     'use strict';
@@ -1876,17 +1895,15 @@
     if (!stepBtns.length) return; // safety: slide 3 not present
 
     const stateImg       = document.getElementById('expStateImg');
-    const transFrame     = document.getElementById('expTransFrame');
+    const transVideo     = document.getElementById('expTransVideo');
     const stateOverlay   = document.getElementById('expStateOverlay');
     const altBalloon     = document.getElementById('altBalloon');
     const altDragTip     = document.getElementById('altDragTip');
     const expViewer      = document.getElementById('expViewer');
     const panelSlides    = document.querySelectorAll('.exp-panel-slide');
 
-    const range = (a, b) => { const r = []; for (let i = a; i <= b; i++) r.push(i); return r; };
-
-    const BASE       = 'HTML_assets/Vertical%20Altitude%20Experience/v2/';
-    const FRAME_BASE = BASE + 'composite/transition_';
+    const BASE   = 'HTML_assets/Vertical%20Altitude%20Experience/v2/';
+    const MP4DIR = BASE + 'transitions_mp4/';
 
     const stateSrcs = [
       BASE + 'states/state_01_arrival.webp',
@@ -1904,15 +1921,15 @@
       BASE + 'overlays/state_05_main_show_25m_overlay.webp',
       BASE + 'overlays/state_06_exit_overlay.webp',
     ];
-    // Frame ranges per transition (state N → N+1)
-    const transitions = [
-      range(1,  16),  // 0→1 Arrival → Boarding
-      range(17, 32),  // 1→2 Boarding → Peak
-      range(33, 48),  // 2→3 Peak → Descent
-      range(49, 64),  // 3→4 Descent → Show
-      range(65, 80),  // 4→5 Show → Exit
+    // One MP4 per state-to-next-state transition (5 total).
+    const transitionSrcs = [
+      MP4DIR + 'transition_0_arrival_to_boarding.mp4',
+      MP4DIR + 'transition_1_boarding_to_peak.mp4',
+      MP4DIR + 'transition_2_peak_to_descent.mp4',
+      MP4DIR + 'transition_3_descent_to_show.mp4',
+      MP4DIR + 'transition_4_show_to_exit.mp4',
     ];
-    const frameUrl = (n) => FRAME_BASE + String(n).padStart(4, '0') + '.webp';
+    const TRANSITION_DUR_MS = 3520;  // 16 frames × 220ms — matches encoded clip length
 
     // Altitude per state — drives the balloon icon position.
     // top% = 8 + (150 − alt) / 150 × 84  →  8% (150m) … 92% (0m)
@@ -1923,16 +1940,16 @@
     const dragDir = [-1, -1, 1, 1, 1, -1];
     const hints   = ['↑ drag', '↑ drag', '↓ drag', '↓ drag', '↓ drag', '↑ restart'];
 
-    const FRAME_MS      = 220;    // ms between transition frames
     const STATE_HOLD_MS = 21000;  // 3× slower auto-advance — less aggressive
     const RESTART_DELAY = 21000;  // pause on Finale before looping back
 
     let activeStep      = 0;
     let isAnimating     = false;
-    let frameTimer      = null;
     let restartTimer    = null;
     let autoAdvanceTimer= null;
     let autoPlayActive  = true;
+    let endedHandler    = null;
+    let safetyTimer     = null;
 
     const altMarkers = document.querySelectorAll('.alt-marker');
     const arrivalLabel = document.querySelector('.alt-marker[data-alt="0"] .alt-step');
@@ -1977,7 +1994,9 @@
         stateImg.style.opacity = '1';
         stateOverlay.src       = nextOverlaySrc;
         stateOverlay.classList.add('has-src');
-        transFrame.classList.remove('is-active');
+        transVideo.classList.remove('is-active');
+        // Pause + reset so the GPU drops the decoded buffer between plays.
+        try { transVideo.pause(); } catch (_) {}
         expViewer.classList.remove('is-animating');
         activeStep  = step;
         isAnimating = false;
@@ -2013,24 +2032,54 @@
       if (restartTimer)     { clearTimeout(restartTimer);     restartTimer = null; }
     }
 
-    function playTransition(fromStep, toStep) {
-      const fNums = transitions[fromStep];
-      if (!fNums || !fNums.length) { showState(toStep); return; }
-      let idx = 0;
-      stateImg.style.opacity = '0';
-      transFrame.classList.add('is-active');
-      transFrame.src = frameUrl(fNums[0]);
+    // Strip any pending 'ended' listener + safety timer from a previous play.
+    function clearVideoCallbacks() {
+      if (endedHandler) {
+        transVideo.removeEventListener('ended', endedHandler);
+        endedHandler = null;
+      }
+      if (safetyTimer) { clearTimeout(safetyTimer); safetyTimer = null; }
+    }
 
-      if (frameTimer) clearInterval(frameTimer);
-      frameTimer = setInterval(() => {
-        idx++;
-        if (idx >= fNums.length) {
-          clearInterval(frameTimer); frameTimer = null;
-          showState(toStep);
-          return;
-        }
-        transFrame.src = frameUrl(fNums[idx]);
-      }, FRAME_MS);
+    function playTransition(fromStep, toStep) {
+      const src = transitionSrcs[fromStep];
+      if (!src) { showState(toStep); return; }
+
+      clearVideoCallbacks();
+      stateImg.style.opacity = '0';
+      transVideo.classList.add('is-active');
+
+      // Only set src if it differs — avoids re-buffering when the clip
+      // played seconds ago is still cached in the decoder.
+      const fullSrc = new URL(src, window.location.href).href;
+      if (transVideo.currentSrc !== fullSrc) {
+        transVideo.src = src;
+        transVideo.load();
+      } else {
+        try { transVideo.currentTime = 0; } catch (_) {}
+      }
+
+      let advanced = false;
+      const advance = () => {
+        if (advanced) return;
+        advanced = true;
+        clearVideoCallbacks();
+        showState(toStep);
+      };
+      endedHandler = advance;
+      transVideo.addEventListener('ended', endedHandler, { once: true });
+      // Safety net: if 'ended' never fires (network stall, autoplay block,
+      // browser tab throttled), advance anyway after the clip's duration.
+      safetyTimer = setTimeout(advance, TRANSITION_DUR_MS + 400);
+
+      const p = transVideo.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          // Autoplay blocked or decode error → skip the video and just
+          // crossfade to the next still state immediately.
+          advance();
+        });
+      }
     }
 
     function goToStep(newStep) {
@@ -2040,23 +2089,24 @@
       const fromStep = activeStep;
       updateNav(newStep);
 
-      if (newStep === fromStep + 1 && fromStep < transitions.length) {
-        // Sequential forward → animate transition + match balloon ease-in-out
-        const dur = (transitions[fromStep].length * FRAME_MS / 1000).toFixed(2);
-        altBalloon.style.transition = 'top ' + dur + 's ease-in-out';
+      if (newStep === fromStep + 1 && fromStep < transitionSrcs.length) {
+        // Sequential forward → play the matching MP4 + ease balloon over same duration
+        altBalloon.style.transition = 'top ' + (TRANSITION_DUR_MS / 1000).toFixed(2) + 's ease-in-out';
         setAltitude(newStep);
         playTransition(fromStep, newStep);
       } else {
-        // Non-sequential jump → quick crossfade
+        // Non-sequential jump → quick crossfade, no video
         altBalloon.style.transition = 'top 0.3s ease-in-out';
         setAltitude(newStep);
         stateImg.style.opacity = '0';
+        clearVideoCallbacks();
+        try { transVideo.pause(); } catch (_) {}
         setTimeout(() => {
           stateImg.src           = stateSrcs[newStep];
           stateImg.style.opacity = '1';
           stateOverlay.src       = overlaySrcs[newStep];
           stateOverlay.classList.add('has-src');
-          transFrame.classList.remove('is-active');
+          transVideo.classList.remove('is-active');
           expViewer.classList.remove('is-animating');
           activeStep  = newStep;
           isAnimating = false;
@@ -2072,37 +2122,57 @@
       });
     });
 
-    // Drag balloon to advance
+    /* ---- Balloon drag ----
+       Window-level pointermove/pointerup (no setPointerCapture). On older
+       iOS Safari, capture-on-non-button elements can drop pointerup mid-
+       gesture; listening on window is more reliable. touchstart fallback
+       covers iOS versions where pointer events arrive late or not at all
+       on synthetic touch sequences.                                       */
     const DRAG_THRESHOLD = 36;
     let dragStartY = null;
     let isDragging = false;
 
-    altBalloon.addEventListener('pointerdown', (e) => {
-      dragStartY = e.clientY;
-      isDragging = true;
-      altBalloon.setPointerCapture(e.pointerId);
-      e.preventDefault();
-    });
-    altBalloon.addEventListener('pointerup', (e) => {
+    function endDrag(clientY) {
       if (!isDragging) return;
       isDragging = false;
-      const delta = e.clientY - dragStartY;
+      const delta = (clientY != null && dragStartY != null) ? (clientY - dragStartY) : 0;
       dragStartY = null;
       if (isAnimating) return;
       const dir = dragDir[activeStep];
       const nextStep = activeStep === 5 ? 0 : activeStep + 1;
       if (dir === -1 && delta < -DRAG_THRESHOLD) { stopAutoPlay(); goToStep(nextStep); }
       if (dir ===  1 && delta >  DRAG_THRESHOLD) { stopAutoPlay(); goToStep(nextStep); }
+    }
+
+    altBalloon.addEventListener('pointerdown', (e) => {
+      dragStartY = e.clientY;
+      isDragging = true;
+      e.preventDefault();
     });
-    altBalloon.addEventListener('pointercancel', () => {
-      isDragging = false; dragStartY = null;
-    });
+    window.addEventListener('pointerup',     (e) => endDrag(e.clientY));
+    window.addEventListener('pointercancel', ()  => { isDragging = false; dragStartY = null; });
+
+    // iOS Safari touch fallback — fires even when pointer events don't.
+    altBalloon.addEventListener('touchstart', (e) => {
+      if (!e.touches.length) return;
+      dragStartY = e.touches[0].clientY;
+      isDragging = true;
+    }, { passive: true });
+    window.addEventListener('touchend', (e) => {
+      const t = e.changedTouches && e.changedTouches[0];
+      endDrag(t ? t.clientY : null);
+    }, { passive: true });
+    window.addEventListener('touchcancel', () => { isDragging = false; dragStartY = null; }, { passive: true });
 
     /* ---- Boot ---- */
     stateImg.src     = stateSrcs[0];
     stateOverlay.src = overlaySrcs[0];
     stateOverlay.classList.add('has-src');
     setAltitude(0);
+    // Warm up the first transition so the very first auto-advance has the
+    // bytes ready. Later clips load on demand the first time they play.
+    transVideo.src = transitionSrcs[0];
+    transVideo.load();
     scheduleAutoAdvance(STATE_HOLD_MS);
   })();
 
