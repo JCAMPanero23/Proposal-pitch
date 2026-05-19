@@ -89,7 +89,15 @@
        Inactive slides "before" the current one rest 80px to the left and
        inactive slides "after" rest 80px to the right. Active slide is at
        center. Result: advancing → new slide enters from right; going back
-       → new slide enters from left. Crossfade overlaps in the middle.   */
+       → new slide enters from left. Crossfade overlaps in the middle.
+
+       NOTE: will-change is intentionally NOT set on .slide itself —
+       applying it to all 11 slides at 1920×1080 promotes ~90 MB of GPU
+       compositor layers permanently, which Android Chrome can't hold and
+       starts evicting (showing as clipped/blank slides past ~slide 5).
+       The .is-active / .is-before / .is-after classes only get will-change
+       during the brief transition window so Chrome composites cleanly
+       without holding layers for every slide.                            */
     .slide {
       position: absolute; inset: 0;
       opacity: 0;
@@ -102,7 +110,6 @@
       transition:
         opacity   520ms cubic-bezier(0.4, 0, 0.2, 1),
         transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
-      will-change: opacity, transform;
     }
     .slide.is-before { transform: translateX(-80px); }
     .slide.is-after  { transform: translateX( 80px); }
@@ -110,6 +117,18 @@
       opacity: 1;
       transform: translateX(0);
       pointer-events: auto;
+    }
+    /* Promote to compositor only for slides adjacent to the active one
+       (the only ones that animate). Class is added/removed by goTo().    */
+    .slide.is-animating { will-change: opacity, transform; }
+    /* Hide off-screen slides from the compositor entirely so Android
+       doesn't keep their layers warm. Adjacent slides still need to
+       paint mid-transition, so only hide those 2+ away from active.
+       content-visibility: hidden skips paint/layout for the subtree —
+       compositor releases the layer immediately.                         */
+    .slide.is-far {
+      content-visibility: hidden;
+      contain: layout paint;
     }
 
     /* Per-slide background variants — light tier (default) + dark (ink) */
@@ -1101,7 +1120,7 @@
 
       <!-- ── 1 · HERO ──────────────────────────────────────────────────── -->
       <section class="slide slide--ink has-bg-image is-active" data-slide="1">
-        <div class="slide-bg" style="background-image: url('HTML_assets/hero-aerial-night.png');"></div>
+        <div class="slide-bg" style="background-image: url('HTML_assets/hero-aerial-night.webp');"></div>
         <div class="slide-content">
           <div class="stack-lg">
             <span class="eyebrow">Saadiyat Island · Abu Dhabi · Investor Pitch</span>
@@ -1226,15 +1245,16 @@
           <div class="exp-viewer" id="expViewer">
             <img class="exp-state-img"   id="expStateImg"
                  src="HTML_assets/Vertical%20Altitude%20Experience/v2/states/state_01_arrival.webp"
-                 alt="Arrival — LED field lit in tonight's theme" />
+                 alt="Arrival — LED field lit in tonight's theme"
+                 decoding="async" />
             <!-- Transition <video>: one element, src swapped per segment.
                  muted + playsinline = iOS-friendly inline autoplay.
-                 preload="auto" so the first clip's bytes arrive ahead of
-                 the first auto-advance.                                  -->
+                 preload="none" — auto-cycle was removed, so we don't fetch
+                 any clip until the user actually triggers a transition.   -->
             <video class="exp-trans-video" id="expTransVideo"
-                   muted playsinline preload="auto"
+                   muted playsinline preload="none"
                    disablepictureinpicture aria-hidden="true"></video>
-            <img class="exp-state-overlay" id="expStateOverlay" src="" alt="" />
+            <img class="exp-state-overlay" id="expStateOverlay" src="" alt="" decoding="async" />
 
             <!-- Altitude indicator — wider strip with step names + 14px labels -->
             <div class="alt-indicator">
@@ -1296,7 +1316,7 @@
 
           <div class="tab-panel is-active" data-tab="a">
             <div class="theme-row">
-              <img src="HTML_assets/DroneShot_comp.Theme_A.png" alt="Theme A drone composite — balloon, Saadiyat museums, and the LED ring rendering the gold Louvre show" />
+              <img src="HTML_assets/DroneShot_comp.Theme_A.webp" alt="Theme A drone composite — balloon, Saadiyat museums, and the LED ring rendering the gold Louvre show" loading="lazy" decoding="async" fetchpriority="low" />
               <div>
                 <div class="col-num">Theme A · Louvre Abu Dhabi</div>
                 <h3 class="col-title">The Universal Collection</h3>
@@ -1311,7 +1331,7 @@
 
           <div class="tab-panel" data-tab="b">
             <div class="theme-row">
-              <img src="HTML_assets/DroneShot_comp.Theme_B.png" alt="Theme B drone composite — balloon, Saadiyat museums, and the LED ring rendering the amber Zayed National Museum show" />
+              <img src="HTML_assets/DroneShot_comp.Theme_B.webp" alt="Theme B drone composite — balloon, Saadiyat museums, and the LED ring rendering the amber Zayed National Museum show" loading="lazy" decoding="async" fetchpriority="low" />
               <div>
                 <div class="col-num">Theme B · Zayed National Museum</div>
                 <h3 class="col-title">The Nation's Story</h3>
@@ -1326,7 +1346,7 @@
 
           <div class="tab-panel" data-tab="c">
             <div class="theme-row">
-              <img src="HTML_assets/DroneShot_comp.Theme_C.png" alt="Theme C drone composite — balloon, Saadiyat museums, and the LED ring rendering the cobalt and magenta Guggenheim show" />
+              <img src="HTML_assets/DroneShot_comp.Theme_C.webp" alt="Theme C drone composite — balloon, Saadiyat museums, and the LED ring rendering the cobalt and magenta Guggenheim show" loading="lazy" decoding="async" fetchpriority="low" />
               <div>
                 <div class="col-num">Theme C · Guggenheim Abu Dhabi</div>
                 <h3 class="col-title">The Future Canvas</h3>
@@ -1354,7 +1374,7 @@
         <h2 class="display-l" style="margin-top: 14px;">The canvas behind the show.</h2>
 
         <div class="canvas-split">
-          <img src="HTML_assets/TheCanvasBehindTheShow.png" alt="Four-panel composite — LED ring close-up, aerial of balloon and Saadiyat museums, and ring rendering themed content" />
+          <img src="HTML_assets/TheCanvasBehindTheShow.webp" alt="Four-panel composite — LED ring close-up, aerial of balloon and Saadiyat museums, and ring rendering themed content" loading="lazy" decoding="async" fetchpriority="low" />
           <div>
             <p class="lede" style="margin-top: 0;">A 60-meter ring built from 6,175 identical 600mm aluminum plate tiles, each carrying nine addressable RGBW stems. Designed from the first sketch to be serviced from above — no specialist crew, no crane, no downtime.</p>
             <div class="stat-row-4" style="grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 36px;">
@@ -1377,7 +1397,7 @@
         <p class="lede" style="margin-top: 14px;">The investment carries a single aluminum plate tile specification: lighter to handle, precision-machined, refinishable, and built around the locked 9-LED content pipeline.</p>
 
         <div class="tier-row" style="margin-top: 36px;">
-          <img src="HTML_assets/investment-tier-high.png" alt="8mm aluminum plate tile with adjustable feet and 9 LED stems" />
+          <img src="HTML_assets/investment-tier-high.webp" alt="8mm aluminum plate tile with adjustable feet and 9 LED stems" loading="lazy" decoding="async" fetchpriority="low" />
           <div>
             <h3 style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--text); font-weight: 600; margin-bottom: 12px;">Aluminum Plate Tile</h3>
             <div class="tier-price">AED 25.9M</div>
@@ -1768,14 +1788,40 @@
     /* ---- Slide navigation ----
        Slides before `current` get `is-before` (rest 80px to the left),
        slides after get `is-after` (rest 80px to the right). The active
-       slide animates to translateX(0) — see the .slide CSS rules above. */
+       slide animates to translateX(0) — see the .slide CSS rules above.
+
+       On every change we also juggle two performance classes:
+         · is-animating — applied to the active slide + its immediate
+           neighbour mid-transition only, so will-change kicks in just
+           when needed (cleared 600ms later, after the 520ms transition).
+         · is-far — applied to all slides ≥2 steps away from the active
+           one, so the compositor can drop their layers entirely. This
+           keeps total GPU layer memory roughly constant regardless of
+           how many slides the deck has, fixing the Android "slide 5
+           clips, rest doesn't load" symptom from over-promoted layers. */
+    let animatingTimer = null;
     function goTo(idx) {
+      const prev = current;
       current = (idx + slides.length) % slides.length;
       slides.forEach((s, i) => {
         s.classList.toggle('is-active', i === current);
         s.classList.toggle('is-before', i <  current);
         s.classList.toggle('is-after',  i >  current);
+        // Only the active slide + the one we're leaving need to animate.
+        const willAnimate = (i === current) || (i === prev);
+        s.classList.toggle('is-animating', willAnimate);
+        // Hide everything 2+ slides away from the active one.
+        const dist = Math.abs(i - current);
+        s.classList.toggle('is-far', dist >= 2);
       });
+      // Strip will-change after the transition completes so the layers
+      // get released back to the compositor.
+      if (animatingTimer) clearTimeout(animatingTimer);
+      animatingTimer = setTimeout(() => {
+        slides.forEach((s) => s.classList.remove('is-animating'));
+        animatingTimer = null;
+      }, 600);
+
       Array.from(dotsEl.children).forEach((d, i) =>
         d.classList.toggle('is-active', i === current)
       );
@@ -1916,12 +1962,14 @@
   })();
 
   /* ═══════════════════════════════════════════════════════════════════════
-     Slide 3 — Night Experience interactive player
+     Slide 3 — Night Experience interactive player (manual playback)
      -----------------------------------------------------------------------
      - Click step buttons or drag the altitude balloon to advance/return.
      - Each forward step plays a short MP4 clip (5 segments, ~3.5s each)
        between adjacent states; non-sequential jumps crossfade in 300ms.
-     - Auto-cycles through the 6 states; user interaction stops auto-play.
+     - No auto-cycle. The video stays unloaded until the user triggers a
+       transition — this keeps cumulative image/video memory low enough
+       on Android Chrome that the rest of the deck doesn't stall.
 
      iOS Safari notes:
        · <video muted playsinline> + .play() works without user gesture.
@@ -1983,16 +2031,10 @@
     const dragDir = [-1, -1, 1, 1, 1, -1];
     const hints   = ['↑ drag', '↑ drag', '↓ drag', '↓ drag', '↓ drag', '↑ restart'];
 
-    const STATE_HOLD_MS = 21000;  // 3× slower auto-advance — less aggressive
-    const RESTART_DELAY = 21000;  // pause on Finale before looping back
-
-    let activeStep      = 0;
-    let isAnimating     = false;
-    let restartTimer    = null;
-    let autoAdvanceTimer= null;
-    let autoPlayActive  = true;
-    let endedHandler    = null;
-    let safetyTimer     = null;
+    let activeStep   = 0;
+    let isAnimating  = false;
+    let endedHandler = null;
+    let safetyTimer  = null;
 
     const altMarkers = document.querySelectorAll('.alt-marker');
     const arrivalLabel = document.querySelector('.alt-marker[data-alt="0"] .alt-step');
@@ -2038,41 +2080,12 @@
         stateOverlay.src       = nextOverlaySrc;
         stateOverlay.classList.add('has-src');
         transVideo.classList.remove('is-active');
-        // Pause + reset so the GPU drops the decoded buffer between plays.
+        // Pause so the decoder can release the buffered frames.
         try { transVideo.pause(); } catch (_) {}
         expViewer.classList.remove('is-animating');
         activeStep  = step;
         isAnimating = false;
-
-        if (restartTimer)     { clearTimeout(restartTimer);     restartTimer = null; }
-        if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-        if (!autoPlayActive) return;
-
-        if (step === 5) {
-          restartTimer = setTimeout(() => {
-            restartTimer = null;
-            if (activeStep === 5 && !isAnimating && autoPlayActive) goToStep(0);
-          }, RESTART_DELAY);
-        } else {
-          scheduleAutoAdvance(STATE_HOLD_MS);
-        }
       });
-    }
-
-    function scheduleAutoAdvance(delay) {
-      if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-      if (!autoPlayActive) return;
-      autoAdvanceTimer = setTimeout(() => {
-        autoAdvanceTimer = null;
-        if (!autoPlayActive || isAnimating) return;
-        if (activeStep < 5) goToStep(activeStep + 1);
-      }, delay);
-    }
-
-    function stopAutoPlay() {
-      autoPlayActive = false;
-      if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-      if (restartTimer)     { clearTimeout(restartTimer);     restartTimer = null; }
     }
 
     // Strip any pending 'ended' listener + safety timer from a previous play.
@@ -2157,12 +2170,9 @@
       }
     }
 
-    // Step button clicks → user takes control, stop auto-play
+    // Step button clicks → advance manually.
     stepBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        stopAutoPlay();
-        goToStep(+btn.dataset.step);
-      });
+      btn.addEventListener('click', () => goToStep(+btn.dataset.step));
     });
 
     /* ---- Balloon drag ----
@@ -2183,8 +2193,8 @@
       if (isAnimating) return;
       const dir = dragDir[activeStep];
       const nextStep = activeStep === 5 ? 0 : activeStep + 1;
-      if (dir === -1 && delta < -DRAG_THRESHOLD) { stopAutoPlay(); goToStep(nextStep); }
-      if (dir ===  1 && delta >  DRAG_THRESHOLD) { stopAutoPlay(); goToStep(nextStep); }
+      if (dir === -1 && delta < -DRAG_THRESHOLD) goToStep(nextStep);
+      if (dir ===  1 && delta >  DRAG_THRESHOLD) goToStep(nextStep);
     }
 
     altBalloon.addEventListener('pointerdown', (e) => {
@@ -2207,16 +2217,32 @@
     }, { passive: true });
     window.addEventListener('touchcancel', () => { isDragging = false; dragStartY = null; }, { passive: true });
 
-    /* ---- Boot ---- */
+    /* ---- Suspend when slide 3 is not active ----
+       When the user swipes away to slides 4-9, drop the video buffer
+       and clear any mid-transition safety timer so nothing keeps a hold
+       on memory in the background.                                      */
+    const slide3Section = document.querySelector('section[data-slide="3"]');
+    function suspend() {
+      try { transVideo.pause(); } catch (_) {}
+      if (safetyTimer) { clearTimeout(safetyTimer); safetyTimer = null; }
+    }
+    if (slide3Section) {
+      new MutationObserver(() => {
+        if (!slide3Section.classList.contains('is-active')) suspend();
+      }).observe(slide3Section, { attributes: true, attributeFilter: ['class'] });
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) suspend();
+    });
+
+    /* ---- Boot ----
+       Show state 0 only. The transition video stays unloaded until the
+       user clicks a step button or drags the balloon — keeps the slide-3
+       memory footprint to two small WebPs until the user opts in.       */
     stateImg.src     = stateSrcs[0];
     stateOverlay.src = overlaySrcs[0];
     stateOverlay.classList.add('has-src');
     setAltitude(0);
-    // Warm up the first transition so the very first auto-advance has the
-    // bytes ready. Later clips load on demand the first time they play.
-    transVideo.src = transitionSrcs[0];
-    transVideo.load();
-    scheduleAutoAdvance(STATE_HOLD_MS);
   })();
 
   /* ═══════════════════════════════════════════════════════════════════════
