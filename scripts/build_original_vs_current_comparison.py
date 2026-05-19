@@ -231,6 +231,21 @@ add_para(doc,
     'from the original is missing from the current pitch and needs to be '
     'addressed before the next investor read:')
 
+add_para(doc,
+    'Resolved this session: the AED 8 M balloon CAPEX line is the '
+    'relocation cost of the existing Dubai Balloon (Atlantis → Saadiyat), '
+    'not a placeholder. The AED ~7 M delta from Hero\'s original AED 15 M '
+    'envelope (regulatory approvals, GCAA certification, permits and other '
+    'government-facing expenses) is absorbed by Abu Dhabi as project-host '
+    'concession — the pitch is being made to the Abu Dhabi government, '
+    'which is expected to bear those costs. See §6 callout.')
+add_para(doc,
+    'Also added this session: operating-buffer sensitivity. The Base Case '
+    '58 % load × 250 days is repositioned as the cautious corner of the '
+    'realistic operating envelope rather than its midpoint — Hero\'s own '
+    'original 2025 proposal underwrote 70 % load on ~310 effective days '
+    'for this site (page 9). See v2 memo §11.')
+
 callout(doc,
     'The original revenue-share waterfall is not in the current model.',
     'Page 11 of the original proposal defines a 5% VAT / 12% Partner-or-'
@@ -263,7 +278,7 @@ add_table(doc,
         ['Tether max length',             '300 m',                              '300 m (capable); 150 m marketed', 'Marketed altitude lowered'],
         ['__SECTION__Operating model'],
         ['Peak operating altitude',       '300 m',                              '150 m',                          'Reduced — true new peak'],
-        ['Commercial pax / flight',       '12 (page 9 model)',                  '25 (v2 memo) / 30 (blueprint)',  '+21% effective per-flight occupancy vs Dubai actuals'],
+        ['Commercial pax / flight',       '12 (page 9 model)',                  '25 (v2 memo) / 30 (blueprint)',  '+21% effective per-flight occupancy vs page-9 underwriting'],
         ['Day cycle',                     '10 min (5 flights/hr) — physically impossible at 300 m', '16 min (3.75 flights/hr at 150 m)', 'Compressed at lower altitude'],
         ['Day flights/day',               '50 claimed / 20 honest (10 hrs × 2/hr)', '11 (3-hr window × 3.75/hr)',     'Window compressed for night product'],
         ['Night cycle',                   'N/A',                                '20 min batches (3/hr × 5.5 hrs)', 'New cadence'],
@@ -393,27 +408,27 @@ add_table(doc,
     col_widths=[5.5, 2.5, 3.0, 5.0])
 
 add_para(doc,
-    'The original\'s 12-guest assumption is consistent with real-world '
-    'Dubai Balloon operating averages — Hero has 250,000+ safe flights '
-    'of historical data. A 30-pax envelope averaging ~12 pax/flight is '
-    'baked into that loading line.',
+    'The original\'s 12-guest assumption is Hero\'s own stated '
+    'operating assumption for this site, documented on page 9 of the '
+    '2025 proposal. A 30-pax envelope underwritten at ~12 pax/flight '
+    'average is baked into that loading line.',
     size=10, color=MUTED, italic=True)
 add_para(doc, '')
 h3(doc, 'Locked positioning')
 add_para(doc,
     'The current pitch raises this to 25 pax × 58% load = 14.5 effective '
-    'pax/flight — only +21% over the Dubai actuals of ~12 pax/flight. '
-    'That +21% effective-loading uplift is positioned as a demand-side '
-    'claim attributable to the LED canvas + premium night product + '
-    'museum cross-discount + Saadiyat\'s 10% YoY visitor growth. Same '
-    'gondola, same certification, same safety envelope — the loading '
-    'uplift is NOT a hardware re-rating.')
+    'pax/flight — only +21% over Hero\'s page-9 underwriting of ~12 '
+    'pax/flight. That +21% effective-loading uplift is positioned as a '
+    'demand-side claim attributable to the LED canvas + premium night '
+    'product + museum cross-discount + Saadiyat\'s 10% YoY visitor '
+    'growth. Same gondola, same certification, same safety envelope — '
+    'the loading uplift is NOT a hardware re-rating.')
 add_para(doc,
     'Recommended deck phrasing: "Same certified gondola, same safety '
-    'envelope. The +21% effective loading vs. Dubai actuals is the '
-    'demand uplift attributable to the LED canvas night product and '
-    'Saadiyat\'s cultural-district ramp." This framing is now adopted '
-    'in v2 memo §4B.',
+    'envelope. The +21% effective loading vs. Hero\'s original page-9 '
+    'underwriting is the demand uplift attributable to the LED canvas '
+    'night product and Saadiyat\'s cultural-district ramp." This '
+    'framing is now adopted in v2 memo §4B.',
     italic=True, color=MUTED, size=10)
 
 # ── 5. DAYTIME REVENUE — APPLES-TO-APPLES ────────────────────────────
@@ -509,16 +524,22 @@ add_table(doc,
     col_widths=[7.5, 3.0, 6.5])
 
 callout(doc,
-    'The AED 8 M balloon line is undocumented.',
-    'The current pitch books the balloon at AED 8 M but the source of '
-    'that figure is not recorded in pitch-blueprint.md or any supporting '
-    'memo. The most internally-consistent reading is "balloon hardware '
-    'only; site civils are absorbed inside the AED 15.1 M LED canvas line '
-    '(the canvas IS the ground installation)." If that\'s correct, the '
-    'AED 25.9 M project CAPEX is genuinely comparable to "original AED 15 '
-    'M relocation + AED 15 M LED canvas," modulo a small overlap. '
-    'Recommendation: confirm AED 8 M with Hero (new procurement vs. '
-    'relocation quote) and add a footnote to the deck disclosing scope.')
+    'The AED 8 M balloon line — resolved: relocation only.',
+    'The current pitch books the balloon at AED 8 M. CEO confirmation '
+    '(May 2026): this is the cost of relocating the existing Dubai Balloon '
+    'system from Atlantis, The Palm to Saadiyat — hardware, transport, '
+    'reassembly, and recommissioning only. The remaining AED ~7 M of '
+    'Hero\'s original AED 15 M envelope (regulatory approvals, civil-'
+    'aviation certification, permits, and other government-touching '
+    'expenses) is being absorbed by Abu Dhabi as project-host concession '
+    '— the pitch is being made to the Abu Dhabi government, which is '
+    'expected to bear those costs. Net effect: investor CAPEX is genuinely '
+    'AED 25.9 M = AED 8 M balloon relocation + AED 15.1 M LED canvas + '
+    'AED 2.8 M content launch, with no hidden regulatory liability. '
+    'Recommendation: add a single-line footnote to deck Slide 6 disclosing '
+    'the scope split so an investor reading the CAPEX line can see what '
+    'is and is not in it.',
+    color=GREEN)
 
 # ── 7. OPEX ──────────────────────────────────────────────────────────
 h1(doc, '7. OpEx comparison')
@@ -698,12 +719,10 @@ add_table(doc,
     rows=[
         ['1', 'Is the 12% Partner / 83% Operator / 5% VAT waterfall still binding for Canvas From The Sky, or is the partnership structure being renegotiated for the larger CAPEX scope?',
               'Determines whether the deck should quote project-level or investor-level returns.'],
-        ['2', 'What is the actual basis for the AED 8 M balloon line (new procurement quote vs. relocation cost vs. placeholder)?',
-              'Affects CAPEX credibility under investor diligence. CEO to confirm in notes; possibly check with Hero / superior.'],
-        ['3', 'Day window extension — push from 3 hrs to 6 / 10 hrs?',
+        ['2', 'Day window extension — push from 3 hrs to 6 / 10 hrs?',
               'Currently parked. Worth ~AED 16 M annual revenue at full 10-hour day. Trade-off is the night-product positioning.'],
-        ['4', 'Do we retain the v2 250-day operating year, or push back toward 300 / 365?',
-              'Each +50 days is worth ~AED 5 M annual revenue at project level (less after waterfall).'],
+        ['3', 'Do we retain the v2 250-day operating year, or push back toward 300 / 365?',
+              'Each +50 days is worth ~AED 5 M annual revenue and ~10 points of 10-yr IRR (see v2 memo §11B). The 250-day buffer is now framed as deliberate cushion, but a decision to publish a less-buffered headline would change the lead investor narrative.'],
     ],
     col_widths=[1.0, 7.5, 7.0])
 
@@ -721,6 +740,10 @@ add_table(doc,
               'v2 memo §5 (new row) + §8 (F&B); comparison §2 + §8'],
         ['E', '25-pax commercial cap repositioned as a +21% effective-loading uplift from LED canvas demand, not a hardware re-rating.',
               'v2 memo §4B (new section); comparison §4'],
+        ['F', 'AED 8 M balloon line resolved: it is the relocation cost of the Dubai Balloon (Atlantis → Saadiyat). The AED ~7 M delta from Hero\'s AED 15 M original envelope (approvals, GCAA certification, permits) is absorbed by Abu Dhabi as project-host concession.',
+              'Comparison §6 (callout updated); v2 memo Appendix A (new Slide 6 footnote row)'],
+        ['G', 'Operating buffer sensitivity made explicit. The Base Case 58 % load × 250 days is repositioned as the cautious corner of the realistic operating envelope — Hero\'s original 2025 proposal underwrote 70 % load on ~310 effective days for this site (page 9). Returns scale: every 7-pt load uplift ≈ +5–6 pts IRR; every +50 days ≈ +10 pts IRR.',
+              'v2 memo §11 (new section with two tables + 2×2 matrix); deck Slide 7 (new single-line callout); pitch-pdf.html sensitivity callout expanded'],
     ],
     col_widths=[1.0, 8.5, 6.0])
 
@@ -881,6 +904,8 @@ add_para(doc,
     italic=True, color=MUTED, size=10)
 
 # ── SAVE ─────────────────────────────────────────────────────────────
-output_path = 'd:/Proposal-pitch/Original-vs-Current-Comparison.docx'
+import os
+output_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                           'Original-vs-Current-Comparison.docx')
 doc.save(output_path)
 print(f'Saved: {output_path}')

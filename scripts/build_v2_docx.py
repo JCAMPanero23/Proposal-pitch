@@ -345,7 +345,7 @@ add_table(doc,
          'Unchanged from baseline. The 20-minute cycle actually improves the All-Access proposition (multi-theme viewing is easier in one night).'],
         ['Base case load factor',
          '58 %',
-         'Below the baseline 70 % Dubai Balloon benchmark. Acknowledges a slower ramp-up and a more conservative steady-state target.'],
+         'Below the 70 % load Hero underwrote on page 9 of the original 2025 proposal. Acknowledges a slower ramp-up and a more conservative steady-state target.'],
         ['Day blended ARPU',
          'AED 170',
          'Unchanged. See section 7 for the rationale for retaining ARPU at 150 m.'],
@@ -371,14 +371,14 @@ add_para(doc,
     'The defensible framing for investor diligence is that the loading '
     'uplift is a demand-side claim attributable to the LED canvas + '
     'night-show product, not a re-rating of the gondola:')
-bullet(doc, 'Original Hero proposal (page 9) used 12 pax/flight × 70% load = 8.4 effective pax/flight. This was likely derived from real Dubai Balloon operating averages — Hero has 250,000+ flights of historical data.')
-bullet(doc, 'This model\'s base case uses 25 pax × 58% load = 14.5 effective pax/flight — a +73% uplift in effective per-flight occupancy, or only +21% over the implied Dubai actual of 12 pax/flight average.')
-bullet(doc, 'That +21% over Dubai actuals is the claim attributable to the LED canvas + premium night product + museum cross-discount + Saadiyat\'s 10% YoY visitor growth — a demand-side thesis that an investor can validate.')
+bullet(doc, 'Original Hero proposal (page 9) underwrote 12 pax/flight × 70% load = 8.4 effective pax/flight as the operating assumption for this site.')
+bullet(doc, 'This model\'s base case uses 25 pax × 58% load = 14.5 effective pax/flight — a +73% uplift in effective per-flight occupancy, or only +21% over Hero\'s original 12-pax/flight loading on page 9.')
+bullet(doc, 'That +21% over the page-9 loading is the claim attributable to the LED canvas + premium night product + museum cross-discount + Saadiyat\'s 10% YoY visitor growth — a demand-side thesis that an investor can validate.')
 bullet(doc, 'At no point does the gondola operate beyond its certified safety envelope. 25 of 30 = 83% of physical capacity, leaving margin for staff and accessibility cases.')
 add_table(doc,
     header=['Loading line', 'Pax/flight', 'Effective load', 'Effective pax/flight'],
     rows=[
-        ['Hero proposal (Dubai actuals)', '12', '70 %',  '8.4'],
+        ['Hero proposal (page 9 underwriting)', '12', '70 %',  '8.4'],
         ['Blueprint (envelope max)',      '30', '70 %',  '21.0'],
         ['This model (base case)',        '25', '58 %',  '14.5'],
     ],
@@ -386,8 +386,9 @@ add_table(doc,
 add_para(doc,
     'Recommended deck phrasing for investor diligence: "Same gondola, '
     'same certification, same safety envelope. The +21% effective '
-    'loading vs. Dubai actuals is the demand uplift attributable to the '
-    'LED canvas night product and Saadiyat\'s cultural-district ramp."',
+    'loading vs. Hero\'s original page-9 underwriting is the demand uplift '
+    'attributable to the LED canvas night product and Saadiyat\'s '
+    'cultural-district ramp."',
     italic=True, color=MUTED, size=10)
 
 # ── 4C. DAY CYCLE DESIGN AT 150 M ────────────────────────────────────
@@ -620,8 +621,117 @@ add_table(doc,
     ],
     col_widths=[2.5, 3.0, 3.5, 5.0])
 
-# ── 11. DOWNSIDE SENSITIVITY — REDUCED ARPU ──────────────────────────
-h1(doc, '11. Downside sensitivity — reduced 150 m ARPU')
+# ── 11. OPERATING BUFFER SENSITIVITY ─────────────────────────────────
+h1(doc, '11. Operating buffer sensitivity — the levers most likely to outperform')
+add_para(doc,
+    'The Base Case is built on two deliberately cautious operating '
+    'assumptions: 58 % load factor (–12 points vs. the 70 % load Hero '
+    'underwrote on page 9 of the original 2025 proposal) and 250 '
+    'operating days / year (~32 % weather and downtime buffer vs. the '
+    '~15 % cancellation rate Hero underwrote in the same proposal, '
+    'which implies ~310 effective operating days). Each is a lever. '
+    'Closing either toward Hero\'s own page-9 underwriting curve lifts '
+    'EBITDA and IRR materially. This section isolates both levers, then '
+    'matrixes them.')
+add_para(doc,
+    'Method. Ticket and throughput-driven lines (day tickets, night '
+    'tickets, F&B, museum cross-sell) scale linearly with (load × days). '
+    'Private-gondola / VIP modelled 50 % variable / 50 % fixed; '
+    'sponsorship modelled 30 % variable / 70 % fixed (sponsor contracts '
+    'are largely flat-fee). OpEx fitted piecewise-linear to the §9 '
+    'three-point ladder. IRR recomputed using the §10 ramp ladder '
+    '(Y1 = 25 % of Base EBITDA, Y2 = 85 %, Y3 onward at the new Base, '
+    '4 % YoY growth, AED 2.5 M balloon reserves at Y5 / Y10) and solved '
+    'by iterative bisection on the discount rate.',
+    size=10, color=MUTED, italic=True)
+
+h3(doc, 'A · Load factor sensitivity (operating days held at 250)')
+add_para(doc,
+    'How returns move if the load factor lands above or below the 58 % '
+    'Base Case while operating days remain at 250.')
+add_table(doc,
+    header=['Load', 'Positioning', 'Revenue', 'OpEx', 'EBITDA', 'Margin', 'Payback', '10-yr IRR'],
+    rows=[
+        ['50 %',         'Slow ramp / soft demand',     'AED 22.2 M', 'AED 9.8 M',  'AED 12.4 M', '56 %', '~2.1 yrs', '~36 %'],
+        ['58 % ★ Base',  'Conservative steady state',   'AED 25.5 M', 'AED 9.9 M',  'AED 15.6 M', '61 %', '~1.7 yrs', '~45 %'],
+        ['65 %',         'Approaching page-9 underwriting', 'AED 28.4 M', 'AED 10.1 M', 'AED 18.3 M', '64 %', '~1.4 yrs', '~51 %'],
+        ['70 %',         'Page-9 underwriting matched',     'AED 30.5 M', 'AED 10.2 M', 'AED 20.3 M', '67 %', '~1.3 yrs', '~55 %'],
+    ],
+    col_widths=[2.0, 3.8, 2.0, 1.7, 2.0, 1.4, 1.5, 1.6])
+add_para(doc,
+    'Read. Every ~7-point load uplift toward Hero\'s page-9 underwriting '
+    'curve is worth ~AED 3 M of revenue, ~AED 2.5 M of EBITDA, and '
+    '~5–6 points of 10-year IRR. Closing the full 12-point gap to the '
+    '70 % load Hero originally underwrote takes IRR from ~45 % to ~55 % '
+    'with no change to ticket price, no extra CAPEX, and no change to '
+    'the operating envelope.',
+    size=10, color=MUTED, italic=True)
+
+h3(doc, 'B · Weather / operating-day sensitivity (load held at 58 %)')
+add_para(doc,
+    'How returns move if weather and operational downtime land above '
+    'or below the 250-day Base Case. The 250-day figure embeds ~32 % '
+    'cancellation; Hero\'s own underwriting in the original 2025 '
+    'proposal (page 9) used ~15 % cancellation, i.e. ~310 effective '
+    'operating days.')
+add_table(doc,
+    header=['Op days', 'Weather/downtime buffer', 'Revenue', 'OpEx', 'EBITDA', 'Margin', 'Payback', '10-yr IRR'],
+    rows=[
+        ['220',          '~40 % (very cautious)',          'AED 22.6 M', 'AED 9.8 M',  'AED 12.8 M', '57 %', '~2.0 yrs', '~37 %'],
+        ['250 ★ Base',   '~32 % (v2 default)',             'AED 25.5 M', 'AED 9.9 M',  'AED 15.6 M', '61 %', '~1.7 yrs', '~45 %'],
+        ['300',          '~18 % (approaching page-9 underwriting)', 'AED 30.3 M', 'AED 10.2 M', 'AED 20.1 M', '66 %', '~1.3 yrs', '~55 %'],
+        ['310',          '~15 % (Hero page-9 underwriting)',        'AED 31.3 M', 'AED 10.3 M', 'AED 21.0 M', '67 %', '~1.2 yrs', '~57 %'],
+    ],
+    col_widths=[1.7, 3.5, 2.0, 1.7, 2.0, 1.4, 1.5, 1.7])
+add_para(doc,
+    'Read. Closing the operating-day gap to Hero\'s own page-9 '
+    'underwriting (250 → 310 days; ~32 % buffer → ~15 %) lifts IRR '
+    'from ~45 % to ~57 %. Each +50 days is worth ~AED 5 M annual '
+    'revenue and ~10 points of 10-year IRR at the project level. '
+    'Saadiyat shares the same coastal-UAE climate the page-9 figure '
+    'was derived under, so the 250-day assumption is a conservative '
+    'posture, not a weather-driven constraint.',
+    size=10, color=MUTED, italic=True)
+
+h3(doc, 'C · Combined matrix — Base EBITDA and 10-year IRR')
+add_para(doc,
+    'The two levers compound. The Base Case sits in the cautious corner '
+    'of the realistic operating envelope. Reality landing anywhere '
+    'closer to Hero\'s own page-9 underwriting curve lifts the headline '
+    'materially.')
+add_para(doc, 'EBITDA (AED M)', bold=True, size=10)
+add_table(doc,
+    header=['Load \\ Days', '220', '250', '300'],
+    rows=[
+        ['50 %',         '10.0', '12.4', '16.3'],
+        ['58 % ★ Base',  '12.8', '15.6', '20.1'],
+        ['65 %',         '15.3', '18.3', '23.4'],
+        ['70 %',         '17.0', '20.3', '25.7'],
+    ],
+    col_widths=[4.0, 4.0, 4.0, 4.0])
+add_para(doc, '10-year IRR', bold=True, size=10)
+add_table(doc,
+    header=['Load \\ Days', '220', '250', '300'],
+    rows=[
+        ['50 %',         '~28 %', '~36 %', '~46 %'],
+        ['58 % ★ Base',  '~37 %', '~45 %', '~55 %'],
+        ['65 %',         '~44 %', '~51 %', '~62 %'],
+        ['70 %',         '~48 %', '~55 %', '~67 %'],
+    ],
+    col_widths=[4.0, 4.0, 4.0, 4.0])
+add_para(doc,
+    'Why this matters for the investor read. The Base Case is not the '
+    'midpoint of the envelope — it sits at the cautious corner. Hero\'s '
+    'original 2025 proposal underwrote 70 % load on ~310 effective '
+    'operating days for this same site (page 9); that is the company\'s '
+    'own stated steady-state assumption, not an upside scenario. The '
+    'model is engineered to protect the downside, with two structural '
+    'operating levers free to lift the headline if Saadiyat\'s cultural-'
+    'district ramp delivers as planned.',
+    size=10, color=MUTED, italic=True)
+
+# ── 12. DOWNSIDE SENSITIVITY — REDUCED ARPU ──────────────────────────
+h1(doc, '12. Downside sensitivity — reduced 150 m ARPU')
 add_para(doc,
     'If the executive review wants a more conservative pricing posture, '
     'the model below applies a moderate ARPU haircut. This is carried for '
@@ -650,8 +760,8 @@ add_para(doc,
     'show).',
     italic=True, color=MUTED, size=10)
 
-# ── 12. NIGHT WINDOW SENSITIVITY ─────────────────────────────────────
-h1(doc, '12. Sensitivity — night operating window')
+# ── 13. NIGHT WINDOW SENSITIVITY ─────────────────────────────────────
+h1(doc, '13. Sensitivity — night operating window')
 add_para(doc,
     'The 20-minute cycle is the central operational lever of the revised '
     'model. If it is approved but the nightly operating window is shorter '
@@ -672,15 +782,16 @@ add_para(doc,
     'day-side revenue is now contributing ~AED 6.8 M of Base Case income.',
     size=10, color=MUTED, italic=True)
 
-# ── 13. KEY TAKEAWAYS ────────────────────────────────────────────────
-h1(doc, '13. Key takeaways for the executive read')
+# ── 14. KEY TAKEAWAYS ────────────────────────────────────────────────
+h1(doc, '14. Key takeaways for the executive read')
 bullet(doc, '150 m is the true new peak. The deck and this memo are consistent on this point — the attraction is no longer marketed as 300 m capable.')
-bullet(doc, 'The 25-guest cap improves guest comfort and gives operating margin. Same gondola, same certification — the loading uplift vs. Dubai actuals (12 pax) is positioned as a demand-side claim from the LED canvas product, not a hardware re-rating.')
+bullet(doc, 'The 25-guest cap improves guest comfort and gives operating margin. Same gondola, same certification — the loading uplift vs. Hero\'s original page-9 underwriting (12 pax/flight) is positioned as a demand-side claim from the LED canvas product, not a hardware re-rating.')
 bullet(doc, 'The 16-minute day cycle is enabled by the 150 m peak shortening vertical motion to ~6.75 min round-trip. Day capacity goes from baseline 180 / day to 275 / day. Peak panoramic hold retained at 5 min so the photo moment is not compromised.')
 bullet(doc, 'The 20-minute night-batch cadence more than doubles nightly batch count vs. the blueprint (8 → 16 batches).')
 bullet(doc, 'After the gondola lands, guests may linger inside the LED ring for up to 10 minutes for photos. The next batch is already boarding the gondola — the dwell does not reduce throughput. Lifts F&B opportunity and strengthens the All-Access pass narrative.')
 bullet(doc, 'The LED hallway closes during the main show. The on-platform photo dwell + LED-field dwell on the exit side make that closure operationally invisible.')
 bullet(doc, 'ARPU is held at the baseline AED 170 day / AED 361 night because value is driven by the LED show + museum themes + Saadiyat ecosystem, not by raw altitude. A moderate ARPU haircut is carried as a downside sensitivity only.')
+bullet(doc, 'Two operating-side levers cushion the headline returns. The Base Case sits at 58 % load (–12 pts vs. the 70 % Hero underwrote on page 9 of the original 2025 proposal) and 250 operating days (~32 % weather buffer vs. Hero\'s own ~15 % page-9 cancellation assumption). Closing either lever toward the page-9 underwriting curve lifts 10-yr IRR by 5–12 points (see §11). The Base Case is the cautious corner of the realistic envelope, not its midpoint.')
 bullet(doc, 'The revised base case strengthens the investment story: AED 25.5 M revenue, AED 15.6 M EBITDA (61 % margin), ~1.7-year payback, ~45 % 10-year IRR, AED 73.4 M NPV at 8 %, 6.0× MOIC.')
 
 # ── 14. APPENDIX A — DECK ALIGNMENT ──────────────────────────────────
@@ -707,6 +818,8 @@ add_table(doc,
         ['Slide 7 — 10-year IRR (Base)',           '~45 %',                 'Updated.'],
         ['Slide 7 — 10-year NPV at 8 %',           'AED 73.4 M',            'Updated.'],
         ['Slide 7 — 10-year MOIC',                 '6.0×',                  'Updated.'],
+        ['Slide 7 — operating-buffer callout',     'New single-line note',  'Discloses that Base Case sits at 58 % load / 250 days vs. the 70 % / ~310-day envelope Hero underwrote in the original 2025 proposal (page 9), with returns scaling with either lever. Sourced from §11.'],
+        ['Slide 6 — CAPEX (footnote)',             'New single-line note',  'Clarifies that the AED 8.0 M balloon line is balloon-hardware relocation only; regulatory and approval costs (the AED ~7 M delta from Hero\'s AED 15 M original) are borne by Abu Dhabi as project-host concession.'],
     ],
     col_widths=[5.0, 4.5, 6.5])
 
@@ -716,7 +829,9 @@ add_para(doc,
     '— end of memo —',
     italic=True, color=MUTED, size=10, align=WD_ALIGN_PARAGRAPH.CENTER)
 
-# Save
-out = r'd:\Proposal-pitch\financial-model-revision-150m-v2.docx'
+# Save — write into the project root regardless of where the script is invoked from.
+import os
+out = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                   'financial-model-revision-150m-v2.docx')
 doc.save(out)
 print('Wrote ' + out)

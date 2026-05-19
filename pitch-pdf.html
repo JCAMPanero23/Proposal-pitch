@@ -363,14 +363,14 @@
     /* ── Theme cards ─────────────────────────────────────────────────── */
     .theme-card {
       display: grid;
-      grid-template-columns: 86mm 1fr;
-      gap: 8mm;
-      margin-top: 6mm;
-      padding-top: 6mm;
+      grid-template-columns: 96mm 1fr;
+      gap: 9mm;
+      margin-top: 8mm;
+      padding-top: 8mm;
       border-top: 1px solid var(--border);
       align-items: center;
     }
-    .theme-card:first-of-type { border-top: 0; padding-top: 0; }
+    .theme-card:first-of-type { border-top: 0; padding-top: 4mm; margin-top: 4mm; }
     .theme-card .figure {
       aspect-ratio: 4 / 3;
       background: var(--bg-3);
@@ -387,8 +387,8 @@
     }
     .theme-card h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 16pt; color: var(--text);
-      margin: 3pt 0 6pt; font-weight: 600;
+      font-size: 18pt; color: var(--text);
+      margin: 4pt 0 7pt; font-weight: 600;
     }
     .theme-meta {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -509,9 +509,9 @@
     .scenario {
       border: 1px solid var(--border);
       border-radius: 4pt;
-      padding: 7mm 7mm;
+      padding: 4mm 6mm 5mm;
       background: var(--bg-2);
-      margin-bottom: 6mm;
+      margin-bottom: 4mm;
     }
     .scenario.is-base {
       border-color: var(--gold);
@@ -519,11 +519,11 @@
     }
     .scenario-head {
       display: flex; justify-content: space-between; align-items: baseline;
-      margin-bottom: 4pt;
+      margin-bottom: 2pt;
     }
     .scenario-head h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 14pt; color: var(--text);
+      font-size: 13pt; color: var(--text);
       font-weight: 600;
     }
     .scenario-head .flag {
@@ -532,16 +532,16 @@
       font-weight: 700;
     }
     .scenario .desc {
-      font-size: 9.5pt; line-height: 1.55;
-      color: var(--text-body); margin-bottom: 6pt;
+      font-size: 9pt; line-height: 1.5;
+      color: var(--text-body); margin-bottom: 4pt;
     }
     .scenario .kpi-row {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 4mm; padding-top: 4mm;
+      gap: 4mm; padding-top: 3mm;
       border-top: 1px solid var(--border-soft);
     }
-    .scenario .kpi-row .stat-num-sm { font-size: 16pt; }
-    .scenario .kpi-row .stat-lbl { font-size: 7pt; margin-top: 3pt; }
+    .scenario .kpi-row .stat-num-sm { font-size: 15pt; }
+    .scenario .kpi-row .stat-lbl { font-size: 7pt; margin-top: 2pt; }
 
     /* ── Comparison table ────────────────────────────────────────────── */
     .compare-table {
@@ -903,13 +903,6 @@
       <div><div class="stat-num-sm">250,000+</div><div class="stat-lbl">Operator Flight Record</div></div>
     </div>
 
-    <p class="body" style="margin-top: 8mm;">
-      The remainder of this brochure walks through the guest experience, the LED canvas technology, the museum
-      partnership model, the investment structure across two tile-material tiers, and the full financial picture
-      under three demand scenarios. Hardware decisions are locked. Operator capacity is in place. The next step
-      is land allocation and co-investment to activate.
-    </p>
-
     <footer class="page-foot">
       <span>Canvas From The Sky · Hero Experiences Group</span>
       <span>02</span>
@@ -1148,13 +1141,8 @@
           <p class="step-body">
             Held at 25 metres — the optimal viewing height for the full 60-metre ring. All 55,575 LED nodes at
             full output. The LED entry hallway closes in both directions so no pedestrian movement shadows the
-            canvas: a single uninterrupted themed show, the ring filling the field of view below the gondola
-            railing.
-          </p>
-          <p class="step-body">
-            This is the show the night ticket is sold on. The composition is choreographed end-to-end: opening,
-            three act-blocks tied to the partner museum's story, a held finale moment, and a transition cue that
-            signals the descent of the balloon to ground level.
+            canvas: a single uninterrupted themed show, choreographed end-to-end — opening, three act-blocks
+            tied to the partner museum's story, a held finale, and the descent cue.
           </p>
         </div>
       </div>
@@ -1169,13 +1157,8 @@
           <div class="step-meta">~2 min · Photo Dwell · Ambient Exit</div>
           <p class="step-body">
             The show closes as the gondola lands at the platform. Guests step out and linger on the boarding
-            platform for photo dwell while the LED hallway resets for the next batch. The next group is already
-            on its way in.
-          </p>
-          <p class="step-body">
-            Every cycle is self-contained, repeatable, and complete — a single guest, a single party, or a private
-            gondola booking, all leave with the same finished arc. There are no half-shows, no missed peaks, no
-            weather-dependent edits.
+            platform for photo dwell while the LED hallway resets for the next batch. Every cycle is
+            self-contained — no half-shows, no missed peaks, no weather-dependent edits.
           </p>
         </div>
       </div>
@@ -1249,6 +1232,23 @@
         </div>
       </div>
     </div>
+
+    <footer class="page-foot">
+      <span>Canvas From The Sky · Hero Experiences Group</span>
+      <span>07</span>
+    </footer>
+  </section>
+
+  <!-- ── PAGE 07b · THIRD THEME — CONTINUATION ──────────────────────── -->
+  <section class="page">
+    <header class="page-head">
+      <span class="brand">Canvas From The Sky</span>
+      <span>Three Themes · One Night Pass · 07</span>
+    </header>
+
+    <span class="eyebrow">Three Shows · One Night Pass · Continued</span>
+    <h2 class="display-l" style="margin-top: 6pt;">The third show in the rotation.</h2>
+    <div class="divider"></div>
 
     <div class="theme-card">
       <div class="figure">
@@ -1475,6 +1475,12 @@
       show design.
     </p>
 
+    <p class="body" style="font-size: 9.5pt; font-style: italic; color: #7A7065; margin-top: 4mm;">
+      The balloon line above (AED 8.0 M) covers hardware relocation and reassembly only — moving the
+      certified Dubai Balloon system to Saadiyat. Regulatory approvals, GCAA certification, and permits
+      are borne by Abu Dhabi as project-host concession and sit outside investor CAPEX.
+    </p>
+
     <footer class="page-foot">
       <span>Canvas From The Sky · Hero Experiences Group</span>
       <span>10</span>
@@ -1504,8 +1510,9 @@
         <span class="flag">Underwriting Floor</span>
       </div>
       <div class="desc">
-        A cautious 32% average load — well below the Dubai Balloon benchmark — with sponsorship and museum
-        cross-sell flat and no premium VIP uplift. A resilience case, not the target operating year.
+        <strong>32% average load · 250 operating days.</strong> Deep cushion vs. the Base Case target, with a
+        ~32% weather buffer baked in. Sponsorship and museum cross-sell flat, no VIP uplift. A resilience case,
+        not the target operating year.
       </div>
       <div class="kpi-row">
         <div><div class="stat-num-sm">13.6M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
@@ -1521,10 +1528,10 @@
         <span class="flag">★ Underwriting Case</span>
       </div>
       <div class="desc">
-        A 58% steady operating load on 11 day rides (16-min cycle at 150 m) plus 16 night batches across a
-        5.5-hour window, with the full night revenue stack live: themed shows, All-Access Pass, optional
-        10-min LED-field dwell, four seasonal sponsor refreshes, and the museum partnership. This is what
-        the financial plan is built on.
+        <strong>58% steady load · 250 operating days.</strong> A ~32% weather buffer and 12-point load
+        discount baked in as structural cushion. 11 day rides (16-min cycle at 150 m) plus 16 night batches
+        across a 5.5-hour window, full night stack live: themed shows, All-Access Pass, optional 10-min
+        LED-field dwell, sponsor refreshes, museum partnership. The underwriting case.
       </div>
       <div class="kpi-row">
         <div><div class="stat-num-sm">25.5M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
@@ -1540,8 +1547,9 @@
         <span class="flag">Upside Case</span>
       </div>
       <div class="desc">
-        A 73% average load supported by anchor sponsor renewals, premium All-Access uptake, full VIP gondola
-        booking through peak season, and content syndication across partner venues.
+        <strong>73% average load · 250 operating days.</strong> Closes the load discount, keeps the ~32%
+        weather buffer. Anchor sponsor renewals, premium All-Access uptake, full VIP booking through peak
+        season, content syndication across partner venues.
       </div>
       <div class="kpi-row">
         <div><div class="stat-num-sm">32.4M</div><div class="stat-lbl">Annual Revenue · AED</div></div>
@@ -1607,17 +1615,17 @@
       </div>
 
       <p class="body">
-        The base case assumes flat ticket pricing in real terms across the ten-year window. Inflation-indexed
-        ticket increases (typically applied at the second seasonal refresh) are not modelled — they sit as
-        additional upside on top of the IRR shown.
+        Flat ticket pricing assumed in real terms across the ten-year window. Inflation-indexed ticket
+        increases sit as additional upside on top of the IRR shown.
       </p>
 
       <div class="callout" style="margin: 0;">
-        <div class="callout-label">Sensitivity at a glance</div>
+        <div class="callout-label">Where the Base Case sits in the operating envelope</div>
         <div class="callout-body">
-          The 16-batch night cycle is the load-bearing assumption. A drop to 12 batches per night holds payback
-          inside three years; a drop to 9 batches pushes payback beyond four years. The model is also sensitive
-          to night-ticket attach rate and All-Access conversion.
+          The Base Case 58% load × 250 operating days deliberately sits below the steady-state target — a
+          ~32% weather buffer and 12-point load discount baked in as cushion. Every 7-point load uplift adds
+          ~5–6 points of 10-year IRR; every +50 operating days adds ~10 points. <strong>Returns scale with
+          two operating-side levers the Base Case leaves unclaimed.</strong>
         </div>
       </div>
     </div>
