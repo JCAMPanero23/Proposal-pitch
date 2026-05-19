@@ -839,6 +839,16 @@
       transition: opacity 220ms ease;
     }
     .top-nav.is-near .top-nav__static { opacity: 0; }
+    /* Touch devices: the static pill is the entry point to the full nav.
+       Make it tappable + give it the affordance of a button so users see
+       there's something to interact with. Desktop keeps proximity-only
+       behavior (pointer-events stay inherited / none).                   */
+    .top-nav.is-touch .top-nav__static {
+      pointer-events: auto;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .top-nav.is-touch .top-nav__static:active { transform: scale(0.96); }
 
     /* State 2 — full nav pill, anchored to the same top-right corner so it
        overlays the static pill when it appears. Hidden until proximity. */
@@ -1836,13 +1846,20 @@
       setTimeout(() => { wheelLock = false; }, 700);
     }, { passive: true });
 
-    /* ---- Top-nav proximity detection ----
-       Distance is measured against the FULL nav's bounding box (always
-       laid out, just transparent when not visible) so hovering on its
-       left-most controls keeps the widget shown. PROXIMITY_PX margin
-       around the rect activates the .is-near class.                   */
+    /* ---- Top-nav proximity (desktop) / tap-to-reveal (touch) ----
+       Desktop: distance to the FULL nav's bounding box (always laid out,
+       just transparent when not visible) gates the .is-near class so
+       hovering near the corner reveals the full controls.
+
+       Touch: the full nav stays hidden by default — having a row of
+       always-visible buttons in the top-right corner competes with the
+       swipe-to-page gesture (lines 1817-1827) and steals tap targets.
+       The static counter pill is now a button: tap to reveal the full
+       nav, tap outside or wait 5s of idle to dismiss.                   */
     const PROXIMITY_PX = 220;
-    const fullNavEl = topNavEl.querySelector('.top-nav__full');
+    const fullNavEl   = topNavEl.querySelector('.top-nav__full');
+    const staticPill  = topNavEl.querySelector('.top-nav__static');
+
     if (!isTouch) {
       window.addEventListener('mousemove', (e) => {
         const r = fullNavEl.getBoundingClientRect();
@@ -1852,8 +1869,34 @@
         topNavEl.classList.toggle('is-near', dist < PROXIMITY_PX);
       });
     } else {
-      // Touch: keep controls visible since there's no cursor to track.
-      topNavEl.classList.add('is-near');
+      topNavEl.classList.add('is-touch');
+      const IDLE_MS = 5000;
+      let idleTimer = null;
+      const openNav = () => {
+        topNavEl.classList.add('is-near');
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(closeNav, IDLE_MS);
+      };
+      const closeNav = () => {
+        topNavEl.classList.remove('is-near');
+        if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
+      };
+      // Tap the static pill → toggle open/closed.
+      staticPill.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (topNavEl.classList.contains('is-near')) closeNav(); else openNav();
+      });
+      // Tapping any control inside the full nav resets the idle timer,
+      // so users can step through multiple slides without it auto-closing.
+      fullNavEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(closeNav, IDLE_MS);
+      });
+      // Tap anywhere else → close.
+      document.addEventListener('click', () => {
+        if (topNavEl.classList.contains('is-near')) closeNav();
+      });
     }
 
     function refresh() { fit(); checkOverlays(); }
