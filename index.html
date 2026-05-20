@@ -63,11 +63,15 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ---- Stage: viewport-sized, anchors the canvas via abs positioning ---- */
+    /* ---- Stage: viewport-sized, anchors the canvas via abs positioning ----
+       touch-action: none disables the browser's built-in pinch-zoom +
+       double-tap-zoom on the stage so the custom pinch handler (in JS)
+       can run without competing with native gestures.                    */
     .stage {
       position: fixed; inset: 0;
       background: #000;
       overflow: hidden;
+      touch-action: none;
     }
 
     /* ---- Canvas: dimensions + transform set by JS.
@@ -1739,14 +1743,58 @@
     /* ---- Scale-to-fit with adaptive aspect ratio ----
        Canvas height is fixed at BASE_H (1080); width matches the device's
        landscape aspect, clamped to [MIN_W, MAX_W]. Result: no pillarbox on
-       a 20:9 phone, no horizontal stretch on an ultra-wide monitor.       */
+       a 20:9 phone, no horizontal stretch on an ultra-wide monitor.
+
+       Persistent zoom state lives in (pinchScale, offsetX, offsetY):
+       - pinchScale: accumulated user zoom, clamped to [1, 3]
+       - offsetX/Y: canvas center displacement from viewport center, in
+         viewport pixels (post-scale). Allows pan when zoomed.
+
+       applyTransform() composes the matrix; viewport(canvas_center) =
+       (vw/2 + offsetX, vh/2 + offsetY). The CSS transform-origin (center)
+       implicitly wraps the matrix, which is why the inner e/f offsets
+       are (offsetX − W/2) and (offsetY − H/2) instead of plain offsets.  */
+    let baseScale  = 1;
+    let pinchScale = 1;
+    let offsetX    = 0;
+    let offsetY    = 0;
+    function applyTransform() {
+      const S = baseScale * pinchScale;
+      const W = canvas.offsetWidth  || MIN_W;
+      const H = canvas.offsetHeight || BASE_H;
+      const e = offsetX - W / 2;
+      const f = offsetY - H / 2;
+      canvas.style.transform =
+        'matrix(' + S.toFixed(5) + ', 0, 0, ' + S.toFixed(5) + ', ' +
+        e.toFixed(2) + ', ' + f.toFixed(2) + ')';
+    }
+    // Pan limits — at pinchScale s the canvas appears s× viewport, so
+    // there's (s−1)·viewport excess on each axis; half is hidden on each
+    // side. Clamp offset so the canvas edges never reveal background.
+    function clampOffset() {
+      if (pinchScale <= 1) { offsetX = 0; offsetY = 0; return; }
+      const vs = viewportSize();
+      const maxX = (pinchScale - 1) * vs.w / 2;
+      const maxY = (pinchScale - 1) * vs.h / 2;
+      if (offsetX >  maxX) offsetX =  maxX;
+      if (offsetX < -maxX) offsetX = -maxX;
+      if (offsetY >  maxY) offsetY =  maxY;
+      if (offsetY < -maxY) offsetY = -maxY;
+    }
+    function resetZoom() {
+      pinchScale = 1;
+      offsetX = 0;
+      offsetY = 0;
+    }
     function fit() {
       const { w: vw, h: vh } = viewportSize();
       const targetW = Math.max(MIN_W, Math.min(MAX_W, BASE_H * (vw / vh)));
       canvas.style.width  = targetW + 'px';
       canvas.style.height = BASE_H  + 'px';
-      const scale = Math.min(vw / targetW, vh / BASE_H);
-      canvas.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      baseScale = Math.min(vw / targetW, vh / BASE_H);
+      // Resize / orientation change invalidates zoom maths — reset.
+      resetZoom();
+      applyTransform();
     }
 
     /* ---- Overlay routing ----
@@ -1801,6 +1849,10 @@
            clips, rest doesn't load" symptom from over-promoted layers. */
     let animatingTimer = null;
     function goTo(idx) {
+      // Each slide change drops any active pinch-zoom + pan so the new
+      // slide always opens at default zoom. The actual canvas transform
+      // is updated below via applyTransform() once the new state is set.
+      resetZoom();
       const prev = current;
       current = (idx + slides.length) % slides.length;
       slides.forEach((s, i) => {
@@ -1830,6 +1882,8 @@
         String(slides.length).padStart(2, '0');
       counterEl.textContent       = text;
       counterStaticEl.textContent = text;
+      // Push the reset state to the canvas transform.
+      applyTransform();
     }
 
     function buildDots() {
@@ -1867,18 +1921,184 @@
       if (e.key === 'End')                                                 goTo(slides.length - 1);
     });
 
-    // Touch swipe
-    let touchStartX = 0;
-    let touchStartY = 0;
+    /* ---- Touch gestures ----
+       At pinchScale = 1 (default zoom):
+         · single-finger swipe (dx > 60px, horizontal-dominant) → page
+       Two-finger pinch (always):
+         · live scale + two-finger pan, anchored on the original midpoint
+         · clamped to [1, 3]
+         · release leaves the canvas at the final scale + offset (no
+           auto snap-back). If user pinched all the way back close to 1×
+           it snaps to exactly 1 + offset 0 for a clean default state.
+       At pinchScale > 1 (zoomed):
+         · single-finger drag → pan the canvas
+         · single-finger flick (velocity > 0.5 px/ms, horizontal) →
+           animated reset zoom + page in the flick direction
+       goTo() resets zoom so every slide opens at default scale.        */
+
+    const FLICK_VELOCITY = 0.5;   // px/ms — single-finger flick threshold
+    const FLICK_MIN_DX   = 40;    // min |dx| for flick to count
+    const PAGE_SWIPE_DX  = 60;    // at scale=1, plain swipe threshold
+
+    let touchStartX    = 0;
+    let touchStartY    = 0;
+    let touchStartTime = 0;
+    let swipeArmed     = false;
+    let isPanning      = false;
+    let panAnchorX     = 0;
+    let panAnchorY     = 0;
+    let isPinching     = false;
+    let pinchAnchorD   = 0;
+    let pinchAnchorMx  = 0;
+    let pinchAnchorMy  = 0;
+    let pinchAnchorScale   = 1;
+    let pinchAnchorOffsetX = 0;
+    let pinchAnchorOffsetY = 0;
+    let resetTimer = null;
+
+    const pinchDist = (ts) =>
+      Math.hypot(ts[0].clientX - ts[1].clientX, ts[0].clientY - ts[1].clientY);
+
     window.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
+      if (resetTimer) { clearTimeout(resetTimer); resetTimer = null; }
+      canvas.style.transition = 'none';
+
+      if (e.touches.length >= 2) {
+        // Pinch begins — capture anchors for both scale change AND
+        // two-finger pan. Both are computed from the deltas (current −
+        // anchor) on each touchmove.
+        swipeArmed = false;
+        isPanning  = false;
+        isPinching = true;
+        pinchAnchorD  = pinchDist(e.touches);
+        pinchAnchorMx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        pinchAnchorMy = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        pinchAnchorScale   = pinchScale;
+        pinchAnchorOffsetX = offsetX;
+        pinchAnchorOffsetY = offsetY;
+        canvas.style.willChange = 'transform';
+      } else if (e.touches.length === 1) {
+        const t = e.touches[0];
+        touchStartX    = t.clientX;
+        touchStartY    = t.clientY;
+        touchStartTime = performance.now();
+        if (pinchScale > 1.01) {
+          // Already zoomed → this single finger starts a pan.
+          isPanning  = true;
+          swipeArmed = false;
+          panAnchorX = offsetX;
+          panAnchorY = offsetY;
+          canvas.style.willChange = 'transform';
+        } else {
+          // At default scale → arm a potential page swipe.
+          swipeArmed = true;
+        }
+      }
     }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (isPinching && e.touches.length >= 2) {
+        const d  = pinchDist(e.touches);
+        const mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        const my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        const newScale = Math.max(1, Math.min(3, pinchAnchorScale * (d / pinchAnchorD)));
+        // r = ratio of new total scale to anchor scale. Used to keep
+        // the canvas-local point under the anchor midpoint anchored to
+        // the current midpoint (handles two-finger pan + zoom together).
+        const r  = newScale / pinchAnchorScale;
+        const vs = viewportSize();
+        pinchScale = newScale;
+        offsetX = mx - vs.w / 2 - r * (pinchAnchorMx - vs.w / 2 - pinchAnchorOffsetX);
+        offsetY = my - vs.h / 2 - r * (pinchAnchorMy - vs.h / 2 - pinchAnchorOffsetY);
+        clampOffset();
+        applyTransform();
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+      if (isPanning && e.touches.length === 1) {
+        const t = e.touches[0];
+        offsetX = panAnchorX + (t.clientX - touchStartX);
+        offsetY = panAnchorY + (t.clientY - touchStartY);
+        clampOffset();
+        applyTransform();
+        if (e.cancelable) e.preventDefault();
+      }
+    }, { passive: false });
+
+    // Animated reset + page transition for the flick gesture.
+    function animatedResetAndPage(direction) {
+      canvas.style.transition = 'transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1)';
+      resetZoom();
+      applyTransform();
+      resetTimer = setTimeout(() => {
+        canvas.style.transition = '';
+        canvas.style.willChange = '';
+        resetTimer = null;
+      }, 360);
+      // goTo() also calls resetZoom + applyTransform but the values
+      // are already at defaults so it's a no-op for the canvas.
+      goTo(current + direction);
+    }
+
     window.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
+      // Multi-touch winding down — drop pinching state when we lose the
+      // second finger. If user pinched all the way to ~1×, snap clean.
+      if (isPinching) {
+        if (e.touches.length < 2) {
+          isPinching = false;
+          if (pinchScale <= 1.02) {
+            // Close enough to default that the residual scale/offset
+            // would look like a glitch. Animate cleanly to defaults.
+            canvas.style.transition = 'transform 200ms ease-out';
+            resetZoom();
+            applyTransform();
+            resetTimer = setTimeout(() => {
+              canvas.style.transition = '';
+              canvas.style.willChange = '';
+              resetTimer = null;
+            }, 220);
+          } else {
+            canvas.style.willChange = '';
+          }
+        }
+        return;
+      }
+
+      if (isPanning) {
+        isPanning = false;
+        canvas.style.willChange = '';
+        const c = e.changedTouches[0];
+        if (!c) return;
+        const dx = c.clientX - touchStartX;
+        const dy = c.clientY - touchStartY;
+        const dt = Math.max(1, performance.now() - touchStartTime);
+        const vx = Math.abs(dx) / dt;  // px/ms
+        // Flick → reset zoom + advance page in the flick direction.
+        if (vx > FLICK_VELOCITY && Math.abs(dx) > FLICK_MIN_DX && Math.abs(dx) > Math.abs(dy)) {
+          animatedResetAndPage(dx < 0 ? 1 : -1);
+        }
+        // Otherwise the pan just settles where it ended.
+        return;
+      }
+
+      // Default-zoom swipe-to-page (single-finger, never escalated to pinch).
+      if (!swipeArmed) return;
+      swipeArmed = false;
+      const c = e.changedTouches[0];
+      if (!c) return;
+      const dx = c.clientX - touchStartX;
+      const dy = c.clientY - touchStartY;
+      if (Math.abs(dx) > PAGE_SWIPE_DX && Math.abs(dx) > Math.abs(dy)) {
         goTo(current + (dx < 0 ? 1 : -1));
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchcancel', () => {
+      swipeArmed = false;
+      isPanning  = false;
+      if (isPinching) {
+        isPinching = false;
+        canvas.style.willChange = '';
       }
     }, { passive: true });
 
