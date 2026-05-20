@@ -63,11 +63,15 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ---- Stage: viewport-sized, anchors the canvas via abs positioning ---- */
+    /* ---- Stage: viewport-sized, anchors the canvas via abs positioning ----
+       touch-action: none disables the browser's built-in pinch-zoom +
+       double-tap-zoom on the stage so the custom pinch handler (in JS)
+       can run without competing with native gestures.                    */
     .stage {
       position: fixed; inset: 0;
       background: #000;
       overflow: hidden;
+      touch-action: none;
     }
 
     /* ---- Canvas: dimensions + transform set by JS.
@@ -89,7 +93,15 @@
        Inactive slides "before" the current one rest 80px to the left and
        inactive slides "after" rest 80px to the right. Active slide is at
        center. Result: advancing → new slide enters from right; going back
-       → new slide enters from left. Crossfade overlaps in the middle.   */
+       → new slide enters from left. Crossfade overlaps in the middle.
+
+       NOTE: will-change is intentionally NOT set on .slide itself —
+       applying it to all 11 slides at 1920×1080 promotes ~90 MB of GPU
+       compositor layers permanently, which Android Chrome can't hold and
+       starts evicting (showing as clipped/blank slides past ~slide 5).
+       The .is-active / .is-before / .is-after classes only get will-change
+       during the brief transition window so Chrome composites cleanly
+       without holding layers for every slide.                            */
     .slide {
       position: absolute; inset: 0;
       opacity: 0;
@@ -102,7 +114,6 @@
       transition:
         opacity   520ms cubic-bezier(0.4, 0, 0.2, 1),
         transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
-      will-change: opacity, transform;
     }
     .slide.is-before { transform: translateX(-80px); }
     .slide.is-after  { transform: translateX( 80px); }
@@ -110,6 +121,18 @@
       opacity: 1;
       transform: translateX(0);
       pointer-events: auto;
+    }
+    /* Promote to compositor only for slides adjacent to the active one
+       (the only ones that animate). Class is added/removed by goTo().    */
+    .slide.is-animating { will-change: opacity, transform; }
+    /* Hide off-screen slides from the compositor entirely so Android
+       doesn't keep their layers warm. Adjacent slides still need to
+       paint mid-transition, so only hide those 2+ away from active.
+       content-visibility: hidden skips paint/layout for the subtree —
+       compositor releases the layer immediately.                         */
+    .slide.is-far {
+      content-visibility: hidden;
+      contain: layout paint;
     }
 
     /* Per-slide background variants — light tier (default) + dark (ink) */
@@ -660,18 +683,23 @@
       overflow: hidden;
     }
     .exp-state-img,
-    .exp-trans-frame,
+    .exp-trans-video,
     .exp-state-overlay {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: contain;
     }
     .exp-state-img { transition: opacity 300ms ease; }
-    .exp-trans-frame {
+    /* Transition <video> — hidden until a step change triggers playback.
+       Opacity (not display:none) keeps the element rendered/decoded on
+       iOS Safari before .play() is called; display-toggling defers the
+       decoder and visibly stutters on first play.                       */
+    .exp-trans-video {
       opacity: 0; pointer-events: none;
-      transition: opacity 250ms ease-out;
+      transition: opacity 200ms ease-out;
+      background: #1F1F26;
     }
-    .exp-trans-frame.is-active { opacity: 1; transition: none; }
+    .exp-trans-video.is-active { opacity: 1; transition: none; }
     .exp-state-overlay {
       opacity: 0; pointer-events: none; z-index: 1;
       transition: opacity 1s ease-in-out;
@@ -834,6 +862,16 @@
       transition: opacity 220ms ease;
     }
     .top-nav.is-near .top-nav__static { opacity: 0; }
+    /* Touch devices: the static pill is the entry point to the full nav.
+       Make it tappable + give it the affordance of a button so users see
+       there's something to interact with. Desktop keeps proximity-only
+       behavior (pointer-events stay inherited / none).                   */
+    .top-nav.is-touch .top-nav__static {
+      pointer-events: auto;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .top-nav.is-touch .top-nav__static:active { transform: scale(0.96); }
 
     /* State 2 — full nav pill, anchored to the same top-right corner so it
        overlays the static pill when it appears. Hidden until proximity. */
@@ -1086,7 +1124,7 @@
 
       <!-- ── 1 · HERO ──────────────────────────────────────────────────── -->
       <section class="slide slide--ink has-bg-image is-active" data-slide="1">
-        <div class="slide-bg" style="background-image: url('HTML_assets/hero-aerial-night.png');"></div>
+        <div class="slide-bg" style="background-image: url('HTML_assets/hero-aerial-night.webp');"></div>
         <div class="slide-content">
           <div class="stack-lg">
             <span class="eyebrow">Saadiyat Island · Abu Dhabi · Investor Pitch</span>
@@ -1211,9 +1249,16 @@
           <div class="exp-viewer" id="expViewer">
             <img class="exp-state-img"   id="expStateImg"
                  src="HTML_assets/Vertical%20Altitude%20Experience/v2/states/state_01_arrival.webp"
-                 alt="Arrival — LED field lit in tonight's theme" />
-            <img class="exp-trans-frame" id="expTransFrame" src="" alt="" />
-            <img class="exp-state-overlay" id="expStateOverlay" src="" alt="" />
+                 alt="Arrival — LED field lit in tonight's theme"
+                 decoding="async" />
+            <!-- Transition <video>: one element, src swapped per segment.
+                 muted + playsinline = iOS-friendly inline autoplay.
+                 preload="none" — auto-cycle was removed, so we don't fetch
+                 any clip until the user actually triggers a transition.   -->
+            <video class="exp-trans-video" id="expTransVideo"
+                   muted playsinline preload="none"
+                   disablepictureinpicture aria-hidden="true"></video>
+            <img class="exp-state-overlay" id="expStateOverlay" src="" alt="" decoding="async" />
 
             <!-- Altitude indicator — wider strip with step names + 14px labels -->
             <div class="alt-indicator">
@@ -1275,7 +1320,7 @@
 
           <div class="tab-panel is-active" data-tab="a">
             <div class="theme-row">
-              <img src="HTML_assets/DroneShot_comp.Theme_A.png" alt="Theme A drone composite — balloon, Saadiyat museums, and the LED ring rendering the gold Louvre show" />
+              <img src="HTML_assets/DroneShot_comp.Theme_A.webp" alt="Theme A drone composite — balloon, Saadiyat museums, and the LED ring rendering the gold Louvre show" loading="lazy" decoding="async" fetchpriority="low" />
               <div>
                 <div class="col-num">Theme A · Louvre Abu Dhabi</div>
                 <h3 class="col-title">The Universal Collection</h3>
@@ -1290,7 +1335,7 @@
 
           <div class="tab-panel" data-tab="b">
             <div class="theme-row">
-              <img src="HTML_assets/DroneShot_comp.Theme_B.png" alt="Theme B drone composite — balloon, Saadiyat museums, and the LED ring rendering the amber Zayed National Museum show" />
+              <img src="HTML_assets/DroneShot_comp.Theme_B.webp" alt="Theme B drone composite — balloon, Saadiyat museums, and the LED ring rendering the amber Zayed National Museum show" loading="lazy" decoding="async" fetchpriority="low" />
               <div>
                 <div class="col-num">Theme B · Zayed National Museum</div>
                 <h3 class="col-title">The Nation's Story</h3>
@@ -1305,7 +1350,7 @@
 
           <div class="tab-panel" data-tab="c">
             <div class="theme-row">
-              <img src="HTML_assets/DroneShot_comp.Theme_C.png" alt="Theme C drone composite — balloon, Saadiyat museums, and the LED ring rendering the cobalt and magenta Guggenheim show" />
+              <img src="HTML_assets/DroneShot_comp.Theme_C.webp" alt="Theme C drone composite — balloon, Saadiyat museums, and the LED ring rendering the cobalt and magenta Guggenheim show" loading="lazy" decoding="async" fetchpriority="low" />
               <div>
                 <div class="col-num">Theme C · Guggenheim Abu Dhabi</div>
                 <h3 class="col-title">The Future Canvas</h3>
@@ -1333,7 +1378,7 @@
         <h2 class="display-l" style="margin-top: 14px;">The canvas behind the show.</h2>
 
         <div class="canvas-split">
-          <img src="HTML_assets/TheCanvasBehindTheShow.png" alt="Four-panel composite — LED ring close-up, aerial of balloon and Saadiyat museums, and ring rendering themed content" />
+          <img src="HTML_assets/TheCanvasBehindTheShow.webp" alt="Four-panel composite — LED ring close-up, aerial of balloon and Saadiyat museums, and ring rendering themed content" loading="lazy" decoding="async" fetchpriority="low" />
           <div>
             <p class="lede" style="margin-top: 0;">A 60-meter ring built from 6,175 identical 600mm aluminum plate tiles, each carrying nine addressable RGBW stems. Designed from the first sketch to be serviced from above — no specialist crew, no crane, no downtime.</p>
             <div class="stat-row-4" style="grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 36px;">
@@ -1356,7 +1401,7 @@
         <p class="lede" style="margin-top: 14px;">The investment carries a single aluminum plate tile specification: lighter to handle, precision-machined, refinishable, and built around the locked 9-LED content pipeline.</p>
 
         <div class="tier-row" style="margin-top: 36px;">
-          <img src="HTML_assets/investment-tier-high.png" alt="8mm aluminum plate tile with adjustable feet and 9 LED stems" />
+          <img src="HTML_assets/investment-tier-high.webp" alt="8mm aluminum plate tile with adjustable feet and 9 LED stems" loading="lazy" decoding="async" fetchpriority="low" />
           <div>
             <h3 style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--text); font-weight: 600; margin-bottom: 12px;">Aluminum Plate Tile</h3>
             <div class="tier-price">AED 25.9M</div>
@@ -1698,14 +1743,58 @@
     /* ---- Scale-to-fit with adaptive aspect ratio ----
        Canvas height is fixed at BASE_H (1080); width matches the device's
        landscape aspect, clamped to [MIN_W, MAX_W]. Result: no pillarbox on
-       a 20:9 phone, no horizontal stretch on an ultra-wide monitor.       */
+       a 20:9 phone, no horizontal stretch on an ultra-wide monitor.
+
+       Persistent zoom state lives in (pinchScale, offsetX, offsetY):
+       - pinchScale: accumulated user zoom, clamped to [1, 3]
+       - offsetX/Y: canvas center displacement from viewport center, in
+         viewport pixels (post-scale). Allows pan when zoomed.
+
+       applyTransform() composes the matrix; viewport(canvas_center) =
+       (vw/2 + offsetX, vh/2 + offsetY). The CSS transform-origin (center)
+       implicitly wraps the matrix, which is why the inner e/f offsets
+       are (offsetX − W/2) and (offsetY − H/2) instead of plain offsets.  */
+    let baseScale  = 1;
+    let pinchScale = 1;
+    let offsetX    = 0;
+    let offsetY    = 0;
+    function applyTransform() {
+      const S = baseScale * pinchScale;
+      const W = canvas.offsetWidth  || MIN_W;
+      const H = canvas.offsetHeight || BASE_H;
+      const e = offsetX - W / 2;
+      const f = offsetY - H / 2;
+      canvas.style.transform =
+        'matrix(' + S.toFixed(5) + ', 0, 0, ' + S.toFixed(5) + ', ' +
+        e.toFixed(2) + ', ' + f.toFixed(2) + ')';
+    }
+    // Pan limits — at pinchScale s the canvas appears s× viewport, so
+    // there's (s−1)·viewport excess on each axis; half is hidden on each
+    // side. Clamp offset so the canvas edges never reveal background.
+    function clampOffset() {
+      if (pinchScale <= 1) { offsetX = 0; offsetY = 0; return; }
+      const vs = viewportSize();
+      const maxX = (pinchScale - 1) * vs.w / 2;
+      const maxY = (pinchScale - 1) * vs.h / 2;
+      if (offsetX >  maxX) offsetX =  maxX;
+      if (offsetX < -maxX) offsetX = -maxX;
+      if (offsetY >  maxY) offsetY =  maxY;
+      if (offsetY < -maxY) offsetY = -maxY;
+    }
+    function resetZoom() {
+      pinchScale = 1;
+      offsetX = 0;
+      offsetY = 0;
+    }
     function fit() {
       const { w: vw, h: vh } = viewportSize();
       const targetW = Math.max(MIN_W, Math.min(MAX_W, BASE_H * (vw / vh)));
       canvas.style.width  = targetW + 'px';
       canvas.style.height = BASE_H  + 'px';
-      const scale = Math.min(vw / targetW, vh / BASE_H);
-      canvas.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      baseScale = Math.min(vw / targetW, vh / BASE_H);
+      // Resize / orientation change invalidates zoom maths — reset.
+      resetZoom();
+      applyTransform();
     }
 
     /* ---- Overlay routing ----
@@ -1747,14 +1836,44 @@
     /* ---- Slide navigation ----
        Slides before `current` get `is-before` (rest 80px to the left),
        slides after get `is-after` (rest 80px to the right). The active
-       slide animates to translateX(0) — see the .slide CSS rules above. */
+       slide animates to translateX(0) — see the .slide CSS rules above.
+
+       On every change we also juggle two performance classes:
+         · is-animating — applied to the active slide + its immediate
+           neighbour mid-transition only, so will-change kicks in just
+           when needed (cleared 600ms later, after the 520ms transition).
+         · is-far — applied to all slides ≥2 steps away from the active
+           one, so the compositor can drop their layers entirely. This
+           keeps total GPU layer memory roughly constant regardless of
+           how many slides the deck has, fixing the Android "slide 5
+           clips, rest doesn't load" symptom from over-promoted layers. */
+    let animatingTimer = null;
     function goTo(idx) {
+      // Each slide change drops any active pinch-zoom + pan so the new
+      // slide always opens at default zoom. The actual canvas transform
+      // is updated below via applyTransform() once the new state is set.
+      resetZoom();
+      const prev = current;
       current = (idx + slides.length) % slides.length;
       slides.forEach((s, i) => {
         s.classList.toggle('is-active', i === current);
         s.classList.toggle('is-before', i <  current);
         s.classList.toggle('is-after',  i >  current);
+        // Only the active slide + the one we're leaving need to animate.
+        const willAnimate = (i === current) || (i === prev);
+        s.classList.toggle('is-animating', willAnimate);
+        // Hide everything 2+ slides away from the active one.
+        const dist = Math.abs(i - current);
+        s.classList.toggle('is-far', dist >= 2);
       });
+      // Strip will-change after the transition completes so the layers
+      // get released back to the compositor.
+      if (animatingTimer) clearTimeout(animatingTimer);
+      animatingTimer = setTimeout(() => {
+        slides.forEach((s) => s.classList.remove('is-animating'));
+        animatingTimer = null;
+      }, 600);
+
       Array.from(dotsEl.children).forEach((d, i) =>
         d.classList.toggle('is-active', i === current)
       );
@@ -1763,6 +1882,8 @@
         String(slides.length).padStart(2, '0');
       counterEl.textContent       = text;
       counterStaticEl.textContent = text;
+      // Push the reset state to the canvas transform.
+      applyTransform();
     }
 
     function buildDots() {
@@ -1800,18 +1921,184 @@
       if (e.key === 'End')                                                 goTo(slides.length - 1);
     });
 
-    // Touch swipe
-    let touchStartX = 0;
-    let touchStartY = 0;
+    /* ---- Touch gestures ----
+       At pinchScale = 1 (default zoom):
+         · single-finger swipe (dx > 60px, horizontal-dominant) → page
+       Two-finger pinch (always):
+         · live scale + two-finger pan, anchored on the original midpoint
+         · clamped to [1, 3]
+         · release leaves the canvas at the final scale + offset (no
+           auto snap-back). If user pinched all the way back close to 1×
+           it snaps to exactly 1 + offset 0 for a clean default state.
+       At pinchScale > 1 (zoomed):
+         · single-finger drag → pan the canvas
+         · single-finger flick (velocity > 0.5 px/ms, horizontal) →
+           animated reset zoom + page in the flick direction
+       goTo() resets zoom so every slide opens at default scale.        */
+
+    const FLICK_VELOCITY = 0.5;   // px/ms — single-finger flick threshold
+    const FLICK_MIN_DX   = 40;    // min |dx| for flick to count
+    const PAGE_SWIPE_DX  = 60;    // at scale=1, plain swipe threshold
+
+    let touchStartX    = 0;
+    let touchStartY    = 0;
+    let touchStartTime = 0;
+    let swipeArmed     = false;
+    let isPanning      = false;
+    let panAnchorX     = 0;
+    let panAnchorY     = 0;
+    let isPinching     = false;
+    let pinchAnchorD   = 0;
+    let pinchAnchorMx  = 0;
+    let pinchAnchorMy  = 0;
+    let pinchAnchorScale   = 1;
+    let pinchAnchorOffsetX = 0;
+    let pinchAnchorOffsetY = 0;
+    let resetTimer = null;
+
+    const pinchDist = (ts) =>
+      Math.hypot(ts[0].clientX - ts[1].clientX, ts[0].clientY - ts[1].clientY);
+
     window.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
+      if (resetTimer) { clearTimeout(resetTimer); resetTimer = null; }
+      canvas.style.transition = 'none';
+
+      if (e.touches.length >= 2) {
+        // Pinch begins — capture anchors for both scale change AND
+        // two-finger pan. Both are computed from the deltas (current −
+        // anchor) on each touchmove.
+        swipeArmed = false;
+        isPanning  = false;
+        isPinching = true;
+        pinchAnchorD  = pinchDist(e.touches);
+        pinchAnchorMx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        pinchAnchorMy = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        pinchAnchorScale   = pinchScale;
+        pinchAnchorOffsetX = offsetX;
+        pinchAnchorOffsetY = offsetY;
+        canvas.style.willChange = 'transform';
+      } else if (e.touches.length === 1) {
+        const t = e.touches[0];
+        touchStartX    = t.clientX;
+        touchStartY    = t.clientY;
+        touchStartTime = performance.now();
+        if (pinchScale > 1.01) {
+          // Already zoomed → this single finger starts a pan.
+          isPanning  = true;
+          swipeArmed = false;
+          panAnchorX = offsetX;
+          panAnchorY = offsetY;
+          canvas.style.willChange = 'transform';
+        } else {
+          // At default scale → arm a potential page swipe.
+          swipeArmed = true;
+        }
+      }
     }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (isPinching && e.touches.length >= 2) {
+        const d  = pinchDist(e.touches);
+        const mx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        const my = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        const newScale = Math.max(1, Math.min(3, pinchAnchorScale * (d / pinchAnchorD)));
+        // r = ratio of new total scale to anchor scale. Used to keep
+        // the canvas-local point under the anchor midpoint anchored to
+        // the current midpoint (handles two-finger pan + zoom together).
+        const r  = newScale / pinchAnchorScale;
+        const vs = viewportSize();
+        pinchScale = newScale;
+        offsetX = mx - vs.w / 2 - r * (pinchAnchorMx - vs.w / 2 - pinchAnchorOffsetX);
+        offsetY = my - vs.h / 2 - r * (pinchAnchorMy - vs.h / 2 - pinchAnchorOffsetY);
+        clampOffset();
+        applyTransform();
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+      if (isPanning && e.touches.length === 1) {
+        const t = e.touches[0];
+        offsetX = panAnchorX + (t.clientX - touchStartX);
+        offsetY = panAnchorY + (t.clientY - touchStartY);
+        clampOffset();
+        applyTransform();
+        if (e.cancelable) e.preventDefault();
+      }
+    }, { passive: false });
+
+    // Animated reset + page transition for the flick gesture.
+    function animatedResetAndPage(direction) {
+      canvas.style.transition = 'transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1)';
+      resetZoom();
+      applyTransform();
+      resetTimer = setTimeout(() => {
+        canvas.style.transition = '';
+        canvas.style.willChange = '';
+        resetTimer = null;
+      }, 360);
+      // goTo() also calls resetZoom + applyTransform but the values
+      // are already at defaults so it's a no-op for the canvas.
+      goTo(current + direction);
+    }
+
     window.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
+      // Multi-touch winding down — drop pinching state when we lose the
+      // second finger. If user pinched all the way to ~1×, snap clean.
+      if (isPinching) {
+        if (e.touches.length < 2) {
+          isPinching = false;
+          if (pinchScale <= 1.02) {
+            // Close enough to default that the residual scale/offset
+            // would look like a glitch. Animate cleanly to defaults.
+            canvas.style.transition = 'transform 200ms ease-out';
+            resetZoom();
+            applyTransform();
+            resetTimer = setTimeout(() => {
+              canvas.style.transition = '';
+              canvas.style.willChange = '';
+              resetTimer = null;
+            }, 220);
+          } else {
+            canvas.style.willChange = '';
+          }
+        }
+        return;
+      }
+
+      if (isPanning) {
+        isPanning = false;
+        canvas.style.willChange = '';
+        const c = e.changedTouches[0];
+        if (!c) return;
+        const dx = c.clientX - touchStartX;
+        const dy = c.clientY - touchStartY;
+        const dt = Math.max(1, performance.now() - touchStartTime);
+        const vx = Math.abs(dx) / dt;  // px/ms
+        // Flick → reset zoom + advance page in the flick direction.
+        if (vx > FLICK_VELOCITY && Math.abs(dx) > FLICK_MIN_DX && Math.abs(dx) > Math.abs(dy)) {
+          animatedResetAndPage(dx < 0 ? 1 : -1);
+        }
+        // Otherwise the pan just settles where it ended.
+        return;
+      }
+
+      // Default-zoom swipe-to-page (single-finger, never escalated to pinch).
+      if (!swipeArmed) return;
+      swipeArmed = false;
+      const c = e.changedTouches[0];
+      if (!c) return;
+      const dx = c.clientX - touchStartX;
+      const dy = c.clientY - touchStartY;
+      if (Math.abs(dx) > PAGE_SWIPE_DX && Math.abs(dx) > Math.abs(dy)) {
         goTo(current + (dx < 0 ? 1 : -1));
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchcancel', () => {
+      swipeArmed = false;
+      isPanning  = false;
+      if (isPinching) {
+        isPinching = false;
+        canvas.style.willChange = '';
       }
     }, { passive: true });
 
@@ -1825,13 +2112,20 @@
       setTimeout(() => { wheelLock = false; }, 700);
     }, { passive: true });
 
-    /* ---- Top-nav proximity detection ----
-       Distance is measured against the FULL nav's bounding box (always
-       laid out, just transparent when not visible) so hovering on its
-       left-most controls keeps the widget shown. PROXIMITY_PX margin
-       around the rect activates the .is-near class.                   */
+    /* ---- Top-nav proximity (desktop) / tap-to-reveal (touch) ----
+       Desktop: distance to the FULL nav's bounding box (always laid out,
+       just transparent when not visible) gates the .is-near class so
+       hovering near the corner reveals the full controls.
+
+       Touch: the full nav stays hidden by default — having a row of
+       always-visible buttons in the top-right corner competes with the
+       swipe-to-page gesture (lines 1817-1827) and steals tap targets.
+       The static counter pill is now a button: tap to reveal the full
+       nav, tap outside or wait 5s of idle to dismiss.                   */
     const PROXIMITY_PX = 220;
-    const fullNavEl = topNavEl.querySelector('.top-nav__full');
+    const fullNavEl   = topNavEl.querySelector('.top-nav__full');
+    const staticPill  = topNavEl.querySelector('.top-nav__static');
+
     if (!isTouch) {
       window.addEventListener('mousemove', (e) => {
         const r = fullNavEl.getBoundingClientRect();
@@ -1841,8 +2135,34 @@
         topNavEl.classList.toggle('is-near', dist < PROXIMITY_PX);
       });
     } else {
-      // Touch: keep controls visible since there's no cursor to track.
-      topNavEl.classList.add('is-near');
+      topNavEl.classList.add('is-touch');
+      const IDLE_MS = 5000;
+      let idleTimer = null;
+      const openNav = () => {
+        topNavEl.classList.add('is-near');
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(closeNav, IDLE_MS);
+      };
+      const closeNav = () => {
+        topNavEl.classList.remove('is-near');
+        if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
+      };
+      // Tap the static pill → toggle open/closed.
+      staticPill.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (topNavEl.classList.contains('is-near')) closeNav(); else openNav();
+      });
+      // Tapping any control inside the full nav resets the idle timer,
+      // so users can step through multiple slides without it auto-closing.
+      fullNavEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(closeNav, IDLE_MS);
+      });
+      // Tap anywhere else → close.
+      document.addEventListener('click', () => {
+        if (topNavEl.classList.contains('is-near')) closeNav();
+      });
     }
 
     function refresh() { fit(); checkOverlays(); }
@@ -1862,12 +2182,22 @@
   })();
 
   /* ═══════════════════════════════════════════════════════════════════════
-     Slide 3 — Night Experience interactive player
+     Slide 3 — Night Experience interactive player (manual playback)
      -----------------------------------------------------------------------
      - Click step buttons or drag the altitude balloon to advance/return.
-     - Plays a 16-frame transition sequence between adjacent states; falls
-       back to a 300ms crossfade for non-sequential jumps.
-     - Auto-cycles through the 6 states; user interaction stops auto-play.
+     - Each forward step plays a short MP4 clip (5 segments, ~3.5s each)
+       between adjacent states; non-sequential jumps crossfade in 300ms.
+     - No auto-cycle. The video stays unloaded until the user triggers a
+       transition — this keeps cumulative image/video memory low enough
+       on Android Chrome that the rest of the deck doesn't stall.
+
+     iOS Safari notes:
+       · <video muted playsinline> + .play() works without user gesture.
+       · A pending .play() Promise can reject if the tab is throttled;
+         we catch it and fall straight through to the still-state crossfade.
+       · The drag listener uses window-level pointermove/up + a touchstart
+         fallback so the gesture survives even when pointer events behave
+         oddly on older iOS builds.
   ═══════════════════════════════════════════════════════════════════════ */
   (() => {
     'use strict';
@@ -1876,17 +2206,15 @@
     if (!stepBtns.length) return; // safety: slide 3 not present
 
     const stateImg       = document.getElementById('expStateImg');
-    const transFrame     = document.getElementById('expTransFrame');
+    const transVideo     = document.getElementById('expTransVideo');
     const stateOverlay   = document.getElementById('expStateOverlay');
     const altBalloon     = document.getElementById('altBalloon');
     const altDragTip     = document.getElementById('altDragTip');
     const expViewer      = document.getElementById('expViewer');
     const panelSlides    = document.querySelectorAll('.exp-panel-slide');
 
-    const range = (a, b) => { const r = []; for (let i = a; i <= b; i++) r.push(i); return r; };
-
-    const BASE       = 'HTML_assets/Vertical%20Altitude%20Experience/v2/';
-    const FRAME_BASE = BASE + 'composite/transition_';
+    const BASE   = 'HTML_assets/Vertical%20Altitude%20Experience/v2/';
+    const MP4DIR = BASE + 'transitions_mp4/';
 
     const stateSrcs = [
       BASE + 'states/state_01_arrival.webp',
@@ -1904,15 +2232,15 @@
       BASE + 'overlays/state_05_main_show_25m_overlay.webp',
       BASE + 'overlays/state_06_exit_overlay.webp',
     ];
-    // Frame ranges per transition (state N → N+1)
-    const transitions = [
-      range(1,  16),  // 0→1 Arrival → Boarding
-      range(17, 32),  // 1→2 Boarding → Peak
-      range(33, 48),  // 2→3 Peak → Descent
-      range(49, 64),  // 3→4 Descent → Show
-      range(65, 80),  // 4→5 Show → Exit
+    // One MP4 per state-to-next-state transition (5 total).
+    const transitionSrcs = [
+      MP4DIR + 'transition_0_arrival_to_boarding.mp4',
+      MP4DIR + 'transition_1_boarding_to_peak.mp4',
+      MP4DIR + 'transition_2_peak_to_descent.mp4',
+      MP4DIR + 'transition_3_descent_to_show.mp4',
+      MP4DIR + 'transition_4_show_to_exit.mp4',
     ];
-    const frameUrl = (n) => FRAME_BASE + String(n).padStart(4, '0') + '.webp';
+    const TRANSITION_DUR_MS = 3520;  // 16 frames × 220ms — matches encoded clip length
 
     // Altitude per state — drives the balloon icon position.
     // top% = 8 + (150 − alt) / 150 × 84  →  8% (150m) … 92% (0m)
@@ -1923,16 +2251,10 @@
     const dragDir = [-1, -1, 1, 1, 1, -1];
     const hints   = ['↑ drag', '↑ drag', '↓ drag', '↓ drag', '↓ drag', '↑ restart'];
 
-    const FRAME_MS      = 220;    // ms between transition frames
-    const STATE_HOLD_MS = 21000;  // 3× slower auto-advance — less aggressive
-    const RESTART_DELAY = 21000;  // pause on Finale before looping back
-
-    let activeStep      = 0;
-    let isAnimating     = false;
-    let frameTimer      = null;
-    let restartTimer    = null;
-    let autoAdvanceTimer= null;
-    let autoPlayActive  = true;
+    let activeStep   = 0;
+    let isAnimating  = false;
+    let endedHandler = null;
+    let safetyTimer  = null;
 
     const altMarkers = document.querySelectorAll('.alt-marker');
     const arrivalLabel = document.querySelector('.alt-marker[data-alt="0"] .alt-step');
@@ -1977,60 +2299,63 @@
         stateImg.style.opacity = '1';
         stateOverlay.src       = nextOverlaySrc;
         stateOverlay.classList.add('has-src');
-        transFrame.classList.remove('is-active');
+        transVideo.classList.remove('is-active');
+        // Pause so the decoder can release the buffered frames.
+        try { transVideo.pause(); } catch (_) {}
         expViewer.classList.remove('is-animating');
         activeStep  = step;
         isAnimating = false;
-
-        if (restartTimer)     { clearTimeout(restartTimer);     restartTimer = null; }
-        if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-        if (!autoPlayActive) return;
-
-        if (step === 5) {
-          restartTimer = setTimeout(() => {
-            restartTimer = null;
-            if (activeStep === 5 && !isAnimating && autoPlayActive) goToStep(0);
-          }, RESTART_DELAY);
-        } else {
-          scheduleAutoAdvance(STATE_HOLD_MS);
-        }
       });
     }
 
-    function scheduleAutoAdvance(delay) {
-      if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-      if (!autoPlayActive) return;
-      autoAdvanceTimer = setTimeout(() => {
-        autoAdvanceTimer = null;
-        if (!autoPlayActive || isAnimating) return;
-        if (activeStep < 5) goToStep(activeStep + 1);
-      }, delay);
-    }
-
-    function stopAutoPlay() {
-      autoPlayActive = false;
-      if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-      if (restartTimer)     { clearTimeout(restartTimer);     restartTimer = null; }
+    // Strip any pending 'ended' listener + safety timer from a previous play.
+    function clearVideoCallbacks() {
+      if (endedHandler) {
+        transVideo.removeEventListener('ended', endedHandler);
+        endedHandler = null;
+      }
+      if (safetyTimer) { clearTimeout(safetyTimer); safetyTimer = null; }
     }
 
     function playTransition(fromStep, toStep) {
-      const fNums = transitions[fromStep];
-      if (!fNums || !fNums.length) { showState(toStep); return; }
-      let idx = 0;
-      stateImg.style.opacity = '0';
-      transFrame.classList.add('is-active');
-      transFrame.src = frameUrl(fNums[0]);
+      const src = transitionSrcs[fromStep];
+      if (!src) { showState(toStep); return; }
 
-      if (frameTimer) clearInterval(frameTimer);
-      frameTimer = setInterval(() => {
-        idx++;
-        if (idx >= fNums.length) {
-          clearInterval(frameTimer); frameTimer = null;
-          showState(toStep);
-          return;
-        }
-        transFrame.src = frameUrl(fNums[idx]);
-      }, FRAME_MS);
+      clearVideoCallbacks();
+      stateImg.style.opacity = '0';
+      transVideo.classList.add('is-active');
+
+      // Only set src if it differs — avoids re-buffering when the clip
+      // played seconds ago is still cached in the decoder.
+      const fullSrc = new URL(src, window.location.href).href;
+      if (transVideo.currentSrc !== fullSrc) {
+        transVideo.src = src;
+        transVideo.load();
+      } else {
+        try { transVideo.currentTime = 0; } catch (_) {}
+      }
+
+      let advanced = false;
+      const advance = () => {
+        if (advanced) return;
+        advanced = true;
+        clearVideoCallbacks();
+        showState(toStep);
+      };
+      endedHandler = advance;
+      transVideo.addEventListener('ended', endedHandler, { once: true });
+      // Safety net: if 'ended' never fires (network stall, autoplay block,
+      // browser tab throttled), advance anyway after the clip's duration.
+      safetyTimer = setTimeout(advance, TRANSITION_DUR_MS + 400);
+
+      const p = transVideo.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          // Autoplay blocked or decode error → skip the video and just
+          // crossfade to the next still state immediately.
+          advance();
+        });
+      }
     }
 
     function goToStep(newStep) {
@@ -2040,23 +2365,24 @@
       const fromStep = activeStep;
       updateNav(newStep);
 
-      if (newStep === fromStep + 1 && fromStep < transitions.length) {
-        // Sequential forward → animate transition + match balloon ease-in-out
-        const dur = (transitions[fromStep].length * FRAME_MS / 1000).toFixed(2);
-        altBalloon.style.transition = 'top ' + dur + 's ease-in-out';
+      if (newStep === fromStep + 1 && fromStep < transitionSrcs.length) {
+        // Sequential forward → play the matching MP4 + ease balloon over same duration
+        altBalloon.style.transition = 'top ' + (TRANSITION_DUR_MS / 1000).toFixed(2) + 's ease-in-out';
         setAltitude(newStep);
         playTransition(fromStep, newStep);
       } else {
-        // Non-sequential jump → quick crossfade
+        // Non-sequential jump → quick crossfade, no video
         altBalloon.style.transition = 'top 0.3s ease-in-out';
         setAltitude(newStep);
         stateImg.style.opacity = '0';
+        clearVideoCallbacks();
+        try { transVideo.pause(); } catch (_) {}
         setTimeout(() => {
           stateImg.src           = stateSrcs[newStep];
           stateImg.style.opacity = '1';
           stateOverlay.src       = overlaySrcs[newStep];
           stateOverlay.classList.add('has-src');
-          transFrame.classList.remove('is-active');
+          transVideo.classList.remove('is-active');
           expViewer.classList.remove('is-animating');
           activeStep  = newStep;
           isAnimating = false;
@@ -2064,46 +2390,79 @@
       }
     }
 
-    // Step button clicks → user takes control, stop auto-play
+    // Step button clicks → advance manually.
     stepBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        stopAutoPlay();
-        goToStep(+btn.dataset.step);
-      });
+      btn.addEventListener('click', () => goToStep(+btn.dataset.step));
     });
 
-    // Drag balloon to advance
+    /* ---- Balloon drag ----
+       Window-level pointermove/pointerup (no setPointerCapture). On older
+       iOS Safari, capture-on-non-button elements can drop pointerup mid-
+       gesture; listening on window is more reliable. touchstart fallback
+       covers iOS versions where pointer events arrive late or not at all
+       on synthetic touch sequences.                                       */
     const DRAG_THRESHOLD = 36;
     let dragStartY = null;
     let isDragging = false;
 
-    altBalloon.addEventListener('pointerdown', (e) => {
-      dragStartY = e.clientY;
-      isDragging = true;
-      altBalloon.setPointerCapture(e.pointerId);
-      e.preventDefault();
-    });
-    altBalloon.addEventListener('pointerup', (e) => {
+    function endDrag(clientY) {
       if (!isDragging) return;
       isDragging = false;
-      const delta = e.clientY - dragStartY;
+      const delta = (clientY != null && dragStartY != null) ? (clientY - dragStartY) : 0;
       dragStartY = null;
       if (isAnimating) return;
       const dir = dragDir[activeStep];
       const nextStep = activeStep === 5 ? 0 : activeStep + 1;
-      if (dir === -1 && delta < -DRAG_THRESHOLD) { stopAutoPlay(); goToStep(nextStep); }
-      if (dir ===  1 && delta >  DRAG_THRESHOLD) { stopAutoPlay(); goToStep(nextStep); }
+      if (dir === -1 && delta < -DRAG_THRESHOLD) goToStep(nextStep);
+      if (dir ===  1 && delta >  DRAG_THRESHOLD) goToStep(nextStep);
+    }
+
+    altBalloon.addEventListener('pointerdown', (e) => {
+      dragStartY = e.clientY;
+      isDragging = true;
+      e.preventDefault();
     });
-    altBalloon.addEventListener('pointercancel', () => {
-      isDragging = false; dragStartY = null;
+    window.addEventListener('pointerup',     (e) => endDrag(e.clientY));
+    window.addEventListener('pointercancel', ()  => { isDragging = false; dragStartY = null; });
+
+    // iOS Safari touch fallback — fires even when pointer events don't.
+    altBalloon.addEventListener('touchstart', (e) => {
+      if (!e.touches.length) return;
+      dragStartY = e.touches[0].clientY;
+      isDragging = true;
+    }, { passive: true });
+    window.addEventListener('touchend', (e) => {
+      const t = e.changedTouches && e.changedTouches[0];
+      endDrag(t ? t.clientY : null);
+    }, { passive: true });
+    window.addEventListener('touchcancel', () => { isDragging = false; dragStartY = null; }, { passive: true });
+
+    /* ---- Suspend when slide 3 is not active ----
+       When the user swipes away to slides 4-9, drop the video buffer
+       and clear any mid-transition safety timer so nothing keeps a hold
+       on memory in the background.                                      */
+    const slide3Section = document.querySelector('section[data-slide="3"]');
+    function suspend() {
+      try { transVideo.pause(); } catch (_) {}
+      if (safetyTimer) { clearTimeout(safetyTimer); safetyTimer = null; }
+    }
+    if (slide3Section) {
+      new MutationObserver(() => {
+        if (!slide3Section.classList.contains('is-active')) suspend();
+      }).observe(slide3Section, { attributes: true, attributeFilter: ['class'] });
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) suspend();
     });
 
-    /* ---- Boot ---- */
+    /* ---- Boot ----
+       Show state 0 only. The transition video stays unloaded until the
+       user clicks a step button or drags the balloon — keeps the slide-3
+       memory footprint to two small WebPs until the user opts in.       */
     stateImg.src     = stateSrcs[0];
     stateOverlay.src = overlaySrcs[0];
     stateOverlay.classList.add('has-src');
     setAltitude(0);
-    scheduleAutoAdvance(STATE_HOLD_MS);
   })();
 
   /* ═══════════════════════════════════════════════════════════════════════
